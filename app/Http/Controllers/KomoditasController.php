@@ -51,6 +51,50 @@ class KomoditasController extends Controller
             'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
         ];
         $golonganSelected = $komoditas->golongan;
-        return view('komoditas.edit', compact(['komoditas', 'golongan', 'golonganSelected']));
+
+        $oldInputs = [];
+
+        if($komoditas){
+            $komoditasArray = explode(', ', $komoditas->komoditas);
+            foreach($komoditasArray as $komoditasValue){
+                $oldInputs[] = ['komoditas' => $komoditasValue];
+            }
+        }
+
+        return view('komoditas.edit', compact(['komoditas', 'golongan', 'golonganSelected', 'oldInputs']));
+    }
+
+    public function update(Request $request, $id){
+        $validateData = $request->validate([
+            'golongan' => 'required',
+            'inputs' => 'required|array',
+            'inputs.*.komoditas' => 'required',
+        ]);
+
+        $komoditas = Komoditas::find($id);
+
+        $komoditas->golongan = $request->input('golongan');
+
+        if($request->has('komoditas')){
+            $komoditasValues = [];
+            foreach($request->input('komoditas') as $komoditasValue){
+                if(!empty($komoditasValue['komoditas'])){
+                    $komoditasValues[] = $komoditasValue['komoditas'];
+                }
+            }
+
+            $komoditas->komoditas = implode(', ', $komoditasValues);
+        }
+
+        $komoditas->save();
+
+        return redirect()->route('komoditas.index');
+    }
+
+    public function destroy($id){
+        $komoditas = Komoditas::find($id);
+        $komoditas->delete();
+
+        return redirect()->route('komoditas.index');
     }
 }
