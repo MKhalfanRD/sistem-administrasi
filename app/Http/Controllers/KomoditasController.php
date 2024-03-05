@@ -14,9 +14,9 @@ class KomoditasController extends Controller
 
     public function create(){
         $golongan = [
-            'Batuan',
-            'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu',
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
         ];
         return view('komoditas.create', compact(['golongan']));
     }
@@ -46,12 +46,11 @@ class KomoditasController extends Controller
     public function edit($id){
         $komoditas = Komoditas::find($id);
         $golongan = [
-            'Batuan',
-            'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu',
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
         ];
-        $oldInputs = old('inputs');
-        $oldGolongan = old('golongan');
-        return view('komoditas.edit', compact(['komoditas', 'golongan', 'oldInputs', 'oldGolongan']));
+        $golonganSelected = $komoditas->golongan;
+        return view('komoditas.edit', compact(['komoditas', 'golongan', 'golonganSelected']));
     }
 }

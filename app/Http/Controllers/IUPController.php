@@ -26,11 +26,11 @@ class IUPController extends Controller
     public function create()
     {
         $tahapanKegiatan = [
-            'WIUP',
-            'IUP Tahap Eksplorasi',
-            'IUP Tahap Operasi Produksi',
-            'Perpanjangan 1 IUP Tahap Operasi Produksi',
-            'Perpanjangan 2 IUP Tahap Operasi Produksi'
+            'WIUP' => 'WIUP',
+            'IUP Tahap Eksplorasi' => 'IUP Tahap Eksplorasi',
+            'IUP Tahap Operasi Produksi' => 'IUP Tahap Operasi Produksi',
+            'Perpanjangan 1 IUP Tahap Operasi Produksi' => 'Perpanjangan 1 IUP Tahap Operasi Produksi',
+            'Perpanjangan 2 IUP Tahap Operasi Produksi' => 'Perpanjangan 2 IUP Tahap Operasi Produksi',
         ];
         return view('iup.create', compact('tahapanKegiatan'));
     }
@@ -101,15 +101,16 @@ class IUPController extends Controller
     public function edit($id)
     {
         $tahapanKegiatan = [
-            'WIUP',
-            'IUP Tahap Eksplorasi',
-            'IUP Tahap Operasi Produksi',
-            'Perpanjangan 1 IUP Tahap Operasi Produksi',
-            'Perpanjangan 2 IUP Tahap Operasi Produksi'
+            'WIUP' => 'WIUP',
+            'IUP Tahap Eksplorasi' => 'IUP Tahap Eksplorasi',
+            'IUP Tahap Operasi Produksi' => 'IUP Tahap Operasi Produksi',
+            'Perpanjangan 1 IUP Tahap Operasi Produksi' => 'Perpanjangan 1 IUP Tahap Operasi Produksi',
+            'Perpanjangan 2 IUP Tahap Operasi Produksi' => 'Perpanjangan 2 IUP Tahap Operasi Produksi',
         ];
 
         $IUP = IUP::find($id);
-        return view('iup.edit', compact(['IUP', 'tahapanKegiatan']));
+        $tahapanKegiatanSelected = $IUP->tahapanKegiatan;
+        return view('iup.edit', compact(['IUP', 'tahapanKegiatanSelected', 'tahapanKegiatan']));
     }
 
     /**
