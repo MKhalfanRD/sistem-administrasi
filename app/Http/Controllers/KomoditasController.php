@@ -44,7 +44,7 @@ class KomoditasController extends Controller
     }
 
     public function edit($id){
-        $komoditas = Komoditas::find($id);
+        $komoditas = Komoditas::findOrFail($id);
         $golongan = [
             'Batuan' => 'Batuan',
             'Mineral Bukan Logam' => 'Mineral Bukan Logam',
@@ -68,31 +68,50 @@ class KomoditasController extends Controller
         $validateData = $request->validate([
             'golongan' => 'required',
             'inputs' => 'required|array',
-            'inputs.*.komoditas' => 'required',
+            'inputs.*.komoditas' => 'nullable',
         ]);
 
-        $komoditas = Komoditas::find($id);
+        $komoditas = Komoditas::findOrFail($id);
 
-        $existingKomoditas = explode(', ', $komoditas->komoditas);
+        // Decode existing komoditas from JSON
+        $existingKomoditas = json_decode($komoditas->komoditas, true) ?? [];
 
-        $newKomoditas = [];
-
-        foreach($request->input('inputs')  as $input){
-            if(!empty($input['komoditas'])){
-                $newKomoditas[] = $input['komoditas'];
+        // Handle deleted items
+        $deletedItems = $request->input('deletedItems');
+        if(!empty($deletedItems)){
+            foreach($deletedItems as $deletedItemId){
+                unset($existingKomoditas[$deletedItemId]);
             }
         }
 
-        // $uniqueNewKomoditas = array_unique($newKomoditas);
+        // Add new items
+        $newKomoditas = $request->input('inputs.*.komoditas');
+        if (!empty($newKomoditas)) {
+            foreach ($newKomoditas as $newItem) {
+                if (!empty($newItem)) {
+                    $existingKomoditas[] = $newItem;
+                }
+            }
+        }
 
-        $finalKomoditas = array_unique(array_merge($existingKomoditas, $newKomoditas));
+        // Filter out empty values
+        $existingKomoditas = array_filter($existingKomoditas, function($value) {
+            return $value !== null && $value !== '';
+        });
 
-        $komoditas->komoditas = implode(', ', $finalKomoditas);
+        // Remove duplicates
+        $existingKomoditas = array_unique($existingKomoditas);
+
+        // Convert array to string
+        $komoditas->komoditas = implode(', ', $existingKomoditas);
 
         $komoditas->save();
-        // dd($komoditas);
+
         return redirect()->route('komoditas.index');
     }
+
+
+
 
     public function destroy($id){
         $komoditas = Komoditas::find($id);

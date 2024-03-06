@@ -37,7 +37,7 @@
                         @foreach($oldInputs as $index => $oldInput)
                         <div class="dynamic-item flex mb-3 gap-4">
                             <input type="text" name="inputs[{{$index}}][komoditas]" id="komoditas-{{$index}}" value="{{$oldInput['komoditas'] ?? ''}}" class="w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                            <button type="button" name="remove" class="remove bg-red-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 rounded-md">-</button>
+                            <button type="button" name="remove" data-id="{{$index}}" class="remove bg-red-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 rounded-md">-</button>
                         </div>
                         @endforeach
                         <div class="dynamic-item flex mt-3 gap-4">
@@ -50,19 +50,19 @@
                     </div>
                 </div>
             </div>
-        </div>
         </form>
+    </div>
+
+    <input type="hidden" name="deletedItems[]" id="deletedItems" value="">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         $(document).ready(function(){
-            var i = {{count($oldInputs)}};
-
             $('.add').click(function(){
-                i++;
+                var newIndex = $('.dynamic-item').length - 1;
                 var newElement = `
                     <div class="dynamic-item flex mt-3 gap-4">
-                        <input type="text" name="inputs[${i}][komoditas]" class="w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="text" name="inputs[${newIndex}][komoditas]" class="w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                         <button type="button" class="remove bg-red-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 rounded-md">-</button>
                     </div>
                 `;
@@ -70,7 +70,12 @@
             });
 
             $(document).on('click', '.remove', function(){
-                $(this).parent().remove();
+                var removedIndex = $(this).data('index');
+                $(this).closest('.dynamic-item').remove();
+
+                var deletedItems = $('#deletedItems').val().split(',');
+                deletedItems.push(removedIndex);
+                $('#deletedItems').val(deletedItems.join(','));
             });
         });
     </script>
