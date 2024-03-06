@@ -48,13 +48,12 @@ class IUPController extends Controller
             'nib' => 'required',
             'kabupaten' => 'required',
             'noSK' => 'required',
-            'luasWilayah' => 'required|numeric',
+            'luasWilayah' => 'nullable',
             'tahapanKegiatan' => 'required',
             'komoditas' => 'required',
             'tanggalMulai' => 'required',
             'tanggalBerakhir' => 'required',
             'lokasiIzin' => 'required',
-            'statusIzin' => 'required',
             'scanSK' => 'nullable|file|mimes:pdf',
         ]);
 
@@ -79,7 +78,6 @@ class IUPController extends Controller
             'tanggalMulai' => $request->tanggalMulai,
             'tanggalBerakhir' => $request->tanggalBerakhir,
             'lokasiIzin' => $request->lokasiIzin,
-            'statusIzin' => $request->statusIzin,
             'scanSK' => $filepath,
         ]);
 

@@ -21,7 +21,6 @@ class IUP extends Model
         'tanggalMulai',
         'tanggalBerakhir',
         'lokasiIzin',
-        'statusIzin',
         'scanSK'
     ];
 }

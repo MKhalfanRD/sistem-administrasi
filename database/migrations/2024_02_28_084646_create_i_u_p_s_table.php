@@ -19,13 +19,12 @@ return new class extends Migration
             $table->integer('nib');
             $table->string('kabupaten');
             $table->string('noSK');
-            $table->float('luasWilayah');
+            $table->string('luasWilayah');
             $table->string('tahapanKegiatan');
             $table->string('komoditas');
             $table->date('tanggalMulai');
             $table->date('tanggalBerakhir');
             $table->string('lokasiIzin');
-            $table->string('statusIzin');
             $table->string('scanSK')->nullable();
             $table->timestamps();
         });
