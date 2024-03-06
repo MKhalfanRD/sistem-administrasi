@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('komoditas', function (Blueprint $table) {
             $table->id();
             $table->string('golongan');
-            $table->string('komoditas');
+            $table->string('komoditas', 600);
             $table->timestamps();
         });
     }

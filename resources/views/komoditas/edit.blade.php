@@ -14,8 +14,8 @@
                     <label for="golongan" class="block text-sm font-semibold leading-6 text-gray-900">Golongan</label>
                     <div class="mt-1.5 mb-3">
                         <select name="golongan" id="golongan" class="bg-white block rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                            @foreach ($golongan as $g)
-                            <option value="{{$g}}">{{$g}}</option>
+                            @foreach ($golongan as $key => $value )
+                            <option value="{{$key}}" {{$key == $golonganSelected ? 'selected' : ''}}>{{$value}}</option>
                             @endforeach
                         </select>
                         @error('golongan')

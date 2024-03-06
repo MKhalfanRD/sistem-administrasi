@@ -73,21 +73,24 @@ class KomoditasController extends Controller
 
         $komoditas = Komoditas::find($id);
 
-        $komoditas->golongan = $request->input('golongan');
+        $existingKomoditas = explode(', ', $komoditas->komoditas);
 
-        if($request->has('komoditas')){
-            $komoditasValues = [];
-            foreach($request->input('komoditas') as $komoditasValue){
-                if(!empty($komoditasValue['komoditas'])){
-                    $komoditasValues[] = $komoditasValue['komoditas'];
-                }
+        $newKomoditas = [];
+
+        foreach($request->input('inputs')  as $input){
+            if(!empty($input['komoditas'])){
+                $newKomoditas[] = $input['komoditas'];
             }
-
-            $komoditas->komoditas = implode(', ', $komoditasValues);
         }
 
-        $komoditas->save();
+        // $uniqueNewKomoditas = array_unique($newKomoditas);
 
+        $finalKomoditas = array_unique(array_merge($existingKomoditas, $newKomoditas));
+
+        $komoditas->komoditas = implode(', ', $finalKomoditas);
+
+        $komoditas->save();
+        // dd($komoditas);
         return redirect()->route('komoditas.index');
     }
 
