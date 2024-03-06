@@ -34,16 +34,16 @@
                 <div class="komoditas">
                     <label for="komoditas" class="block text-sm font-semibold leading-6 text-gray-900">Komoditas</label>
                     <div class="mt-1.5 mb-3">
-                        {{-- @if (!empty($oldInputs) && is_array($oldInputs))--}}
                         @foreach($oldInputs as $index => $oldInput)
                         <div class="dynamic-item flex mb-3 gap-4">
                             <input type="text" name="inputs[{{$index}}][komoditas]" id="komoditas-{{$index}}" value="{{$oldInput['komoditas'] ?? ''}}" class="w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                            <button type="button" name="add" id="add" class="bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 rounded-md">+</button>
+                            <button type="button" name="remove" class="remove bg-red-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 rounded-md">-</button>
                         </div>
                         @endforeach
-                        {{-- @else
-                        <p>Tidak ada data komoditas sebelumnya</p>
-                        @endif --}}
+                        <div class="dynamic-item flex mt-3 gap-4">
+                            <input type="text" name="inputs[{{ count($oldInputs) }}][komoditas]" class="w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            <button type="button" class="add bg-indigo-600 px-3 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 rounded-md">+</button> <!-- Tombol tambah (+) -->
+                        </div>
                         @error('komoditas.*.komoditas')
                         <span class="text-red-500">{{$message}}</span>
                         @enderror
@@ -55,19 +55,21 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        var i = 0;
-        $('#add').click(function(){
-            i++;
-            var newElement = `
-            <div class="dynamic-item flex mt-3 gap-4">
-                <input type="text" name="inputs[${i}][komoditas]" class="w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                <button type="button" class="remove bg-red-600 px-4 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 rounded-md">-</button>
-            </div>
-            `;
+        $(document).ready(function(){
+            var i = {{count($oldInputs)}};
 
-            $('.komoditas').append(newElement);
+            $('.add').click(function(){
+                i++;
+                var newElement = `
+                    <div class="dynamic-item flex mt-3 gap-4">
+                        <input type="text" name="inputs[${i}][komoditas]" class="w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <button type="button" class="remove bg-red-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 rounded-md">-</button>
+                    </div>
+                `;
+                $('.komoditas').append(newElement);
+            });
 
-            $('.dynamic-item .remove').last().click(function(){
+            $(document).on('click', '.remove', function(){
                 $(this).parent().remove();
             });
         });
