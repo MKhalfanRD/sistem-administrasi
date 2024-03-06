@@ -48,7 +48,7 @@ class IUPController extends Controller
             'nib' => 'required',
             'kabupaten' => 'required',
             'noSK' => 'required',
-            'luasWilayah' => 'nullable',
+            'luasWilayah' => 'nullable|numeric',
             'tahapanKegiatan' => 'required',
             'komoditas' => 'required',
             'tanggalMulai' => 'required',
@@ -56,6 +56,12 @@ class IUPController extends Controller
             'lokasiIzin' => 'required',
             'scanSK' => 'nullable|file|mimes:pdf',
         ]);
+
+        $tanggalMulai = $request->tanggalMulai;
+        $tanggalBerakhir = $request->tanggalBerakhir;
+        $statusIzin = now()->between($tanggalMulai, $tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif';
+
+        $statusIzin = $statusIzin == 'Aktif' ? 'Aktif' : 'Tidak Aktif';
 
         $scanSK = request()->file('scanSK');
 
@@ -78,10 +84,11 @@ class IUPController extends Controller
             'tanggalMulai' => $request->tanggalMulai,
             'tanggalBerakhir' => $request->tanggalBerakhir,
             'lokasiIzin' => $request->lokasiIzin,
+            'statusIzin' => $statusIzin,
             'scanSK' => $filepath,
         ]);
 
-        // dd($iup);
+        dd($iup);
         return redirect()->route('iup.index');
     }
 
@@ -129,7 +136,6 @@ class IUPController extends Controller
             'tanggalMulai' => 'required',
             'tanggalBerakhir' => 'required',
             'lokasiIzin' => 'required',
-            'statusIzin' => 'required',
             'scanSK' => 'nullable|file|mimes:pdf',
         ]);
 

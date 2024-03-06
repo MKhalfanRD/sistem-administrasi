@@ -113,8 +113,12 @@
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{$iup->lokasiIzin}}
                         </th>
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{$iup->statusIzin}}
+                        <th scope="row" class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            @if ($iup->statusIzin == 'Aktif')
+                                <span class="bg-green-300 px-3 py-2 text-green-700 rounded-md">Aktif</span>
+                            @else
+                                <span class="bg-red-300 px-2 py-2 text-red-700 rounded-md">Tidak Aktif</span>
+                            @endif
                         </th>
                         <th scope="row" class=" font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             <img src="{{asset('storage/'.$iup->scanSK)}}" alt="">

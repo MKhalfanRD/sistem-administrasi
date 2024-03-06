@@ -25,6 +25,7 @@ return new class extends Migration
             $table->date('tanggalMulai');
             $table->date('tanggalBerakhir');
             $table->string('lokasiIzin');
+            $table->string('statusIzin');
             $table->string('scanSK')->nullable();
             $table->timestamps();
         });
