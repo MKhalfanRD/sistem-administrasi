@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\JamrekController;
+use App\Http\Controllers\KabupatenController;
 use App\Http\Controllers\KomoditasController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -26,6 +27,8 @@ Route::resource('iup', IUPController::class);
 Route::resource('jamrek', JamrekController::class);
 
 Route::resource('komoditas', KomoditasController::class);
+
+Route::resource('kabupaten', KabupatenController::class);
 
 Route::get('/sidebar', function () {
     return view('sidebar');

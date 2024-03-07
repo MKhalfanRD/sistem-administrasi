@@ -15,46 +15,46 @@
                         <th scope="col" class="p-4">
                             No
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="px-6 py-3 text-center">
                             Nama Perusahaan
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="px-6 py-3 text-center">
                             Alamat
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="px-6 py-3 text-center">
                             NPWP
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="px-6 py-3 text-center">
                             NIB
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="px-6 py-3 text-center">
                             Kabupaten
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="px-6 py-3 text-center">
                             No.SK
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="px-6 py-3 text-center">
                             Luas Wilayah
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="px-6 py-3 text-center">
                             Tahapan Kegiatan
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="px-6 py-3 text-center">
                             Komoditas
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="px-6 py-3 text-center">
                             Tanggal Mulai
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="px-6 py-3 text-center">
                             Tanggal Berakhir
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="px-6 py-3 text-center">
                             Lokasi Izin
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="px-6 py-3 text-center">
                             Status Izin
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="px-6 py-3 text-center">
                            Scan SK
                         </th>
                         <th scope="col" class="px-6 py-3 text-center">
@@ -67,9 +67,6 @@
                         $counter = 0;
                     @endphp
                     @foreach ($IUP as $iup)
-                    {{-- @if (isset($filepath))
-                        <a href="{{asset($filepath)}}" download="{{$iup->scanSK}}.pdf"></a>
-                    @endif --}}
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <td class="px-6 py-4">
                             @php
@@ -120,8 +117,14 @@
                                 <span class="bg-red-300 px-2 py-2 text-red-700 rounded-md">Tidak Aktif</span>
                             @endif
                         </th>
-                        <th scope="row" class=" font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <img src="{{asset('storage/'.$iup->scanSK)}}" alt="">
+                        <th scope="row" class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            @if ($iup->scanSK)
+                                <a href="{{asset('storage/' .$iup->scanSK)}}" target="_blank">
+                                    <img src="{{ asset('icon/ikon-pdf.png') }}" class="bg-gray-300 hover:bg-gray-200 rounded-md p-1 w-10 h-10 mx-auto" alt="PDF Icon">
+                                </a>
+                            @else
+                                <p>Tidak Ada</p>
+                            @endif
                         </th>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             <div class="btn-wrap flex flex-row gap-3">

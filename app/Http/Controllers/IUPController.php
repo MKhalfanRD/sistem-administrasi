@@ -59,9 +59,8 @@ class IUPController extends Controller
 
         $tanggalMulai = $request->tanggalMulai;
         $tanggalBerakhir = $request->tanggalBerakhir;
-        $statusIzin = now()->between($tanggalMulai, $tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif';
+        $statusIzin = now()->greaterThanOrEqualTo($tanggalMulai) && now()->lessThanOrEqualTo($tanggalBerakhir) || now()->isSameDay($tanggalMulai) && now()->isSameDay($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif';
 
-        $statusIzin = $statusIzin == 'Aktif' ? 'Aktif' : 'Tidak Aktif';
 
         $scanSK = request()->file('scanSK');
 
@@ -88,7 +87,7 @@ class IUPController extends Controller
             'scanSK' => $filepath,
         ]);
 
-        dd($iup);
+        // dd($tanggalMulai, $tanggalBerakhir, now());
         return redirect()->route('iup.index');
     }
 
@@ -139,16 +138,19 @@ class IUPController extends Controller
             'scanSK' => 'nullable|file|mimes:pdf',
         ]);
 
-        $IUP = IUP::find($id);
+        $tanggalMulai = $request->tanggalMulai;
+        $tanggalBerakhir = $request->tanggalBerakhir;
+        $statusIzin = now()->greaterThanOrEqualTo($tanggalMulai) && now()->lessThanOrEqualTo($tanggalBerakhir) || now()->isSameDay($tanggalMulai) && now()->isSameDay($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif';
 
-        if ($request->hasFile('scanSK')){
-            $oldScanSK = $IUP->scanSK;
-            Storage::disk('public')->delete($oldScanSK);
-            $scanSK = request()->file('scanSK');
+        $scanSK = request()->file('scanSK');
+
+        if($scanSK){
             $filepath = $scanSK->store('scanSK', 'public');
-        } else {
-            $filepath = $IUP->scanSK;
+        }else{
+            $filepath = null;
         }
+
+        $IUP = IUP::find($id);
 
         $IUP->update([
             'namaPerusahaan' => $request->namaPerusahaan,
@@ -163,9 +165,11 @@ class IUPController extends Controller
             'tanggalMulai' => $request->tanggalMulai,
             'tanggalBerakhir' => $request->tanggalBerakhir,
             'lokasiIzin' => $request->lokasiIzin,
-            'statusIzin' => $request->statusIzin,
+            'statusIzin' => $statusIzin,
             'scanSK' => $filepath,
         ]);
+
+        // dd($IUP);
 
         return redirect()->route('iup.index');
     }
@@ -176,9 +180,14 @@ class IUPController extends Controller
     public function destroy($id)
     {
         $IUP = IUP::find($id);
+
+        if (!is_null($IUP->scanSK)) {
         Storage::disk('public')->delete($IUP->scanSK);
+        }
+
         $IUP->delete();
 
         return redirect()->route('iup.index');
     }
+
 }
