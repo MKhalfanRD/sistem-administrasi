@@ -18,12 +18,13 @@ return new class extends Migration
             $table->integer('npwp');
             $table->integer('nib');
             $table->string('kabupaten');
-            $table->string('noSK');
+            $table->string('noSK')->nullable();
             $table->string('luasWilayah');
             $table->string('tahapanKegiatan');
             $table->string('komoditas');
-            $table->date('tanggalMulai');
-            $table->date('tanggalBerakhir');
+            $table->integer('masaBerlaku')->nullable();
+            $table->date('tanggalSK')->nullable();
+            $table->date('tanggalBerakhir')->nullable();
             $table->string('lokasiIzin');
             $table->string('statusIzin')->nullable();
             $table->string('scanSK')->nullable();

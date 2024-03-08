@@ -45,6 +45,8 @@
                         @enderror
                     </div>
                 </div>
+            </div>
+            <div class="input-warp-2">
                 <div class="kabupaten">
                     <label for="kabupaten" class="block text-sm font-semibold leading-6 text-gray-900">Kabupaten</label>
                     <div class="mt-1.5 mb-3">
@@ -54,9 +56,7 @@
                         @enderror
                     </div>
                 </div>
-            </div>
-            <div class="input-warp-2">
-                <div class="noSK">
+                {{-- <div class="noSK">
                     <label for="noSK" class="block text-sm font-semibold leading-6 text-gray-900">No.SK</label>
                     <div class="mt-1.5 mb-3">
                         <input type="number" id="noSK" name="noSK" value="{{old('noSK') ?? ''}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
@@ -64,7 +64,7 @@
                         <span class="text-red-500">{{$message}}</span>
                         @enderror
                     </div>
-                </div>
+                </div> --}}
                 <div class="luasWilayah">
                     <label for="luasWilayah" class="block text-sm font-semibold leading-6 text-gray-900">Luas Wilayah</label>
                     <div class="mt-1.5 mb-3">
@@ -74,29 +74,8 @@
                         @enderror
                     </div>
                 </div>
-                <div class="tahapanKegiatan">
-                        <label for="tahapanKegiatan" class="block text-sm font-semibold leading-6 text-gray-900">Tahapan Kegiatan</label>
-                        <div class="mt-1.5 mb-3">
-                            <select name="tahapanKegiatan" id="tahapanKegiatan" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                @foreach ($tahapanKegiatan as $tahapan)
-                                    <option value="{{$tahapan}}">{{$tahapan}}</option>
-                                @endforeach
-                            </select>
-                            @error('tahapanKegiatan')
-                            <span class="text-red-500">{{$message}}</span>
-                            @enderror
-                        </div>
-                </div>
-                <div class="komoditas">
-                        <label for="komoditas" class="block text-sm font-semibold leading-6 text-gray-900">Komoditas</label>
-                        <div class="mt-1.5 mb-3">
-                            <input type="text" id="komoditas" name="komoditas" value="{{old('komoditas')}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                            @error('komoditas')
-                            <span class="text-red-500">{{$message}}</span>
-                            @enderror
-                        </div>
-                </div>
-                <div class="tanggalMulai">
+
+                {{-- <div class="tanggalMulai">
                         <label for="tanggalMulai" class="block text-sm font-semibold leading-6 text-gray-900">Tanggal Mulai</label>
                         <div class="mt-1.5 mb-3">
                             <input type="date" id="tanggalMulai" name="tanggalMulai" value="{{old('tanggalMulai') ?? ''}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
@@ -104,10 +83,28 @@
                             <span class="text-red-500">{{$message}}</span>
                             @enderror
                         </div>
+                </div> --}}
+                <div class="komoditas">
+                    <label for="komoditas" class="block text-sm font-semibold leading-6 text-gray-900">Komoditas</label>
+                    <div class="mt-1.5 mb-3">
+                        <input type="text" id="komoditas" name="komoditas" value="{{old('komoditas')}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        @error('komoditas')
+                        <span class="text-red-500">{{$message}}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="lokasiIzin">
+                        <label for="lokasiIzin" class="block text-sm font-semibold leading-6 text-gray-900">Lokasi Izin</label>
+                        <div class="mt-1.5 mb-3">
+                            <input type="text" id="lokasiIzin" name="lokasiIzin" value="{{old('lokasiIzin') ?? ''}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            @error('lokasiIzin')
+                            <span class="text-red-500">{{$message}}</span>
+                            @enderror
+                        </div>
                 </div>
             </div>
             <div class="input-warp-3">
-            <div class="tanggalBerakhir">
+            {{-- <div class="tanggalBerakhir">
                     <label for="tanggalBerakhir" class="block text-sm font-semibold leading-6 text-gray-900">Tanggal Berakhir</label>
                     <div class="mt-1.5 mb-3">
                         <input type="date" id="tanggalBerakhir" name="tanggalBerakhir" value="{{old('tanggalBerakhir') ?? ''}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
@@ -115,24 +112,28 @@
                         <span class="text-red-500">{{$message}}</span>
                         @enderror
                     </div>
-            </div>
-            <div class="lokasiIzin">
-                    <label for="lokasiIzin" class="block text-sm font-semibold leading-6 text-gray-900">Lokasi Izin</label>
-                    <div class="mt-1.5 mb-3">
-                        <input type="text" id="lokasiIzin" name="lokasiIzin" value="{{old('lokasiIzin') ?? ''}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                        @error('lokasiIzin')
-                        <span class="text-red-500">{{$message}}</span>
-                        @enderror
-                    </div>
-            </div>
+            </div> --}}
             <div class="scanSK">
-                    <label for="scanSK" id="scanSK-label" class="block text-sm font-semibold leading-6 text-gray-900">Scan SK</label>
-                    <div class="mt-1.5 mb-3">
-                        <input type="file" id="scanSK" name="scanSK" value="{{old('scanSK') ?? ''}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                        @error('scanSK')
-                        <span class="text-red-500">{{$message}}</span>
-                        @enderror
-                    </div>
+                <label for="scanSK" id="scanSK-label" class="block text-sm font-semibold leading-6 text-gray-900">Scan SK</label>
+                <div class="mt-1.5 mb-3">
+                    <input type="file" id="scanSK" name="scanSK" value="{{old('scanSK') ?? ''}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    @error('scanSK')
+                    <span class="text-red-500">{{$message}}</span>
+                    @enderror
+                </div>
+        </div>
+            <div class="tahapanKegiatan">
+                <label for="tahapanKegiatan" class="block text-sm font-semibold leading-6 text-gray-900">Tahapan Kegiatan</label>
+                <div class="mt-1.5 mb-3">
+                    <select name="tahapanKegiatan" id="tahapanKegiatan" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        @foreach ($tahapanKegiatan as $key => $value)
+                            <option value="{{$key}}">{{$value}}</option>
+                        @endforeach
+                    </select>
+                    @error('tahapanKegiatan')
+                    <span class="text-red-500">{{$message}}</span>
+                    @enderror
+                </div>
             </div>
             </div>
 
@@ -140,8 +141,107 @@
                 <a href="{{route('iup.index')}}">
                     <button type="button" class="bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 rounded-md">Kembali</button>
                 </a>
-                <button type="submit" class="block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Simpan</button>
+                <button type="submit" class=" block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Simpan</button>
+            </div>
+            <div id="modal" class="fixed mt-10 top-60 right-32 bg-gray-200 rounded-md shadow-lg overflow-hidden mx-auto max-w-64 z-50" style="display: none;">
+                <input type="hidden" name="fromModal" value="true">
             </div>
         </form>
+
     </div>
+
+
+
+    <script>
+        document.getElementById('tahapanKegiatan').addEventListener('change', function() {
+            var selectedValue = this.value;
+            var modalContent = '';
+
+            if (selectedValue === 'WIUP') {
+                modalContent = `
+                <div class="mt-1.5 mb-3 px-10 max-w-xs mx-auto">
+                <div class="tanggalSK">
+                    <label for="tanggalSK" id="tanggalSK" class="block text-sm font-semibold leading-6 text-gray-900">Tanggal SK</label>
+                    <div class="">
+                        <input type="date" id="tanggalSK" name="tanggalSK" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                </div>
+                </div>
+                <div class="noSK">
+                    <label for="noSK" id="noSK" class="block text-sm font-semibold leading-6 text-gray-900">No SK</label>
+                    <div class="">
+                        <input type="number" id="noSK" name="noSK" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                </div>
+                <div class="flex justify-end mt-4">
+                    <button type="submit" class="px-3 py-1 text-sm font-semibold text-white bg-gray-500 rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-600">Simpan</button>
+                </div>
+                </div>
+                `;
+            } else if (selectedValue === 'IUP Tahap Eksplorasi' || selectedValue === 'IUP Tahap Operasi Produksi' || selectedValue === 'Perpanjangan 1 IUP Tahap Operasi Produksi' || selectedValue === 'Perpanjangan 2 IUP Tahap Operasi Produksi') {
+                modalContent = `
+                <div class="mt-1.5 mb-3 px-10 max-w-xs mx-auto">
+                <div class="tanggalSK">
+                    <label for="tanggalSK" id="tanggalSK" class="block text-sm font-semibold leading-6 text-gray-900">Tanggal SK</label>
+                    <div class="">
+                        <input type="date" id="tanggalSK" name="tanggalSK" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                </div>
+                <div class="noSK">
+                    <label for="noSK" id="noSK" class="block text-sm font-semibold leading-6 text-gray-900">No SK</label>
+                    <div class="">
+                        <input type="number" id="noSK" name="noSK" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                </div>
+                <div class="masaBerlaku">
+                    <label for="masaBerlaku" id="masaBerlaku" class="block text-sm font-semibold leading-6 text-gray-900">Masa Berlaku</label>
+                    <div class="">
+                        <input type="number" id="masaBerlaku" name="masaBerlaku" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                </div>
+                <div class="tanggalBerakhir">
+                    <label for="tanggalBerakhir" id="tanggalBerakhir" class="block text-sm font-semibold leading-6 text-gray-900">Tanggal Berakhir</label>
+                    <div class="">
+                        <input type="date" id="tanggalBerakhir" name="tanggalBerakhir" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                </div>
+                <div class="flex justify-end mt-4">
+                    <button type="submit" id="simpanModal" class="px-3 py-1 text-sm font-semibold text-white bg-gray-500 rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-600">Simpan</button>
+                </div>
+                </div>
+                `;
+            }
+
+            document.getElementById('modal').innerHTML = modalContent;
+            showModal();
+        });
+
+        function showModal() {
+        var modal = document.getElementById('modal');
+        modal.style.display = 'block';
+
+        document.getElementById('simpanModal').addEventListener('click', function(){
+            var formData = {};
+            var selectedValue = document.getElementById('tahapanKegiatan').value;
+
+            if(selectedValue = 'WIUP'){
+                formData.tanggalSK = document.getElementById('tanggalSK').value;
+                formData.noSK = document.getElementById('noSK').value;
+            }else{
+                formData.tanggalSK = document.getElementById('tanggalSK').value;
+                formData.noSK = document.getElementById('noSK').value;
+                formData.masaBerlaku = document.getElementById('masaBerlaku').value;
+                formData.tanggalBerakhir = document.getElementById('tanggalBerakhir').value;
+            }
+
+            axios.post('/iup/store-from-modal', formData)
+            .then(function(response){
+                console.log(response.data);
+            })
+            .catch(function(error){
+                console.error(error);
+            });
+        });
+    }
+    </script>
+
 @endsection

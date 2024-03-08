@@ -47,27 +47,48 @@ class IUPController extends Controller
             'npwp' => 'required',
             'nib' => 'required',
             'kabupaten' => 'required',
-            'noSK' => 'required',
+            'noSK' => 'nullable',
             'luasWilayah' => 'nullable|numeric',
             'tahapanKegiatan' => 'required',
+            'masaBerlaku' => 'nullable',
             'komoditas' => 'required',
-            'tanggalMulai' => 'required',
-            'tanggalBerakhir' => 'required',
+            'tanggalSK' => 'nullable',
+            'tanggalBerakhir' => 'nullable',
             'lokasiIzin' => 'required',
             'scanSK' => 'nullable|file|mimes:pdf',
         ]);
 
-        $tanggalMulai = $request->tanggalMulai;
+        $tanggalSK = $request->tanggalSK;
         $tanggalBerakhir = $request->tanggalBerakhir;
-        $statusIzin = now()->greaterThanOrEqualTo($tanggalMulai) && now()->lessThanOrEqualTo($tanggalBerakhir) || now()->isSameDay($tanggalMulai) && now()->isSameDay($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif';
-
+        $statusIzin = now()->greaterThanOrEqualTo($tanggalSK) && now()->lessThanOrEqualTo($tanggalBerakhir) || now()->isSameDay($tanggalSK) && now()->isSameDay($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif';
 
         $scanSK = request()->file('scanSK');
+        $filepath = $scanSK ? $scanSK->store('scanSK', 'public') : null;
 
-        if($scanSK){
-            $filepath = $scanSK->store('scanSK', 'public');
-        }else{
-            $filepath = null;
+        if($request->has('fromModal')){
+            if($request->tahapanKegiatan === 'WIUP'){
+                $request->validate([
+                    'tanggalSK' => 'nullable',
+                    'noSK' => 'nullable',
+                ]);
+                IUP::create([
+                    'tanggalSK' => $request->tanggalSK,
+                    'noSK' => $request->noSK,
+                ]);
+            }else{
+                $request->validate([
+                    'tanggalSK' => 'nullable',
+                    'noSK' => 'nullable',
+                    'masaBerlaku' => 'nullable',
+                    'tanggalBerakhir' => 'nullable'
+                ]);
+                IUP::create([
+                    'tanggalSK' => $request->tanggalSK,
+                    'noSK' => $request->noSK,
+                    'masaBerlaku' => $request->masaBerlaku,
+                    'tanggalBerakhir'=>$request->tanggalBerakhir,
+                ]);
+            }
         }
 
         $iup = IUP::create([
@@ -79,8 +100,9 @@ class IUPController extends Controller
             'noSK' => $request->noSK,
             'luasWilayah' => $request->luasWilayah,
             'tahapanKegiatan' => $request->tahapanKegiatan,
+            'masaBerlaku' => $request->masaBerlaku,
             'komoditas' => $request->komoditas,
-            'tanggalMulai' => $request->tanggalMulai,
+            'tanggalSK' => $request->tanggalSK,
             'tanggalBerakhir' => $request->tanggalBerakhir,
             'lokasiIzin' => $request->lokasiIzin,
             'statusIzin' => $statusIzin,
@@ -88,12 +110,14 @@ class IUPController extends Controller
         ]);
 
         // dd($tanggalMulai, $tanggalBerakhir, now());
+        dd($iup);
         return redirect()->route('iup.index');
     }
 
     /**
      * Display the specified resource.
      */
+
     public function show(IUP $iUP)
     {
         //
