@@ -102,98 +102,128 @@
                                 <p>Tidak Ada</p>
                             @endif
                         </td>
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <div class="btn-wrap flex flex-row gap-3">
+                                <a href="{{route('iup.edit', $iup->id)}}">
+                                    <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-lg">Edit</button>
+                                </a>
+                                <form action="{{route('iup.destroy', $iup->id)}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="text-white hover:bg-gray-700 px-5 py-2.5 rounded-lg border border-gray-300">Delete</button>
+                                </form>
+                            </div>
+                        </th>
                     </tr>
                     <tr class="expandable-content hidden">
                         <td colspan="12">
                             <div class="details-content">
                                 <table class="table-auto w-full">
                                     <thead class="text-base text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                        <tr class="text-center">
+                                            <th colspan="2" class="border-r-2 border-white">WIUP</th>
+                                            <th colspan="4" class="border-r-2 border-white">IUP Eksplorasi</th>
+                                            <th colspan="4" class="border-r-2 border-white">IUP Operasi Produksi</th>
+                                            <th colspan="4" class="border-r-2 border-white">Perpanjangan 1</th>
+                                            <th colspan="4">Perpanjangan 2</th>
+                                        </tr>
                                         <tr>
-                                            <th class="px-4 py-2 text-center flex flex-col">
-                                                WIUP
-                                                <div class="gap-5">
-                                                    <th class="text-sm">Tanggal SK</th>
-                                                    <th class="text-sm">No SK</th>
-                                                </div>
-                                            </th>
-                                            <th class="px-4 py-2 text-center flex flex-col">
-                                                IUP Eksplorasi
-                                                <div class="flex flex-row gap-5">
-                                                    <th class="text-sm">Tanggal SK</th>
-                                                    <th class="text-sm">No SK</th>
-                                                    <th class="text-sm">Masa Berlaku</th>
-                                                    <th class="text-sm">Tanggal Berakhir</th>
-                                                </div>
-                                            </th>
-                                            <th class="px-4 py-2 text-center">
-                                                IUP Operasi Produksi
-                                                <div class="flex flex-row gap-5">
-                                                    <th class="text-sm">Tanggal SK</th>
-                                                    <th class="text-sm">No SK</th>
-                                                    <th class="text-sm">Masa Berlaku</th>
-                                                    <th class="text-sm">Tanggal Berakhir</th>
-                                                </div>
-                                            </th>
-                                            <th class="px-4 py-2 text-center">
-                                                Perpanjangan 1
-                                                <div class="flex flex-row gap-5">
-                                                    <th class="text-sm">Tanggal SK</th>
-                                                    <th class="text-sm">No SK</th>
-                                                    <th class="text-sm">Masa Berlaku</th>
-                                                    <th class="text-sm">Tanggal Berakhir</th>
-                                                </div>
-                                            </th>
-                                            <th class="px-4 py-2 text-center">
-                                                Perpanjangan 2
-                                                <div class="flex flex-row gap-5">
-                                                    <th class="text-sm">Tanggal SK</th>
-                                                    <th class="text-sm">No SK</th>
-                                                    <th class="text-sm">Masa Berlaku</th>
-                                                    <th class="text-sm">Tanggal Berakhir</th>
-                                                </div>
-                                            </th>
+                                            <div class="wiup">
+                                                <th class="px-6 py-3 text-center">Tanggal SK</th>
+                                                <th class="px-6 py-3 text-center border-r-2 border-white">No SK</th>
+                                            </div>
+                                            <div class="eksplorasi">
+                                                <th class="px-6 py-3 text-center">Tanggal SK</th>
+                                                <th class="px-6 py-3 text-center">No SK</th>
+                                                <th class="px-6 py-3 text-center">Masa Berlaku</th>
+                                                <th class="px-6 py-3 text-center border-r-2 border-white">Tanggal Berakhir</th>
+                                            </div>
+                                            <div class="operasiProduksi">
+                                                <th class="px-6 py-3 text-center">Tanggal SK</th>
+                                                <th class="px-6 py-3 text-center">No SK</th>
+                                                <th class="px-6 py-3 text-center">Masa Berlaku</th>
+                                                <th class="px-6 py-3 text-center border-r-2 border-white">Tanggal Berakhir</th>
+                                            </div>
+                                            <div class="perpanjangan1">
+                                                <th class="px-6 py-3 text-center">Tanggal SK</th>
+                                                <th class="px-6 py-3 text-center">No SK</th>
+                                                <th class="px-6 py-3 text-center">Masa Berlaku</th>
+                                                <th class="px-6 py-3 text-center border-r-2 border-white">Tanggal Berakhir</th>
+                                            </div>
+                                            <div class="perpanjangan2">
+                                                <th class="px-6 py-3 text-center">Tanggal SK</th>
+                                                <th class="px-6 py-3 text-center">No SK</th>
+                                                <th class="px-6 py-3 text-center">Masa Berlaku</th>
+                                                <th class="px-6 py-3 text-center">Tanggal Berakhir</th>
+                                            </div>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr class="bg-white dark:bg-gray-800  hover:bg-gray-50 dark:hover:bg-gray-600">
-                                            <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                <div class="flex flex-row text-sm">
-                                                    <td>{{$iup->tanggalSK}}</td>
-                                                    <td>{{$iup->noSK}}</td>
-                                                </div>
-                                            </td>
-                                            <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white flex flex-row gap-20">
-                                                <div class="space-x-5 text-center">
-                                                    <td>{{$iup->tanggalSK}}</td>
-                                                    <td>{{$iup->noSK}}</td>
-                                                    <td>{{$iup->masaBerlaku}}</td>
-                                                    <td>{{$iup->tanggalBerakhir}}</td>
-                                                </div>
-                                            </td>
-                                            <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                <div class="flex flex-row gap-5 text-sm">
-                                                    <td>{{$iup->tanggalSK}}</td>
-                                                    <td>{{$iup->noSK}}</td>
-                                                    <td>{{$iup->masaBerlaku}}</td>
-                                                    <td>{{$iup->tanggalBerakhir}}</td>
-                                                </div>
-                                            </td>
-                                            <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                <div class="flex flex-row gap-5 text-sm">
-                                                    <td>{{$iup->tanggalSK}}</td>
-                                                    <td>{{$iup->noSK}}</td>
-                                                    <td>{{$iup->masaBerlaku}}</td>
-                                                    <td>{{$iup->tanggalBerakhir}}</td>
-                                                </div>
-                                            </td>
-                                            <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                <div class="flex flex-row gap-5 text-sm">
-                                                    <td>{{$iup->tanggalSK}}</td>
-                                                    <td>{{$iup->noSK}}</td>
-                                                    <td>{{$iup->masaBerlaku}}</td>
-                                                    <td>{{$iup->tanggalBerakhir}}</td>
-                                                </div>
-                                            </td>
+                                            <div class="wiup">
+                                                <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">
+                                                    {{$iup->tanggalSK_wiup}}
+                                                </td>
+                                                <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white border-r-2 border-white">
+                                                    {{$iup->noSK_wiup}}
+                                                </td>
+                                            </div>
+                                            <div class="eksplorasi">
+                                                <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {{$iup->tanggalSK_eksplor}}
+                                                </td>
+                                                <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {{$iup->noSK_eksplor}}
+                                                </td>
+                                                <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {{$iup->masaBerlaku_eksplor}}
+                                                </td>
+                                                <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white border-r-2 border-white">
+                                                    {{$iup->tanggalBerakhir_eksplor}}
+                                                </td>
+                                            </div>
+                                            <div class="operasiProduksi">
+                                                <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {{$iup->tanggalSK_op}}
+                                                </td>
+                                                <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {{$iup->noSK_op}}
+                                                </td>
+                                                <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {{$iup->masaBerlaku_op}}
+                                                </td>
+                                                <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white border-r-2 border-white">
+                                                    {{$iup->tanggalBerakhir_op}}
+                                                </td>
+                                            </div>
+                                            <div class="perpanjangan1">
+                                                <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {{$iup->tanggalSK_p1}}
+                                                </td>
+                                                <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {{$iup->noSK_p1}}
+                                                </td>
+                                                <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {{$iup->masaBerlaku_p1}}
+                                                </td>
+                                                <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white border-r-2 border-white">
+                                                    {{$iup->tanggalBerakhir_p1}}
+                                                </td>
+                                            </div>
+                                            <div class="perpanjangan2">
+                                                <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {{$iup->tanggalSK_p2}}
+                                                </td>
+                                                <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {{$iup->noSK_p2}}
+                                                </td>
+                                                <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {{$iup->masaBerlaku_p2}}
+                                                </td>
+                                                <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {{$iup->tanggalBerakhir_p2}}
+                                                </td>
+                                            </div>
                                         </tr>
                                     </tbody>
                                 </table>

@@ -110,9 +110,6 @@ class KomoditasController extends Controller
         return redirect()->route('komoditas.index');
     }
 
-
-
-
     public function destroy($id){
         $komoditas = Komoditas::find($id);
         $komoditas->delete();
