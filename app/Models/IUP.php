@@ -39,4 +39,5 @@ class IUP extends Model
         'statusIzin',
         'scanSK'
     ];
+
 }

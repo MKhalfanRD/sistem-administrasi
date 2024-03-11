@@ -24,7 +24,7 @@ class JamrekController extends Controller
             'namaPerusahaan' => 'required',
             'besaranDitetapkan' => 'required',
             'tanggal' => 'required',
-            'filePenempatan' => 'required',
+            'filePenempatan' => 'nullable|file|mimes:pdf',
             'besaranDitempatkan' => 'required',
             'tanggalPenempatan' => 'required',
             'jatuhTempo' => 'required',
@@ -32,7 +32,7 @@ class JamrekController extends Controller
             'bentukPenempatan' => 'required',
             'noSeri' => 'required',
             'noRekening' => 'required',
-            'fileReklamasi' => 'required',
+            'fileReklamasi' => 'nullable|file|mimes:pdf',
         ]);
 
         $filePenempatan = $request->file('filePenempatan');
@@ -70,7 +70,7 @@ class JamrekController extends Controller
             'namaPerusahaan' => 'required',
             'besaranDitetapkan' => 'required',
             'tanggal' => 'required',
-            'filePenempatan' => 'required',
+            'filePenempatan' => 'nullable|file|mimes:pdf',
             'besaranDitempatkan' => 'required',
             'tanggalPenempatan' => 'required',
             'jatuhTempo' => 'required',
@@ -78,7 +78,7 @@ class JamrekController extends Controller
             'bentukPenempatan' => 'required',
             'noSeri' => 'required',
             'noRekening' => 'required',
-            'fileReklamasi' => 'required',
+            'fileReklamasi' => 'nullable|file|mimes:pdf',
         ]);
 
         $jamrek = Jamrek::find($id);

@@ -39,7 +39,15 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    protected $fillable = ['namaUser', 'namaPerusahaan', 'email', 'password', 'logo'];
+    protected $fillable = [
+        'namaUser',
+        'namaPerusahaan',
+        'email',
+        'password',
+        'logo'
+    ];
 
-
+    public function iup(){
+        return $this->hasMany(IUP::class, 'namaPerusahaan', 'namaPerusahaan');
+    }
 }

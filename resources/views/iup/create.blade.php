@@ -12,7 +12,16 @@
                 <div class="namaPerusahaan">
                     <label for="namaPerusahaan" class="block text-sm font-semibold leading-6 text-gray-900">Nama Perusahaan</label>
                     <div class="mt-1.5 mb-3">
-                        <input type="text" name="namaPerusahaan" id="namaPerusahaan" value="{{old('namaPerusahaan') ?? ''}}" class="w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <select name="namaPerusahaan" id="namaPerusahaan" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            @if ($perusahaanUser->isEmpty())
+                            <option value="">Belum Ada Perusahaan</option>
+                            @else
+                            <option value="" disabled selected>Pilih</option>
+                            @foreach ($perusahaanUser as $namaPerusahaan)
+                                <option value="{{$namaPerusahaan}}">{{$namaPerusahaan}}</option>
+                            @endforeach
+                            @endif
+                        </select>
                         @error('namaPerusahaan')
                         <span class="text-red-500">{{$message}}</span>
                         @enderror
@@ -50,7 +59,16 @@
                 <div class="kabupaten">
                     <label for="kabupaten" class="block text-sm font-semibold leading-6 text-gray-900">Kabupaten</label>
                     <div class="mt-1.5 mb-3">
-                        <input type="text" id="kabupaten" name="kabupaten" value="{{old('kabupaten') ?? ''}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <select name="kabupaten" id="kabupaten" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            @if ($kabupaten->isEmpty())
+                                <option value="">Belum Ada Kabupaten</option>
+                            @else
+                            <option value="" disabled selected>Pilih</option>
+                            @foreach ($kabupaten as $kabupaten)
+                                <option value="{{$kabupaten}}">{{$kabupaten}}</option>
+                            @endforeach
+                            @endif
+                        </select>
                         @error('kabupaten')
                         <span class="text-red-500">{{$message}}</span>
                         @enderror
@@ -84,30 +102,31 @@
                         </div>
                 </div>
             </div>
-            <div class="input-warp-3">
-            <div class="scanSK">
-                <label for="scanSK" id="scanSK-label" class="block text-sm font-semibold leading-6 text-gray-900">Scan SK</label>
-                <div class="mt-1.5 mb-3">
-                    <input type="file" id="scanSK" name="scanSK" value="{{old('scanSK') ?? ''}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                    @error('scanSK')
-                    <span class="text-red-500">{{$message}}</span>
-                    @enderror
+                <div class="input-warp-3">
+                <div class="scanSK">
+                    <label for="scanSK" id="scanSK-label" class="block text-sm font-semibold leading-6 text-gray-900">Scan SK</label>
+                    <div class="mt-1.5 mb-3">
+                        <input type="file" id="scanSK" name="scanSK" value="{{old('scanSK') ?? ''}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        @error('scanSK')
+                        <span class="text-red-500">{{$message}}</span>
+                        @enderror
+                    </div>
                 </div>
-            </div>
-            <div class="tahapanKegiatan">
-                <label for="tahapanKegiatan" class="block text-sm font-semibold leading-6 text-gray-900">Tahapan Kegiatan</label>
-                <div class="mt-1.5 mb-3">
-                    <select name="tahapanKegiatan" id="tahapanKegiatan" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                        @foreach ($tahapanKegiatan as $key => $value)
-                            <option value="{{$key}}">{{$value}}</option>
-                        @endforeach
-                    </select>
-                    @error('tahapanKegiatan')
-                    <span class="text-red-500">{{$message}}</span>
-                    @enderror
+                <div class="tahapanKegiatan">
+                    <label for="tahapanKegiatan" class="block text-sm font-semibold leading-6 text-gray-900">Tahapan Kegiatan</label>
+                    <div class="mt-1.5 mb-3">
+                        <select name="tahapanKegiatan" id="tahapanKegiatan" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            <option value="" disabled selected>Pilih</option>
+                            @foreach ($tahapanKegiatan as $key => $value)
+                                <option value="{{$key}}">{{$value}}</option>
+                            @endforeach
+                        </select>
+                        @error('tahapanKegiatan')
+                        <span class="text-red-500">{{$message}}</span>
+                        @enderror
+                    </div>
                 </div>
-            </div>
-            </div>
+                </div>
 
             <div class="flex flex-row gap-3">
                 <a href="{{route('iup.index')}}">

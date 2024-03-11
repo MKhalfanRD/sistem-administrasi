@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kabupaten;
 use Storage;
 use App\Models\IUP;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class IUPController extends Controller
@@ -32,7 +35,11 @@ class IUPController extends Controller
             'Perpanjangan 1 IUP Tahap Operasi Produksi' => 'Perpanjangan 1 IUP Tahap Operasi Produksi',
             'Perpanjangan 2 IUP Tahap Operasi Produksi' => 'Perpanjangan 2 IUP Tahap Operasi Produksi',
         ];
-        return view('iup.create', compact('tahapanKegiatan'));
+
+        $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
+        $kabupaten = Kabupaten::whereNotNull('kabupaten')->pluck('kabupaten', 'id');
+
+        return view('iup.create', compact('tahapanKegiatan', 'perusahaanUser', 'kabupaten'));
     }
 
     /**
@@ -66,7 +73,7 @@ class IUPController extends Controller
             'tanggalBerakhir_p1' => 'nullable',
             'tanggalBerakhir_p2' => 'nullable',
             'luasWilayah' => 'nullable|numeric',
-            'tahapanKegiatan' => 'required',
+            'tahapanKegiatan' => 'nullable',
             'komoditas' => 'required',
             'lokasiIzin' => 'required',
             'scanSK' => 'nullable|file|mimes:pdf',
@@ -274,7 +281,7 @@ class IUPController extends Controller
                     'masaBerlaku_eksplor' => 'nullable',
                     'tanggalBerakhir_eksplor' => 'nullable'
                 ]);
-                IUP::create([
+                IUP::update([
                     'tanggalSK_eksplor' => $request->tanggalSK_eksplor,
                     'noSK_eksplor' => $request->noSK_eksplor,
                     'masaBerlaku_eksplor' => $request->masaBerlaku_eksplor,
@@ -288,7 +295,7 @@ class IUPController extends Controller
                     'masaBerlaku_op' => 'nullable',
                     'tanggalBerakhir_op' => 'nullable'
                 ]);
-                IUP::create([
+                IUP::update([
                     'tanggalSK_op' => $request->tanggalSK_op,
                     'noSK_op' => $request->noSK_op,
                     'masaBerlaku_op' => $request->masaBerlaku_op,
@@ -302,7 +309,7 @@ class IUPController extends Controller
                     'masaBerlaku_p1' => 'nullable',
                     'tanggalBerakhir_p1' => 'nullable'
                 ]);
-                IUP::create([
+                IUP::update([
                     'tanggalSK_p1' => $request->tanggalSK_p1,
                     'noSK_p1' => $request->noSK_p1,
                     'masaBerlaku_p1' => $request->masaBerlaku_p1,
@@ -316,7 +323,7 @@ class IUPController extends Controller
                     'masaBerlaku_p2' => 'nullable',
                     'tanggalBerakhir_p2' => 'nullable'
                 ]);
-                IUP::create([
+                IUP::update([
                     'tanggalSK_p2' => $request->tanggalSK_p2,
                     'noSK_p2' => $request->noSK_p2,
                     'masaBerlaku_p2' => $request->masaBerlaku_p2,
@@ -325,7 +332,7 @@ class IUPController extends Controller
             }
         }
 
-        $iup = IUP::create([
+        $iup = IUP::update([
             'namaPerusahaan' => $request->namaPerusahaan,
             'alamat' => $request->alamat,
             'npwp' => $request->npwp,

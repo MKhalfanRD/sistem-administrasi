@@ -10,4 +10,8 @@ class Kabupaten extends Model
     use HasFactory;
 
     protected $fillable = ['kabupaten'];
+
+    public function iup(){
+        return $this->hasMany(IUP::class, 'kabupaten', 'kabupaten');
+    }
 }

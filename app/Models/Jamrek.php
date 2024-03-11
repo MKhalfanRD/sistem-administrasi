@@ -9,5 +9,18 @@ class Jamrek extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['namaPerusahaan', 'besaranDitetapkan', 'tanggal', 'filePenempatan', 'besaranDitempatkan', 'tanggalPenempatan', 'jatuhTempo', 'namaBank', 'bentukPenempatan', 'noSeri', 'noRekening', 'fileReklamasi'];
+    protected $fillable = [
+        'namaPerusahaan',
+        'besaranDitetapkan',
+        'tanggal',
+        'filePenempatan',
+        'besaranDitempatkan',
+        'tanggalPenempatan',
+        'jatuhTempo',
+        'namaBank',
+        'bentukPenempatan',
+        'noSeri',
+        'noRekening',
+        'fileReklamasi'
+    ];
 }

@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('noSK_p1')->nullable();
             $table->string('noSK_p2')->nullable();
             $table->string('luasWilayah');
-            $table->string('tahapanKegiatan');
+            $table->string('tahapanKegiatan')->nullable();
             $table->string('komoditas');
             $table->integer('masaBerlaku_eksplor')->nullable();
             $table->integer('masaBerlaku_op')->nullable();
