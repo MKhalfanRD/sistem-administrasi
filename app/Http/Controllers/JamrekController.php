@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Storage;
 use App\Models\Jamrek;
 use Illuminate\Http\Request;
@@ -15,7 +16,9 @@ class JamrekController extends Controller
     }
 
     public function create(){
-        return view('jamrek.create');
+        $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
+        return view('jamrek.create', compact(['perusahaanUser']));
+
     }
 
     public function store(Request $request){
@@ -35,11 +38,11 @@ class JamrekController extends Controller
             'fileReklamasi' => 'nullable|file|mimes:pdf',
         ]);
 
-        $filePenempatan = $request->file('filePenempatan');
-        $filepathPenempatan = $filePenempatan->store('filePenempatan', 'public');
+        $filePenempatan = request()->file('filePenempatan');
+        $filepathPenempatan = $filePenempatan ? $filePenempatan->store('filePenempatan', 'public') : null;
 
-        $fileReklamasi = $request->file('fileReklamasi');
-        $filepathReklamasi = $fileReklamasi->store('fileReklamasi', 'public');
+        $fileReklamasi = request()->file('fileReklamasi');
+        $filepathReklamasi = $fileReklamasi ? $fileReklamasi->store('fileReklamasi', 'public') : null;
 
         $jamrek= Jamrek::create([
             'namaPerusahaan' => $request->namaPerusahaan,
@@ -61,7 +64,9 @@ class JamrekController extends Controller
 
     public function edit($id){
         $jamrek = Jamrek::find($id);
-        return view('jamrek.edit', compact(['jamrek']));
+        $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
+
+        return view('jamrek.edit', compact(['jamrek', 'perusahaanUser']));
     }
 
     public function update(Request $request, $id){
