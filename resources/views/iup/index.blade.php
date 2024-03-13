@@ -1,5 +1,6 @@
 @extends('layout.index')
 @section('content')
+
     <div class="container mx-auto">
         <div class="mx-auto text-left">
             <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Table Izin Usaha Pertambangan</h2>
@@ -7,6 +8,26 @@
         <a href="{{route('iup.create')}}">
             <button type="submit" class="mt-5 mb-5 block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Tambah Data</button>
         </a>
+
+        <div class="relative print">
+            <button type="button" class="mt-5 mb-3 block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" id="printDropdownButton">Print</button>
+            <div class="absolute z-50 w-48 bg-white rounded-md overflow-hidden shadow-md" id="printDropdown" style="display: none;">
+                @foreach ($tahapanKegiatan as $key => $value)
+                    <a href="{{ route('iup.print', ['tahapanKegiatan' => strtolower($key)]) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-100">{{ $value }}</a>
+                @endforeach
+            </div>
+        </div>
+
+        <script>
+            document.getElementById("printDropdownButton").addEventListener("click", function() {
+                var dropdown = document.getElementById("printDropdown");
+                if (dropdown.style.display === "none") {
+                    dropdown.style.display = "block";
+                } else {
+                    dropdown.style.display = "none";
+                }
+            });
+        </script>
 
         <div class="mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -87,7 +108,30 @@
                             {{$iup->lokasiIzin}}
                         </td>
                         <td class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            @if ($iup->statusIzin == 'Aktif')
+                            @php
+                               switch ($iup->tahapanKegiatan) {
+                                case 'WIUP':
+                                    $statusIzin = $iup->wiup->getStatusIzin($tahapanKegiatan);
+                                    break;
+                                case 'IUP Tahap Eksplorasi':
+                                    $statusIzin = $iup->eksplorasi->getStatusIzin($tahapanKegiatan);
+                                    break;
+                                case 'IUP Tahap Operasi Produksi':
+                                    $statusIzin = $iup->operasiProduksi->getStatusIzin($tahapanKegiatan);
+                                    break;
+                                case 'Perpanjangan 1 IUP Tahap Operasi Produksi':
+                                    $statusIzin = $iup->perpanjangan1->getStatusIzin($tahapanKegiatan);
+                                    break;
+                                case 'Perpanjangan 2 IUP Tahap Operasi Produksi':
+                                    $statusIzin = $iup->perpanjangan2->getStatusIzin($tahapanKegiatan);
+                                    break;
+                                default:
+                                    $statusIzin = 'Tidak Diketahui';
+                                    break;
+                            }
+                            @endphp
+
+                            @if ($statusIzin == 'Aktif')
                                 <span class="bg-green-300 px-3 py-2 text-green-700 rounded-md">Aktif</span>
                             @else
                                 <span class="bg-red-300 px-2 py-2 text-red-700 rounded-md">Tidak Aktif</span>

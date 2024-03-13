@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class IUP extends Model
 {
@@ -39,5 +41,53 @@ class IUP extends Model
         'statusIzin',
         'scanSK'
     ];
+
+    public function wiup(): HasOne
+    {
+        return $this->hasOne(WIUP::class);
+    }
+
+    // Relasi dengan model Eksplorasi
+    public function eksplorasi(): HasOne
+    {
+        return $this->hasOne(Eksplorasi::class);
+    }
+
+    // Relasi dengan model OperasiProduksi
+    public function operasiProduksi(): HasOne
+    {
+        return $this->hasOne(OperasiProduksi::class);
+    }
+
+    // Relasi dengan model Perpanjangan1
+    public function perpanjangan1(): HasOne
+    {
+        return $this->hasOne(Perpanjangan1::class);
+    }
+
+    // Relasi dengan model Perpanjangan2
+    public function perpanjangan2(): HasOne
+    {
+        return $this->hasOne(Perpanjangan2::class);
+    }
+
+
+    public function getStatusIzin($tahapanKegiatan)
+{
+    switch ($tahapanKegiatan) {
+        case 'WIUP':
+            return $this->wiup->getStatusIzin($tahapanKegiatan);
+        case 'IUP Tahap Eksplorasi':
+            return $this->eksplorasi->getStatusIzin($tahapanKegiatan);
+        case 'IUP Tahap Operasi Produksi':
+            return $this->operasiProduksi->getStatusIzin($tahapanKegiatan);
+        case 'Perpanjangan 1 IUP Tahap Operasi Produksi':
+            return $this->perpanjangan1->getStatusIzin($tahapanKegiatan);
+        case 'Perpanjangan 2 IUP Tahap Operasi Produksi':
+            return $this->perpanjangan2->getStatusIzin($tahapanKegiatan);
+        default:
+            return 'Tidak Diketahui';
+    }
+}
 
 }

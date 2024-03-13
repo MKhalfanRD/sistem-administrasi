@@ -23,6 +23,7 @@ Route::get('/', [UserController::class, 'index']);
 Route::resource('user', UserController::class);
 
 Route::resource('iup', IUPController::class);
+Route::get('/iup/print/{tahapanKegiatan}', [IUPController::class, 'print'])->name('iup.print');
 
 Route::resource('jamrek', JamrekController::class);
 
