@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Queue\InteractsWithQueue;
+use App\Events\IUPUpdated;
 
 class IUP extends Model
 {
@@ -16,6 +18,7 @@ class IUP extends Model
         'kabupaten',
         'luasWilayah',
         'tahapanKegiatan',
+        'jenisKegiatan',
         'noSK_wiup',
         'noSK_eksplor',
         'noSK_op',
@@ -39,5 +42,33 @@ class IUP extends Model
         'statusIzin',
         'scanSK'
     ];
+
+    // protected $dispatchesEvents = [
+    //     'saved' => IUPStatusUpdateListener::class
+    // ];
+
+//     public function getStatusIzinAttribute()
+// {
+//     $tahapanKegiatan = $this->tahapanKegiatan;
+//     $tanggalSK = $this->getAttribute("tanggalSK_" . strtolower(str_replace(' ', '_', $tahapanKegiatan)));
+//     $tanggalBerakhir = $this->getAttribute("tanggalBerakhir_" . strtolower(str_replace(' ', '_', $tahapanKegiatan)));
+
+//     $isActive = $tanggalSK && now()->gte($tanggalSK);
+
+//     if ($tahapanKegiatan === 'WIUP') {
+//       return $isActive ? 'Aktif' : 'Tidak Aktif';
+//     } else {
+//       return $isActive && $tanggalBerakhir ? 'Aktif' : 'Tidak Aktif';
+//     }
+// }
+
+// public function setStatusIzinAttribute($value)
+// {
+//   // Simpan nilai statusIzin yang diinputkan
+//   $this->attributes['statusIzin'] = $value;
+
+//   // Hitung ulang statusIzin berdasarkan nilai terbaru
+//   $this->statusIzin = $this->getStatusIzinAttribute();
+// }
 
 }

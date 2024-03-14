@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\JamrekController;
 use App\Http\Controllers\KabupatenController;
 use App\Http\Controllers\KomoditasController;
@@ -23,6 +24,7 @@ Route::get('/', [UserController::class, 'index']);
 Route::resource('user', UserController::class);
 
 Route::resource('iup', IUPController::class);
+// Route::get('export', [ExportController::class, 'export'])->name('export.all');
 
 Route::resource('jamrek', JamrekController::class);
 

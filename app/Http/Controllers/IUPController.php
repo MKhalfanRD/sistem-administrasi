@@ -50,7 +50,7 @@ class IUPController extends Controller
         session()->flashInput($request->input());
         $request->validate([
             'namaPerusahaan' => 'required',
-            'alamat'=> 'required',
+            'alamat' => 'required',
             'npwp' => 'required',
             'nib' => 'required',
             'kabupaten' => 'required',
@@ -81,111 +81,57 @@ class IUPController extends Controller
 
         $tanggalSK = $request->tanggalSK;
         $tanggalBerakhir = $request->tanggalBerakhir;
-        $statusIzin = now()->greaterThanOrEqualTo($tanggalSK) && now()->lessThanOrEqualTo($tanggalBerakhir) || now()->isSameDay($tanggalSK) && now()->isSameDay($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif';
 
         $scanSK = request()->file('scanSK');
         $filepath = $scanSK ? $scanSK->store('scanSK', 'public') : null;
 
-        if($request->has('fromModal')){
-            if($request->tahapanKegiatan === 'WIUP'){
-                $request->validate([
-                    'tanggalSK_wiup' => 'nullable',
-                    'noSK_wiup' => 'nullable',
-                ]);
-                IUP::create([
-                    'tanggalSK_wiup' => $request->tanggalSK_wiup,
-                    'noSK_wiup' => $request->noSK_wiup,
-                ]);
-            }
-            else if($request->tahapanKegiatan === 'IUP Tahap Eksplorasi'){
-                $request->validate([
-                    'tanggalSK_eksplor' => 'nullable',
-                    'noSK_eksplor' => 'nullable',
-                    'masaBerlaku_eksplor' => 'nullable',
-                    'tanggalBerakhir_eksplor' => 'nullable'
-                ]);
-                IUP::create([
-                    'tanggalSK_eksplor' => $request->tanggalSK_eksplor,
-                    'noSK_eksplor' => $request->noSK_eksplor,
-                    'masaBerlaku_eksplor' => $request->masaBerlaku_eksplor,
-                    'tanggalBerakhir_eksplor'=>$request->tanggalBerakhir_eksplor,
-                ]);
-            }
-            else if($request->tahapanKegiatan === 'IUP Tahap Operasi Produksi'){
-                $request->validate([
-                    'tanggalSK_op' => 'nullable',
-                    'noSK_op' => 'nullable',
-                    'masaBerlaku_op' => 'nullable',
-                    'tanggalBerakhir_op' => 'nullable'
-                ]);
-                IUP::create([
-                    'tanggalSK_op' => $request->tanggalSK_op,
-                    'noSK_op' => $request->noSK_op,
-                    'masaBerlaku_op' => $request->masaBerlaku_op,
-                    'tanggalBerakhir_op'=>$request->tanggalBerakhir_op,
-                ]);
-            }
-            else if($request->tahapanKegiatan === 'Perpanjangan 1 IUP Tahap Operasi Produksi'){
-                $request->validate([
-                    'tanggalSK_p1' => 'nullable',
-                    'noSK_p1' => 'nullable',
-                    'masaBerlaku_p1' => 'nullable',
-                    'tanggalBerakhir_p1' => 'nullable'
-                ]);
-                IUP::create([
-                    'tanggalSK_p1' => $request->tanggalSK_p1,
-                    'noSK_p1' => $request->noSK_p1,
-                    'masaBerlaku_p1' => $request->masaBerlaku_p1,
-                    'tanggalBerakhir_p1'=>$request->tanggalBerakhir_p1,
-                ]);
-            }
-            else if($request->tahapanKegiatan === 'Perpanjangan 2 IUP Tahap Operasi Produksi'){
-                $request->validate([
-                    'tanggalSK_p2' => 'nullable',
-                    'noSK_p2' => 'nullable',
-                    'masaBerlaku_p2' => 'nullable',
-                    'tanggalBerakhir_p2' => 'nullable'
-                ]);
-                IUP::create([
-                    'tanggalSK_p2' => $request->tanggalSK_p2,
-                    'noSK_p2' => $request->noSK_p2,
-                    'masaBerlaku_p2' => $request->masaBerlaku_p2,
-                    'tanggalBerakhir_p2'=>$request->tanggalBerakhir_p2,
-                ]);
-            }
+        $jenisKegiatan = '';
+        $tahapanKegiatan = $request->tahapanKegiatan;
+        switch ($tahapanKegiatan) {
+            case 'WIUP':
+                $tanggalSK = $request->tanggalSK_wiup;
+                $noSK = $request->noSK_wiup;
+                $jenisKegiatan = 'wiup';
+                break;
+            case 'IUP Tahap Eksplorasi':
+                $tanggalSK = $request->tanggalSK_eksplor;
+                $tanggalBerakhir = $request->tanggalBerakhir_eksplor;
+                $jenisKegiatan = 'eksplor';
+                break;
+            case 'IUP Tahap Operasi Produksi':
+                $tanggalSK = $request->tanggalSK_op;
+                $tanggalBerakhir = $request->tanggalBerakhir_op;
+                $jenisKegiatan = 'op';
+                break;
+            case 'Perpanjangan 1 IUP Tahap Operasi Produksi':
+                $tanggalSK = $request->tanggalSK_p1;
+                $tanggalBerakhir = $request->tanggalBerakhir_p1;
+                $jenisKegiatan = 'p1';
+                break;
+            case 'Perpanjangan 2 IUP Tahap Operasi Produksi':
+                $tanggalSK = $request->tanggalSK_p2;
+                $tanggalBerakhir = $request->tanggalBerakhir_p2;
+                $jenisKegiatan = 'p2';
+                break;
+            default:
+                $tanggalSK = null;
+                $tanggalBerakhir = null;
+                break;
         }
 
-        $iup = IUP::create([
-            'namaPerusahaan' => $request->namaPerusahaan,
-            'alamat' => $request->alamat,
-            'npwp' => $request->npwp,
-            'nib' => $request->nib,
-            'kabupaten' => $request->kabupaten,
-            'noSK_wiup' => $request->noSK_wiup,
-            'noSK_eksplor' => $request->noSK_eksplor,
-            'noSK_op' => $request->noSK_op,
-            'noSK_p1' => $request->noSK_p1,
-            'noSK_p2' => $request->noSK_p2,
-            'luasWilayah' => $request->luasWilayah,
-            'tahapanKegiatan' => $request->tahapanKegiatan,
-            'masaBerlaku_eksplor' => $request->masaBerlaku_eksplor,
-            'masaBerlaku_op' => $request->masaBerlaku_op,
-            'masaBerlaku_p1' => $request->masaBerlaku_p1,
-            'masaBerlaku_p2' => $request->masaBerlaku_p2,
-            'komoditas' => $request->komoditas,
-            'tanggalSK_wiup' => $request->tanggalSK_wiup,
-            'tanggalSK_eksplor' => $request->tanggalSK_eksplor,
-            'tanggalSK_op' => $request->tanggalSK_op,
-            'tanggalSK_p1' => $request->tanggalSK_p1,
-            'tanggalSK_p2' => $request->tanggalSK_p2,
-            'tanggalBerakhir_eksplor' => $request->tanggalBerakhir_eksplor,
-            'tanggalBerakhir_op' => $request->tanggalBerakhir_op,
-            'tanggalBerakhir_p1' => $request->tanggalBerakhir_p1,
-            'tanggalBerakhir_p2' => $request->tanggalBerakhir_p2,
-            'lokasiIzin' => $request->lokasiIzin,
-            'statusIzin' => $statusIzin,
-            'scanSK' => $filepath,
-        ]);
+        $statusIzin = $tahapanKegiatan === 'WIUP' && $tanggalSK && now()->gte($tanggalSK) ? 'Aktif' : 'Tidak Aktif';
+
+        if ($tahapanKegiatan !== 'WIUP') {
+            $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
+        }
+
+        $iupData = $request->except('fromModal', 'scanSK');
+        $iupData['statusIzin'] = $statusIzin;
+        $iupData['scanSK'] = $filepath;
+        $iupData['jenisKegiatan'] = $jenisKegiatan;
+        // dd($jenisKegiatan);
+
+        $iup = IUP::create($iupData);
 
         // dd($tanggalMulai, $tanggalBerakhir, now());
         // dd($iup);
@@ -227,59 +173,122 @@ class IUPController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
-{
-    $request->validate([
-        'namaPerusahaan' => 'required',
-        'alamat'=> 'required',
-        'npwp' => 'required',
-        'nib' => 'required',
-        'kabupaten' => 'required',
-        'noSK_wiup' => 'nullable',
-        'noSK_eksplor' => 'nullable',
-        'noSK_op' => 'nullable',
-        'noSK_p1' => 'nullable',
-        'noSK_p2' => 'nullable',
-        'masaBerlaku_eksplor' => 'nullable',
-        'masaBerlaku_op' => 'nullable',
-        'masaBerlaku_p1' => 'nullable',
-        'masaBerlaku_p2' => 'nullable',
-        'tanggalSK_wiup' => 'nullable',
-        'tanggalSK_eksplor' => 'nullable',
-        'tanggalSK_op' => 'nullable',
-        'tanggalSK_p1' => 'nullable',
-        'tanggalSK_p2' => 'nullable',
-        'tanggalBerakhir_eksplor' => 'nullable',
-        'tanggalBerakhir_op' => 'nullable',
-        'tanggalBerakhir_p1' => 'nullable',
-        'tanggalBerakhir_p2' => 'nullable',
-        'luasWilayah' => 'nullable|numeric',
-        'tahapanKegiatan' => 'nullable',
-        'komoditas' => 'required',
-        'lokasiIzin' => 'required',
-        'scanSK' => 'nullable|file|mimes:pdf',
-    ]);
+    {
+        // dd($request->all());
+        $request->validate([
+            'namaPerusahaan' => 'required',
+            'alamat' => 'required',
+            'npwp' => 'required',
+            'nib' => 'required',
+            'kabupaten' => 'required',
+            'noSK_wiup' => 'nullable',
+            'noSK_eksplor' => 'nullable',
+            'noSK_op' => 'nullable',
+            'noSK_p1' => 'nullable',
+            'noSK_p2' => 'nullable',
+            'masaBerlaku_eksplor' => 'nullable',
+            'masaBerlaku_op' => 'nullable',
+            'masaBerlaku_p1' => 'nullable',
+            'masaBerlaku_p2' => 'nullable',
+            'tanggalSK_wiup' => 'nullable',
+            'tanggalSK_eksplor' => 'nullable',
+            'tanggalSK_op' => 'nullable',
+            'tanggalSK_p1' => 'nullable',
+            'tanggalSK_p2' => 'nullable',
+            'tanggalBerakhir_eksplor' => 'nullable',
+            'tanggalBerakhir_op' => 'nullable',
+            'tanggalBerakhir_p1' => 'nullable',
+            'tanggalBerakhir_p2' => 'nullable',
+            'luasWilayah' => 'nullable|numeric',
+            'tahapanKegiatan' => 'nullable',
+            'komoditas' => 'required',
+            'lokasiIzin' => 'required',
+            'scanSK' => 'nullable|file|mimes:pdf',
+        ]);
 
-    $iup = IUP::find($id);
+        $iup = IUP::find($id);
 
-    // Jika tidak ada perubahan pada data, langsung kembalikan ke halaman sebelumnya
-    if ($request->has('fromModal') && empty($request->all())) {
-        return redirect()->back()->with('status', 'Tidak ada perubahan yang dilakukan.');
+        $tahapanKegiatan = $iup->tahapanKegiatan;
+        switch ($tahapanKegiatan) {
+            case 'WIUP':
+                $tanggalSK = $request->tanggalSK_wiup;
+                $noSK = $request->noSK_wiup;
+                $jenisKegiatan = 'wiup';
+                $statusIzin = now()->gte($tanggalSK) ? 'Aktif' : 'Tidak Aktif';
+
+                break;
+            case 'IUP Tahap Eksplorasi':
+                $tanggalSK = $request->tanggalSK_eksplor;
+                $tanggalBerakhir = $request->tanggalBerakhir_eksplor;
+                $jenisKegiatan = 'eksplor';
+                $statusIzin = now()->gte($tanggalSK) ? 'Aktif' : 'Tidak Aktif';
+                break;
+            case 'IUP Tahap Operasi Produksi':
+                $tanggalSK = $request->tanggalSK_op;
+                $tanggalBerakhir = $request->tanggalBerakhir_op;
+                $jenisKegiatan = 'op';
+                $statusIzin = now()->gte($tanggalSK) ? 'Aktif' : 'Tidak Aktif';
+                break;
+            case 'Perpanjangan 1 IUP Tahap Operasi Produksi':
+                $tanggalSK = $request->tanggalSK_p1;
+                $tanggalBerakhir = $request->tanggalBerakhir_p1;
+                $jenisKegiatan = 'p1';
+                $statusIzin = now()->gte($tanggalSK) ? 'Aktif' : 'Tidak Aktif';
+                break;
+            case 'Perpanjangan 2 IUP Tahap Operasi Produksi':
+                $tanggalSK = $request->tanggalSK_p2;
+                $tanggalBerakhir = $request->tanggalBerakhir_p2;
+                $jenisKegiatan = 'p2';
+                $statusIzin = now()->gte($tanggalSK) ? 'Aktif' : 'Tidak Aktif';
+                break;
+            default:
+                $tanggalSK = null;
+                $tanggalBerakhir = null;
+                break;
+        }
+
+        // $statusIzin = $tahapanKegiatan === 'WIUP' && $tanggalSK && now()->gte($tanggalSK) ? 'Aktif' : 'Tidak Aktif';
+
+        // if ($tahapanKegiatan !== 'WIUP') {
+        //     $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
+        // }
+
+        $iupData = $request->except('fromModal', 'scanSK');
+        $iupData['statusIzin'] = $statusIzin;
+        // $iupData['scanSK'] = $filepath;
+        $iupData['jenisKegiatan'] = $jenisKegiatan;
+
+        // $tanggalSK = $iup->getAttribute("tanggalSK_".$iup->jenisKegiatan);
+        // $tanggalBerakhir = $iup->getAttribute("tanggalBerakhir_".$iup->jenisKegiatan);
+        // dd($tanggalSK, $tanggalBerakhir);
+        // // Recalculate statusIzin based on the updated attributes
+        // $statusIzin = $tahapanKegiatan === 'WIUP' && $tanggalSK && now()->gte($tanggalSK) ? 'Aktif' : 'Tidak Aktif';
+
+        // if ($tahapanKegiatan !== 'WIUP') {
+        //     $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
+        // }
+
+        // $iupData = $request->except('fromModal', 'scanSK');
+        // $iupData['statusIzin'] = $statusIzin;
+
+        // // Save the updated row
+        // $iup->save();
+
+        // $iup->statusIzin = $request->statusIzin;
+
+        if ($request->hasFile('scanSK')) {
+            $scanSK = $request->file('scanSK');
+            $filepath = $scanSK->store('scanSK', 'public');
+            $iup->scanSK = $filepath;
+        }
+        $iup->update($iupData);
+
+        // $iup->save();
+        // $iup->statusIzin;
+
+        // dd($iup);
+        return redirect()->route('iup.index')->with('status', 'Data berhasil diperbarui.');
     }
-
-    // Proses pembaruan hanya untuk data yang berubah
-    $iup->update($request->except(['_token', '_method', 'fromModal']));
-
-    // Perbarui scanSK jika file PDF baru diunggah
-    if ($request->hasFile('scanSK')) {
-        $scanSK = $request->file('scanSK');
-        $filepath = $scanSK->store('scanSK', 'public');
-        $iup->scanSK = $filepath;
-        $iup->save();
-    }
-
-    // Kembalikan ke halaman index dengan pesan sukses
-    return redirect()->route('iup.index')->with('status', 'Data berhasil diperbarui.');
-}
     /**
      * Remove the specified resource from storage.
      */
@@ -288,7 +297,7 @@ class IUPController extends Controller
         $IUP = IUP::find($id);
 
         if (!is_null($IUP->scanSK)) {
-        Storage::disk('public')->delete($IUP->scanSK);
+            Storage::disk('public')->delete($IUP->scanSK);
         }
 
         $IUP->delete();
