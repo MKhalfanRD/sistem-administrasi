@@ -7,6 +7,7 @@ use Storage;
 use App\Models\IUP;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class IUPController extends Controller
@@ -14,13 +15,22 @@ class IUPController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $query = IUP::query();
+
+        if ($request->has('search')) {
+            $searchTerm = $request->input('search');
+            $query->where('namaPerusahaan', 'LIKE', '%' . $searchTerm . '%')
+                ->orWhere('npwp', 'LIKE', '%' . $searchTerm . '%')
+                ->orWhere('nib', 'LIKE', '%' . $searchTerm . '%')
+                ->orWhere('jenisKegiatan', 'LIKE', '%' . $searchTerm . '%');
+        }
+
+        $results = $query->get();
         $IUP = IUP::all();
-        // $scanSK = request()->file('scanSK');
-        // $filepath = $scanSK->store('scanSK', 'public');
-        // return view('iup.index', compact(['IUP', 'filepath']));
-        return view('iup.index', compact(['IUP']));
+        // dd($request->all());
+        return view('iup.index', compact('results', 'IUP'));
     }
 
     /**
@@ -221,25 +231,25 @@ class IUPController extends Controller
                 $tanggalSK = $request->tanggalSK_eksplor;
                 $tanggalBerakhir = $request->tanggalBerakhir_eksplor;
                 $jenisKegiatan = 'eksplor';
-                $statusIzin = now()->gte($tanggalSK) ? 'Aktif' : 'Tidak Aktif';
+                $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
                 break;
             case 'IUP Tahap Operasi Produksi':
                 $tanggalSK = $request->tanggalSK_op;
                 $tanggalBerakhir = $request->tanggalBerakhir_op;
                 $jenisKegiatan = 'op';
-                $statusIzin = now()->gte($tanggalSK) ? 'Aktif' : 'Tidak Aktif';
+                $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
                 break;
             case 'Perpanjangan 1 IUP Tahap Operasi Produksi':
                 $tanggalSK = $request->tanggalSK_p1;
                 $tanggalBerakhir = $request->tanggalBerakhir_p1;
                 $jenisKegiatan = 'p1';
-                $statusIzin = now()->gte($tanggalSK) ? 'Aktif' : 'Tidak Aktif';
+                $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
                 break;
             case 'Perpanjangan 2 IUP Tahap Operasi Produksi':
                 $tanggalSK = $request->tanggalSK_p2;
                 $tanggalBerakhir = $request->tanggalBerakhir_p2;
                 $jenisKegiatan = 'p2';
-                $statusIzin = now()->gte($tanggalSK) ? 'Aktif' : 'Tidak Aktif';
+                $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
                 break;
             default:
                 $tanggalSK = null;

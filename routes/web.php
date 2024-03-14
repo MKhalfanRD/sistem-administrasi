@@ -24,6 +24,7 @@ Route::get('/', [UserController::class, 'index']);
 Route::resource('user', UserController::class);
 
 Route::resource('iup', IUPController::class);
+Route::get('/iup', [IUPController::class, 'index'])->name('iup.index');
 // Route::get('export', [ExportController::class, 'export'])->name('export.all');
 
 Route::resource('jamrek', JamrekController::class);
