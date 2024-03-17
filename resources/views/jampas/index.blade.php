@@ -2,9 +2,9 @@
 @section('content')
 <div class="container mx-auto">
     <div class="mx-auto text-left">
-        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Table Jaminan Reklamasi</h2>
+        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Table Jaminan Pasca</h2>
     </div>
-    <a href="{{route('jamrek.create')}}">
+    <a href="{{route('jampas.create')}}">
         <button type="submit" class="mt-5 mb-5 block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Tambah Data</button>
     </a>
 
@@ -60,7 +60,7 @@
                 @php
                     $counter = 0;
                 @endphp
-                @foreach ($jamrek as $jr)
+                @foreach ($jampas as $jp)
                 {{-- @if (isset($filepath))
                     <a href="{{asset($filepath)}}" download="{{$jr->scanSK}}.pdf"></a>
                 @endif --}}
@@ -72,17 +72,17 @@
                         {{$counter}}
                     </td>
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{$jr->namaPerusahaan}}
+                        {{$jp->namaPerusahaan}}
                     </th>
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{$jr->besaranDitetapkan}}
+                        {{$jp->besaranDitetapkan}}
                     </th>
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{$jr->tanggal}}
+                        {{$jp->tanggal}}
                     </th>
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        @if ($jr->filePenempatan)
-                        <a href="{{ asset('storage/' . $jr->filePenempatan) }}" target="_blank">
+                        @if ($jp->filePenempatan)
+                        <a href="{{ asset('storage/' . $jp->filePenempatan) }}" target="_blank">
                             <img src="{{ asset('icon/ikon-pdf.png') }}"
                                 class="bg-gray-300 hover:bg-gray-200 rounded-md p-1 w-10 h-10 mx-auto"
                                 alt="PDF Icon">
@@ -91,29 +91,29 @@
                         <p>Tidak Ada</p>
                     @endif                    </th>
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{$jr->besaranDitempatkan}}
+                        {{$jp->besaranDitempatkan}}
                     </th>
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{$jr->tanggalPenempatan}}
+                        {{$jp->tanggalPenempatan}}
                     </th>
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{$jr->jatuhTempo}}
+                        {{$jp->jatuhTempo}}
                     </th>
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{$jr->namaBank}}
+                        {{$jp->namaBank}}
                     </th>
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{$jr->bentukPenempatan}}
+                        {{$jp->bentukPenempatan}}
                     </th>
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{$jr->noSeri}}
+                        {{$jp->noSeri}}
                     </th>
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{$jr->noRekening}}
+                        {{$jp->noRekening}}
                     </th>
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        @if ($jr->fileReklamasi)
-                                    <a href="{{ asset('storage/' . $jr->fileReklamasi) }}" target="_blank">
+                        @if ($jp->filePasca)
+                                    <a href="{{ asset('storage/' . $jp->filePasca) }}" target="_blank">
                                         <img src="{{ asset('icon/ikon-pdf.png') }}"
                                             class="bg-gray-300 hover:bg-gray-200 rounded-md p-1 w-10 h-10 mx-auto"
                                             alt="PDF Icon">
@@ -124,10 +124,10 @@
                     </th>
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         <div class="btn-wrap flex flex-row gap-3">
-                            <a href="{{route('jamrek.edit', $jr->id)}}">
+                            <a href="{{route('jampas.edit', $jp->id)}}">
                                 <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-lg">Edit</button>
                             </a>
-                            <form action="{{route('jamrek.destroy', $jr->id)}}" method="POST">
+                            <form action="{{route('jampas.destroy', $jp->id)}}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button class="text-white hover:bg-gray-700 px-5 py-2.5 rounded-lg border border-gray-300">Delete</button>

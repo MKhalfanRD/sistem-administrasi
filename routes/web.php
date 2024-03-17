@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\CadanganController;
 use App\Http\Controllers\ExportController;
+use App\Http\Controllers\JampasController;
 use App\Http\Controllers\JamrekController;
 use App\Http\Controllers\KabupatenController;
 use App\Http\Controllers\KomoditasController;
+use App\Http\Controllers\SumberdayaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\IUPController;
@@ -24,28 +27,27 @@ Route::get('/', [UserController::class, 'index']);
 Route::resource('user', UserController::class);
 
 Route::resource('iup', IUPController::class);
-Route::get('/iup', [IUPController::class, 'index'])->name('iup.index');
+// Route::get('/iup/search', [IUPController::class, 'search'])->name('iup.search');
+
 // Route::get('export', [ExportController::class, 'export'])->name('export.all');
 
 Route::resource('jamrek', JamrekController::class);
+
+Route::resource('jampas', JampasController::class);
 
 Route::resource('komoditas', KomoditasController::class);
 
 Route::resource('kabupaten', KabupatenController::class);
 
+Route::resource('sumberdaya', SumberdayaController::class);
+
+Route::resource('cadangan', CadanganController::class);
+
 Route::get('/sidebar', function () {
     return view('sidebar');
 });
 
-Route::get('/jampas', function () {
-    return view('tableJamPas');
-});
-Route::get('/sumberdaya', function () {
-    return view('sumberdaya');
-});
-Route::get('/cadangan', function () {
-    return view('cadangan');
-});
+
 Route::get('/produksi', function () {
     return view('tableProduksi');
 });

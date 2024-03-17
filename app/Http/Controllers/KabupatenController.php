@@ -32,4 +32,30 @@ class KabupatenController extends Controller
         ->with('success', 'Data berhasil disimpan')
         ->with('delay', 1500);
     }
+
+    public function edit($id){
+        $kabupaten = Kabupaten::findOrFail($id);
+
+        return view('kabupaten.edit', compact(['kabupaten']));
+    }
+
+    public function update(Request $request, $id){
+        $request->validate([
+            'kabupaten' => 'required',
+        ]);
+
+        $kabupaten = Kabupaten::find($id);
+
+        $kabupaten->update([
+            'kabupaten' => $request->kabupaten,
+        ]);
+
+        return redirect()->route('kabupaten.index');
+    }
+
+    public function destroy($id){
+        $kabupaten = Kabupaten::destroy($id);
+
+        return redirect()->route('kabupaten.index');
+    }
 }

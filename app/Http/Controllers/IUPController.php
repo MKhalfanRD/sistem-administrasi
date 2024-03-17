@@ -17,21 +17,40 @@ class IUPController extends Controller
      */
     public function index(Request $request)
     {
-        $query = IUP::query();
+        // dd($request->all());
+        // dd($request->all());
+        $IUP = IUP::all();
+        $search = new IUP;
 
-        if ($request->has('search')) {
-            $searchTerm = $request->input('search');
-            $query->where('namaPerusahaan', 'LIKE', '%' . $searchTerm . '%')
-                ->orWhere('npwp', 'LIKE', '%' . $searchTerm . '%')
-                ->orWhere('nib', 'LIKE', '%' . $searchTerm . '%')
-                ->orWhere('jenisKegiatan', 'LIKE', '%' . $searchTerm . '%');
+        if ($request->get('search')) {
+            $search = $search->where('namaPerusahaan', 'LIKE', '%' . $request->get('search') . '%')
+            ->orWhere('npwp', 'LIKE', '%' . $request->get('search') . '%')
+            ->orWhere('nib', 'LIKE', '%' . $request->get('search') . '%')
+            ->orWhere('tahapanKegiatan', 'LIKE', '%' . $request->get('search') . '%');
         }
 
-        $results = $query->get();
-        $IUP = IUP::all();
-        // dd($request->all());
-        return view('iup.index', compact('results', 'IUP'));
+        $search = $search->get();
+
+        // return view('iup.index', compact('search', 'request'));
+        return view('iup.index', compact(['IUP', 'search', 'request']));
     }
+
+    // public function search(Request $request)
+    // {   dd($request->all());
+    //     $search = new IUP;
+
+    //     if ($request->get('search')) {
+    //         $search = $search->where('namaPerusahaan', 'LIKE', '%' . $request->get('search') . '%')
+    //         ->orWhere('npwp', 'LIKE', '%' . $request->get('search') . '%')
+    //         ->orWhere('nib', 'LIKE', '%' . $request->get('search') . '%')
+    //         ->orWhere('tahapanKegiatan', 'LIKE', '%' . $request->get('search') . '%');
+    //     }
+
+    //     $search = $search->get();
+
+    //     return view('iup.index', compact('search', 'request'));
+
+    // }
 
     /**
      * Show the form for creating a new resource.

@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Jampas;
 use Storage;
-use App\Models\Jamrek;
+use App\Models\User;
+
 use Illuminate\Http\Request;
 
-class JamrekController extends Controller
+class JampasController extends Controller
 {
     public function index()
     {
-        $jamrek = Jamrek::all();
-        return view('jamrek.index', compact(['jamrek']));
+        $jampas = Jampas::all();
+        return view('jampas.index', compact(['jampas']));
     }
 
     public function create(){
         $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
-        return view('jamrek.create', compact(['perusahaanUser']));
+        return view('jampas.create', compact(['perusahaanUser']));
 
     }
 
@@ -35,30 +36,30 @@ class JamrekController extends Controller
             'bentukPenempatan' => 'required',
             'noSeri' => 'required',
             'noRekening' => 'required',
-            'fileReklamasi' => 'nullable|file|mimes:pdf',
+            'filePasca' => 'nullable|file|mimes:pdf',
         ]);
 
         $filePenempatan = request()->file('filePenempatan');
         $filepathPenempatan = $filePenempatan ? $filePenempatan->store('filePenempatan', 'public') : null;
 
-        $fileReklamasi = request()->file('fileReklamasi');
-        $filepathReklamasi = $fileReklamasi ? $fileReklamasi->store('fileReklamasi', 'public') : null;
+        $filePasca = request()->file('filePasca');
+        $filepathPasca = $filePasca ? $filePasca->store('filePasca', 'public') : null;
 
-        $jamrekData = $request->all();
-        $jamrekData['filePenempatan'] = $filepathPenempatan;
-        $jamrekData['fileReklamasi'] = $filepathReklamasi;
+        $jampasData = $request->all();
+        $jampasData['filePenempatan'] = $filepathPenempatan;
+        $jampasData['filePasca'] = $filepathPasca;
 
-        $jamrek = Jamrek::create($jamrekData);
-        dd($jamrekData);
+        $jampas = Jampas::create($jampasData);
+        dd($jampasData);
 
-        return redirect()->route('jamrek.index');
+        return redirect()->route('jampas.index');
     }
 
     public function edit($id){
-        $jamrek = Jamrek::find($id);
+        $jampas = Jampas::find($id);
         $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
 
-        return view('jamrek.edit', compact(['jamrek', 'perusahaanUser']));
+        return view('jampas.edit', compact(['jampas', 'perusahaanUser']));
     }
 
     public function update(Request $request, $id){
@@ -75,34 +76,34 @@ class JamrekController extends Controller
             'bentukPenempatan' => 'required',
             'noSeri' => 'required',
             'noRekening' => 'required',
-            'fileReklamasi' => 'nullable|file|mimes:pdf',
+            'filePasca' => 'nullable|file|mimes:pdf',
         ]);
 
-        $jamrek = Jamrek::find($id);
+        $jampas = Jampas::find($id);
 
         if($request->hasFile('filePenempatan')){
-            if($jamrek->filePenempatan){
-                Storage::disk('public')->delete($jamrek->filePenempatan);
+            if($jampas->filePenempatan){
+                Storage::disk('public')->delete($jampas->filePenempatan);
             }
             $filePenempatan = request()->file('filePenempatan');
             $filepathPenempatan = $filePenempatan->store('filePenempatan', 'public');
         }
         else {
-            $filepathPenempatan = $jamrek->filePenempatan;
+            $filepathPenempatan = $jampas->filePenempatan;
         }
 
         if ($request->hasFile('fileReklamasi')){
-            if($jamrek->fileReklamasi){
-                Storage::disk('public')->delete($jamrek->fileReklamasi);
+            if($jampas->filePasca){
+                Storage::disk('public')->delete($jampas->filePasca);
             }
-            $fileReklamasi = request()->file('fileReklamasi');
-            $filepathReklamasi = $fileReklamasi->store('fileReklamasi', 'public');
+            $filePasca = request()->file('filePasca');
+            $filepathPasca = $filePasca->store('filePasca', 'public');
         }
         else {
-            $filepathReklamasi = $jamrek->fileReklamasi;
+            $filepathPasca = $jampas->filePasca;
         }
 
-        $jamrek->update([
+        $jampas->update([
             'namaPerusahaan' => $request->namaPerusahaan,
             'besaranDitetapkan' => $request->besaranDitetapkan,
             'tanggal' => $request->tanggal,
@@ -114,20 +115,20 @@ class JamrekController extends Controller
             'bentukPenempatan' => $request->bentukPenempatan,
             'noSeri' => $request->noSeri,
             'noRekening' => $request->noRekening,
-            'fileReklamasi' => $filepathReklamasi,
+            'filePasca' => $filepathPasca,
         ]);
 
-        // dd($jamrek);
+        dd($jampas);
 
-        return redirect()->route('jamrek.index');
+        return redirect()->route('jampas.index');
     }
 
     public function destroy($id){
-        $jamrek = Jamrek::find($id);
-        Storage::disk('public')->delete($jamrek->filePenempatan);
-        Storage::disk('public')->delete($jamrek->fileReklamasi);
-        $jamrek->delete();
+        $jampas = Jampas::find($id);
+        Storage::disk('public')->delete($jampas->filePenempatan);
+        Storage::disk('public')->delete($jampas->filePasca);
+        $jampas->delete();
 
-        return redirect()->route('jamrek.index');
+        return redirect()->route('jampas.index');
     }
 }
