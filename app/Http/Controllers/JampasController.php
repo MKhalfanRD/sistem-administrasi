@@ -50,7 +50,7 @@ class JampasController extends Controller
         $jampasData['filePasca'] = $filepathPasca;
 
         $jampas = Jampas::create($jampasData);
-        dd($jampasData);
+        // dd($jampasData);
 
         return redirect()->route('jampas.index');
     }
@@ -118,7 +118,7 @@ class JampasController extends Controller
             'filePasca' => $filepathPasca,
         ]);
 
-        dd($jampas);
+        // dd($jampas);
 
         return redirect()->route('jampas.index');
     }

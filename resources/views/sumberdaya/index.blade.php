@@ -47,12 +47,12 @@
                             {{$counter}}
                         </td>
                         <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$s->namaPerusahaan}}</td>
-                        <td class="text-center border-l-2 border-white font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$s->volumeTereka}}</td>
+                        <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$s->volumeTereka}}</td>
                         <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$s->tonaseTereka}}</td>
-                        <td class="text-center border-l-2 border-white font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$s->volumeTertunjuk}}</td>
+                        <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$s->volumeTertunjuk}}</td>
                         <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$s->tonaseTertunjuk}}</td>
-                        <td class="text-center border-l-2 border-white font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$s->volumeTerukur}}</td>
-                        <td class="text-center border-r-2 border-white font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$s->tonaseTerukur}}</td>
+                        <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$s->volumeTerukur}}</td>
+                        <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$s->tonaseTerukur}}</td>
                         <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$s->luas}}</td>
                         <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$s->cp}}</td>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">

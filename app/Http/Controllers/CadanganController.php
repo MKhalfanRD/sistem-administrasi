@@ -55,7 +55,7 @@ class CadanganController extends Controller
 
         $cadanganData = $request->all();
         $cadangan = Cadangan::create($cadanganData);
-        dd($cadangan);
+        // dd($cadangan);
         return redirect()->route('cadangan.index');
     }
 
@@ -103,7 +103,7 @@ class CadanganController extends Controller
 
 
         $cadanganData = $request->all();
-        $cadangan = Cadangan::update($cadanganData);
+        $cadangan->update($cadanganData);
 
         return redirect()->route('cadangan.index');
     }

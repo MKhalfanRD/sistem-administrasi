@@ -2,9 +2,9 @@
 @section('content')
     <div class="container mx-auto">
         <div class="mx-auto text-left">
-            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Table Cadangan</h2>
+            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Table Bukti Bayar</h2>
         </div>
-        <a href="{{route('cadangan.create')}}">
+        <a href="{{route('buktiBayar.create')}}">
             <button type="submit"
                 class="mt-5 mb-5 block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Tambah
                 Data</button>
@@ -16,15 +16,12 @@
                         <tr>
                             <th rowspan="2" class="p-4 text-center">No</th>
                             <th rowspan="2" class="px-6 py-3 text-center">Nama Perusahaan</th>
-                            <th colspan="2" class="px-6 py-3 text-center">Terkira</th>
-                            <th colspan="2" class="px-6 py-3 text-center">Terbukti</th>
-                            <th rowspan="2" class="px-6 py-3 text-center">Luas</th>
-                            <th rowspan="2" class="px-6 py-3 text-center">CP</th>
+                            <th colspan="2" class="px-6 py-3 text-center">Jumlah buktiBayar</th>
+                            <th rowspan="2" class="px-6 py-3 text-center">Bukti Bayar</th>
+                            <th rowspan="2" class="px-6 py-3 text-center">Date</th>
                             <th rowspan="2" class="px-6 py-3 text-center">Aksi</th>
                         </tr>
                         <tr>
-                            <th class="px-6 text-center">Volume (m3)</th>
-                            <th class="px-6 text-center">Tonase</th>
                             <th class="px-6 text-center">Volume (m3)</th>
                             <th class="px-6 text-center">Tonase</th>
                         </tr>
@@ -33,7 +30,7 @@
                         @php
                             $counter = 0;
                         @endphp
-                        @foreach ($cadangan as $c)
+                        @foreach ($buktiBayar as $bb)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">
                                 @php
@@ -41,19 +38,17 @@
                                 @endphp
                                 {{$counter}}
                             </td>
-                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$c->namaPerusahaan}}</td>
-                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$c->volumeTerkira}}</td>
-                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$c->tonaseTerkira}}</td>
-                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$c->volumeTerbukti}}</td>
-                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$c->tonaseTerbukti}}</td>
-                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$c->luas}}</td>
-                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$c->cp}}</td>
+                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$bb->namaPerusahaan}}</td>
+                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$bb->volumebuktiBayar}}</td>
+                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$bb->tonasebuktiBayar}}</td>
+                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$bb->buktiBayar}}</td>
+                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$bb->date}}</td>
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 <div class="btn-wrap flex flex-row gap-3">
-                                    <a href="{{route('cadangan.edit', $c->id)}}">
+                                    <a href="{{route('buktiBayar.edit', $bb->id)}}">
                                         <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-lg">Edit</button>
                                     </a>
-                                    <form action="{{route('cadangan.destroy', $c->id)}}" method="POST">
+                                    <form action="{{route('buktiBayar.destroy', $bb->id)}}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button class="text-white hover:bg-gray-700 px-5 py-2.5 rounded-lg border border-gray-300">Delete</button>

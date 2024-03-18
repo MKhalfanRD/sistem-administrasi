@@ -49,7 +49,7 @@ class JamrekController extends Controller
         $jamrekData['fileReklamasi'] = $filepathReklamasi;
 
         $jamrek = Jamrek::create($jamrekData);
-        dd($jamrekData);
+        // dd($jamrekData);
 
         return redirect()->route('jamrek.index');
     }

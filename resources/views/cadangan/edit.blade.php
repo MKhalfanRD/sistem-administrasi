@@ -6,8 +6,9 @@
             <p class="mt-2 text-lg leading-8 text-gray-600">Edit Data Cadangan</p>
         </div>
 
-        <form action="{{route('cadangan.store')}}" method="POST" class="mx-auto mt-16 max-w-5xl grid grid-cols-1 gap-4 md:grid-cols-2" enctype="multipart/form-data">
+        <form action="{{route('cadangan.update', $cadangan->id)}}" method="POST" class="mx-auto mt-16 max-w-5xl grid grid-cols-1 gap-4 md:grid-cols-2" enctype="multipart/form-data">
             @csrf
+            @method('PUT ')
             <div class="input-wrap">
                 <div class="namaPerusahaan">
                     <label for="namaPerusahaan" class="block text-sm font-semibold leading-6 text-gray-900">Nama Perusahaan</label>
@@ -106,9 +107,9 @@
                 modalContent = `
                 <div class="mt-1.5 mb-3 px-10 max-w-xs mx-auto">
                 <div class="volumeTerbukti">
-                    <label for="volumeTerbukti" id="volumeTerbukti" value="{{$cadangan->volumeTerbukti}}" class="block text-sm font-semibold leading-6 text-gray-900">Volume</label>
+                    <label for="volumeTerbukti" id="volumeTerbukti" class="block text-sm font-semibold leading-6 text-gray-900">Volume</label>
                     <div class="">
-                        <input type="text" id="volumeTerbukti" name="volumeTerbukti" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="text" id="volumeTerbukti" name="volumeTerbukti" value="{{$cadangan->volumeTerbukti}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                 </div>
                 </div>
                 <div class="tonaseTerbukti">

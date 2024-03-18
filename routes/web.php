@@ -6,6 +6,7 @@ use App\Http\Controllers\JampasController;
 use App\Http\Controllers\JamrekController;
 use App\Http\Controllers\KabupatenController;
 use App\Http\Controllers\KomoditasController;
+use App\Http\Controllers\ProduksiController;
 use App\Http\Controllers\SumberdayaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -43,17 +44,14 @@ Route::resource('sumberdaya', SumberdayaController::class);
 
 Route::resource('cadangan', CadanganController::class);
 
+Route::resource('produksi', ProduksiController::class);
+
 Route::get('/sidebar', function () {
     return view('sidebar');
 });
 
 
-Route::get('/produksi', function () {
-    return view('tableProduksi');
-});
-Route::get('/inputProduksi', function () {
-    return view('inputProduksi');
-});
+
 Route::get('/rawInventory', function () {
     return view('rawInventory');
 });
