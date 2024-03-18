@@ -15,42 +15,56 @@ class IUPController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
         // dd($request->all());
         // dd($request->all());
-        $IUP = IUP::all();
-        $search = new IUP;
 
-        if ($request->get('search')) {
-            $search = $search->where('namaPerusahaan', 'LIKE', '%' . $request->get('search') . '%')
-            ->orWhere('npwp', 'LIKE', '%' . $request->get('search') . '%')
-            ->orWhere('nib', 'LIKE', '%' . $request->get('search') . '%')
-            ->orWhere('tahapanKegiatan', 'LIKE', '%' . $request->get('search') . '%');
-        }
+        // $search = new IUP;
 
-        $search = $search->get();
+        // if ($request->get('search')) {
+        //     $search = $search->where('namaPerusahaan', 'LIKE', '%' . $request->get('search') . '%')
+        //     ->orWhere('npwp', 'LIKE', '%' . $request->get('search') . '%')
+        //     ->orWhere('nib', 'LIKE', '%' . $request->get('search') . '%')
+        //     ->orWhere('tahapanKegiatan', 'LIKE', '%' . $request->get('search') . '%');
+        // }
+
+        // $search = $search->get();
 
         // return view('iup.index', compact('search', 'request'));
-        return view('iup.index', compact(['IUP', 'search', 'request']));
+        // return view('iup.index', compact(['IUP', 'search', 'request']));
+        $iup = IUP::all();
+        return view('iup.index', compact(['iup']));
     }
 
-    // public function search(Request $request)
-    // {   dd($request->all());
-    //     $search = new IUP;
+    public function search(Request $request)
+    {
+        $search = $request->search;
+        $iup = IUP::where(function($query) use ($search){
+            $query->where('namaPerusahaan', 'like', "%$search%")
+            ->orWhere('alamat', 'like', "%$search%")
+            ->orWhere('npwp', 'like', "%$search%")
+            ->orWhere('nib', 'like', "%$search%")
+            ->orWhere('tahapanKegiatan', 'like', "%$search%");
+        })->get();
 
-    //     if ($request->get('search')) {
-    //         $search = $search->where('namaPerusahaan', 'LIKE', '%' . $request->get('search') . '%')
-    //         ->orWhere('npwp', 'LIKE', '%' . $request->get('search') . '%')
-    //         ->orWhere('nib', 'LIKE', '%' . $request->get('search') . '%')
-    //         ->orWhere('tahapanKegiatan', 'LIKE', '%' . $request->get('search') . '%');
-    //     }
+        return view('iup.index', compact('search', 'iup'));
 
-    //     $search = $search->get();
+        // dd($request->all());
 
-    //     return view('iup.index', compact('search', 'request'));
+        // $search = new IUP;
 
-    // }
+        // if ($request->get('search')) {
+        //     $search = $search->where('namaPerusahaan', 'LIKE', '%' . $request->get('search') . '%')
+        //     ->orWhere('npwp', 'LIKE', '%' . $request->get('search') . '%')
+        //     ->orWhere('nib', 'LIKE', '%' . $request->get('search') . '%')
+        //     ->orWhere('tahapanKegiatan', 'LIKE', '%' . $request->get('search') . '%');
+        // }
+
+        // $search = $search->get();
+
+        // return view('iup.index', compact('search', 'request'));
+    }
 
     /**
      * Show the form for creating a new resource.

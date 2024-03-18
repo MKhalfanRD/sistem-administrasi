@@ -50,7 +50,7 @@ Route::get('/sidebar', function () {
     return view('sidebar');
 });
 
-
+Route::get('/search', [IUPController::class, 'search']);
 
 Route::get('/rawInventory', function () {
     return view('rawInventory');

@@ -12,13 +12,13 @@
         {{-- <a href="{{route('export.all')}}">
             <button class="mt-5 mb-5 block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Print All</button>
         </a> --}}
-        {{-- <form action="{{ route('iup.index') }}" method="GET" class="mb-3">
+        <form action="/search" method="GET" class="mb-3">
             <div class="input-group flex flex-row gap-2 justify-end">
-                <input type="search" name="search" placeholder="Cari..." value="{{$request->get('search')}}"
+                <input type="search" name="search" placeholder="Cari..."
                     class="block w-60 rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                 <button type="submit" class="block rounded-md bg-indigo-600 px-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Cari</button>
             </div>
-        </form> --}}
+        </form>
 
         {{-- @if ($request->has('search'))
             @foreach ($results as $result)
@@ -76,7 +76,7 @@
                     @php
                         $counter = 0;
                     @endphp
-                    @foreach ($IUP as $iup)
+                    @foreach ($iup as $iup)
                         <tr
                             class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600 expandable-row cursor-pointer">
                             <th class="px-6 py-4">
