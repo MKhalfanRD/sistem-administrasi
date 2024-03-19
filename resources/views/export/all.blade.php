@@ -1,35 +1,34 @@
-<h2>IUP Tahap Operasi Produksi</h2>
-<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-    <thead class="text-base text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+<table>
+    <thead>
         <tr>
-            <th rowspan="2" class="p-4">
+            <th rowspan="2">
                 No
             </th>
-            <th rowspan="2" class="px-6 py-3 text-center">
+            <th rowspan="2">
                 Nama Perusahaan
             </th>
-            <th rowspan="2" class="px-6 py-3 text-center">
+            <th rowspan="2">
                 Alamat
             </th>
-            <th rowspan="2" class="px-6 py-3 text-center">
+            <th rowspan="2">
                 NPWP
             </th>
-            <th rowspan="2" class="px-6 py-3 text-center">
+            <th rowspan="2">
                 NIB
             </th>
-            <th rowspan="2" class="px-6 py-3 text-center">
+            <th rowspan="2">
                 Kabupaten
             </th>
-            <th rowspan="2" class="px-6 py-3 text-center">
+            <th rowspan="2">
                 Luas Wilayah
             </th>
-            <th rowspan="2" class="px-6 py-3 text-center">
+            <th rowspan="2">
                 Komoditas
             </th>
-            <th rowspan="2" class="px-6 py-3 text-center">
+            <th rowspan="2">
                 Lokasi Izin
             </th>
-            <th rowspan="2" class="px-6 py-3 text-center">
+            <th rowspan="2">
                 Status Izin
             </th>
             <th colspan="2">
@@ -48,8 +47,42 @@
                 Perpanjangan 2
             </th>
         </tr>
+        <tr>
+            <div class="wiup">
+                <th>Tanggal SK</th>
+                <th>No SK</th>
+            </div>
+            <div class="eksplorasi">
+                <th>Tanggal SK</th>
+                <th>No SK</th>
+                <th>Masa Berlaku</th>
+                <th>Tanggal Berakhir</th>
+            </div>
+            <div class="op">
+                <th>Tanggal SK</th>
+                <th>No SK</th>
+                <th>Masa Berlaku</th>
+                <th>Tanggal Berakhir</th>
+            </div>
+            <div class="p1">
+                <th>Tanggal SK</th>
+                <th>No SK</th>
+                <th>Masa Berlaku</th>
+                <th>Tanggal Berakhir</th>
+            </div>
+            <div class="p2">
+                <th>Tanggal SK</th>
+                <th>No SK</th>
+                <th>Masa Berlaku</th>
+                <th>Tanggal Berakhir</th>
+            </div>
+        </tr>
     </thead>
     <tbody>
+        @php
+            $counter = 0;
+        @endphp
+        @foreach ($iup as $iup)
         <tr>
             <th class="px-6 py-4">
                 @php
@@ -57,35 +90,35 @@
                 @endphp
                 {{ $counter }}
             </th>
-            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <td>
                 {{ $iup->namaPerusahaan }}
             </td>
-            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <td>
                 {{ $iup->alamat }}
             </td>
-            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <td>
                 {{ $iup->npwp }}
             </td>
-            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <td>
                 {{ $iup->nib }}
             </td>
-            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <td>
                 {{ $iup->kabupaten }}
             </td>
-            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <td>
                 {{ $iup->luasWilayah }}
             </td>
-            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <td>
                 {{ $iup->komoditas }}
             </td>
-            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <td>
                 {{ $iup->lokasiIzin }}
             </td>
-            <td class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <td>
                 @if ($iup->statusIzin == 'Aktif')
-                    <span class="bg-green-300 px-3 py-2 text-green-700 rounded-md">Aktif</span>
+                    <span>Aktif</span>
                 @else
-                    <span class="bg-red-300 px-2 py-2 text-red-700 rounded-md">Tidak Aktif</span>
+                    <span>Tidak Aktif</span>
                 @endif
             </td>
             <td>
@@ -94,54 +127,55 @@
             <td>
                 {{ $iup->noSK_wiup }}
             </td>
-            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <td>
                 {{$iup->tanggalSK_eksplor}}
             </td>
-            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <td>
                 {{$iup->noSK_eksplor}}
             </td>
-            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <td>
                 {{$iup->masaBerlaku_eksplor}}
             </td>
-            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white border-r-2 border-white">
+            <td>
                 {{$iup->tanggalBerakhir_eksplor}}
             </td>
-            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <td>
                 {{$iup->tanggalSK_op}}
             </td>
-            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <td>
                 {{$iup->noSK_op}}
             </td>
-            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <td>
                 {{$iup->masaBerlaku_op}}
             </td>
-            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white border-r-2 border-white">
+            <td>
                 {{$iup->tanggalBerakhir_op}}
             </td>
-            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <td>
                 {{$iup->tanggalSK_p1}}
             </td>
-            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <td>
                 {{$iup->noSK_p1}}
             </td>
-            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <td>
                 {{$iup->masaBerlaku_p1}}
             </td>
-            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white border-r-2 border-white">
+            <td>
                 {{$iup->tanggalBerakhir_p1}}
             </td>
-            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <td>
                 {{$iup->tanggalSK_p2}}
             </td>
-            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <td>
                 {{$iup->noSK_p2}}
             </td>
-            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <td>
                 {{$iup->masaBerlaku_p2}}
             </td>
-            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <td>
                 {{$iup->tanggalBerakhir_p2}}
             </td>
         </tr>
+        @endforeach
     </tbody>
 </table>

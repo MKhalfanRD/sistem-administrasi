@@ -9,9 +9,11 @@
                 class="mt-5 mb-5 block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Tambah
                 Data</button>
         </a>
-        {{-- <a href="{{route('export.all')}}">
-            <button class="mt-5 mb-5 block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Print All</button>
-        </a> --}}
+    <div class="button-wrap flex justify-between">
+        <a href="{{route('iup.export')}}">
+            <button class="block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Print</button>
+        </a>
+
         <form action="/search" method="GET" class="mb-3">
             <div class="input-group flex flex-row gap-2 justify-end">
                 <input type="search" name="search" placeholder="Cari..."
@@ -19,6 +21,7 @@
                 <button type="submit" class="block rounded-md bg-indigo-600 px-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Cari</button>
             </div>
         </form>
+    </div>
 
         {{-- @if ($request->has('search'))
             @foreach ($results as $result)

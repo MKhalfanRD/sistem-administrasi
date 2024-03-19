@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\IupExport;
 use App\Models\Kabupaten;
+use Maatwebsite\Excel\Facades\Excel;
 use Storage;
 use App\Models\IUP;
 use App\Models\User;
@@ -35,6 +37,11 @@ class IUPController extends Controller
         // return view('iup.index', compact(['IUP', 'search', 'request']));
         $iup = IUP::all();
         return view('iup.index', compact(['iup']));
+    }
+
+    public function export()
+    {
+        return Excel::download(new IupExport, 'data_iup.xlsx');
     }
 
     public function search(Request $request)

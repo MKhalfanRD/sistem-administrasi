@@ -52,6 +52,8 @@ Route::get('/sidebar', function () {
 
 Route::get('/search', [IUPController::class, 'search']);
 
+Route::get('/export', [IUPController::class, 'export'])->name('iup.export');
+
 Route::get('/rawInventory', function () {
     return view('rawInventory');
 });
