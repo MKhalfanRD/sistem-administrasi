@@ -45,11 +45,27 @@
                         @enderror
                     </div>
                 </div>
-                <div class="date">
-                    <label for="date" class="block text-sm font-semibold leading-6 text-gray-900">Date</label>
+                <label for="date" class="block text-sm font-semibold leading-6 text-gray-900">Date</label>
+                <div class="flex flex-row justify-between">
                     <div class="mt-1.5 mb-3">
-                        <input type="date" name="date" id="date"value="{{old('date') ?? ''}}" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                        @error('date')
+                        <select name="bulan" id="bulan" class="bg-white block w-48 rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            <option value="" disabled selected>Bulan</option>
+                            @foreach ($bulan as $bulan)
+                                <option value="{{$bulan}}">{{$bulan}}</option>
+                            @endforeach
+                        </select>
+                        @error('bulan')
+                        <span class="text-red-500">{{$message}}</span>
+                        @enderror
+                    </div>
+                    <div class="mt-1.5 mb-3">
+                        <select name="tahun" id="tahun" class="bg-white block w-28 rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            <option value="" disabled selected>Tahun</option>
+                            @foreach ($tahun as $tahun)
+                                <option value="{{$tahun}}">{{$tahun}}</option>
+                            @endforeach
+                        </select>
+                        @error('tahun')
                         <span class="text-red-500">{{$message}}</span>
                         @enderror
                     </div>
@@ -68,6 +84,15 @@
                     <div class="mt-1.5 mb-3">
                         <input type="tonaseProduksi" name="tonaseProduksi" id="tonaseProduksi" value="{{old('tonaseProduksi') ?? ''}}" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                         @error('tonaseProduksi')
+                        <span class="text-red-500">{{$message}}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="buktiBayar">
+                    <label for="buktiBayar" id="buktiBayar-label" class="block text-sm font-semibold leading-6 text-gray-900">Bukti Bayar</label>
+                    <div class="mt-1.5 mb-3">
+                        <input type="file" id="buktiBayar" name="buktiBayar" value="{{old('buktiBayar') ?? ''}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        @error('buktiBayar')
                         <span class="text-red-500">{{$message}}</span>
                         @enderror
                     </div>

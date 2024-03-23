@@ -10,15 +10,16 @@
                 Data</button>
         </a>
 
-            <div class="w-fit mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table class="ext-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <div class="mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead class="text-base text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th rowspan="2" class="p-4 text-center">No</th>
                             <th rowspan="2" class="px-6 py-3 text-center">Nama Perusahaan</th>
                             <th rowspan="2" class="px-6 py-3 text-center">Komoditas</th>
                             <th colspan="2" class="px-6 py-3 text-center">Jumlah Produksi</th>
-                            <th rowspan="2" class="px-6 py-3 text-center">Date</th>
+                            <th rowspan="2" colspan="2" class="px-6 py-3 text-center">Date</th>
+                            <th rowspan="2" class="px-6 py-3 text-center">Bukti Bayar</th>
                             <th rowspan="2" class="px-6 py-3 text-center">Aksi</th>
                         </tr>
                         <tr>
@@ -42,7 +43,19 @@
                             <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$p->komoditas}}</td>
                             <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$p->volumeProduksi}}</td>
                             <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$p->tonaseProduksi}}</td>
-                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$p->date}}</td>
+                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white p-0">{{$p->bulan}}</td>
+                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$p->tahun}}</td>
+                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white p-1">
+                                @if ($p->buktiBayar)
+                                    <a href="{{ asset('storage/' . $p->buktiBayar) }}" target="_blank">
+                                        <img src="{{ asset('icon/ikon-foto.png') }}"
+                                            class="bg-gray-300 hover:bg-gray-200 rounded-md p-1 w-10 h-10 mx-auto"
+                                            alt="Foto Icon">
+                                    </a>
+                                @else
+                                    <p>Tidak Ada</p>
+                                @endif
+                            </td>
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 <div class="btn-wrap flex flex-row gap-3">
                                     <a href="{{route('produksi.edit', $p->id)}}">

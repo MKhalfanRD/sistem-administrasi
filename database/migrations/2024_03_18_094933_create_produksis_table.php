@@ -15,9 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('namaPerusahaan');
             $table->string('komoditas');
-            $table->string('volumeProduksi');
-            $table->string('tonaseProduksi');
-            $table->date('date');
+            $table->string('bulan');
+            $table->integer('tahun');
+            $table->string('buktiBayar')->nullable();
+            $table->string('volumeProduksi')->nullable();
+            $table->string('tonaseProduksi')->nullable();
             $table->timestamps();
         });
     }

@@ -12,8 +12,10 @@ class Produksi extends Model
     protected $fillable = [
         'namaPerusahaan',
         'komoditas',
+        'bulan',
+        'tahun',
+        'buktiBayar',
         'volumeProduksi',
         'tonaseProduksi',
-        'date',
     ];
 }
