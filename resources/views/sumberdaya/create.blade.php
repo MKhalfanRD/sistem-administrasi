@@ -2,8 +2,8 @@
 @section('content')
     <div class="Title">
         <div class="mx-auto max-w-2xl text-center">
-            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Izin Usaha Pertambangan</h2>
-            <p class="mt-2 text-lg leading-8 text-gray-600">Tambah Data IUP</p>
+            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Sumberdaya</h2>
+            <p class="mt-2 text-lg leading-8 text-gray-600">Tambah Data Sumberdaya</p>
         </div>
 
         <form action="{{route('sumberdaya.store')}}" method="POST" class="mx-auto mt-16 max-w-5xl grid grid-cols-1 gap-4 md:grid-cols-2" enctype="multipart/form-data">
@@ -23,6 +23,24 @@
                             @endif
                         </select>
                         @error('namaPerusahaan')
+                        <span class="text-red-500">{{$message}}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="komoditas">
+                    <label for="komoditas" class="block text-sm font-semibold leading-6 text-gray-900">Komoditas</label>
+                    <div class="mt-1.5 mb-3">
+                        <select name="komoditas" id="komoditas" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            @if ($komoditas->isEmpty())
+                                <option value="">Belum Ada Komoditas</option>
+                            @else
+                                <option value="" disabled selected>Pilih</option>
+                            @foreach ($komoditas as $komoditas)
+                                <option value="{{$komoditas}}">{{$komoditas}}</option>
+                            @endforeach
+                            @endif
+                        </select>
+                        @error('komoditas')
                         <span class="text-red-500">{{$message}}</span>
                         @enderror
                     </div>

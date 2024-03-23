@@ -16,7 +16,8 @@
                     <tr>
                     <tr>
                         <th class="p-4" rowspan="2">No</th>
-                        <th rowspan="2" class="px-6 py-3 text-center ">Nama Perusahaan</th>
+                        <th rowspan="2" class="px-6 py-3 text-center">Nama Perusahaan</th>
+                        <th rowspan="2" class="px-6 py-3 text-center">Komoditas</th>
                         <th colspan="2" class="px-6 py-3 text-center">Tereka</th>
                         <th colspan="2" class="px-6 py-3 text-center">Tertunjuk</th>
                         <th colspan="2" class="px-6 py-3 text-center">Terukur</th>
@@ -47,6 +48,7 @@
                             {{$counter}}
                         </td>
                         <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$s->namaPerusahaan}}</td>
+                        <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$s->komoditas}}</td>
                         <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$s->volumeTereka}}</td>
                         <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$s->tonaseTereka}}</td>
                         <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$s->volumeTertunjuk}}</td>

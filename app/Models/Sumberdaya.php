@@ -11,6 +11,7 @@ class Sumberdaya extends Model
 
     protected $fillable = [
         'namaPerusahaan',
+        'komoditas',
         'volumeTereka',
         'volumeTertunjuk',
         'volumeTerukur',

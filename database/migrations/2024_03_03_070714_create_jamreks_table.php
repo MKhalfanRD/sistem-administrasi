@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('bentukPenempatan');
             $table->integer('noSeri');
             $table->integer('noRekening');
+            $table->string('status')->nullable();
             $table->string('fileReklamasi')->nullable();
             $table->timestamps();
         });

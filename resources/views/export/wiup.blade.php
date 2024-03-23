@@ -40,6 +40,7 @@
             </th>
             </thead>
             <tbody>
+                @foreach ($iup as $iup)
                 <th class="px-6 py-4">
                     @php
                         $counter++;
@@ -83,4 +84,5 @@
                         <span class="bg-red-300 px-2 py-2 text-red-700 rounded-md">Tidak Aktif</span>
                     @endif
                 </td>
+                @endforeach
             </tbody>

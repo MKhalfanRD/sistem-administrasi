@@ -10,4 +10,8 @@ class Komoditas extends Model
     use HasFactory;
 
     protected $fillable = ['golongan', 'komoditas'];
+
+    public function sumberdaya(){
+        return $this->hasMany(Sumberdaya::class, 'komoditas', 'komoditas');
+    }
 }

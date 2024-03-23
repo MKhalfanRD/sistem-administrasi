@@ -27,6 +27,24 @@
                         @enderror
                     </div>
                 </div>
+                <div class="komoditas">
+                    <label for="komoditas" class="block text-sm font-semibold leading-6 text-gray-900">Komoditas</label>
+                    <div class="mt-1.5 mb-3">
+                        <select name="komoditas" id="komoditas" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            @if ($komoditas->isEmpty())
+                                <option value="">Belum Ada Komoditas</option>
+                            @else
+                                <option value="" disabled selected>Pilih</option>
+                            @foreach ($komoditas as $komoditas)
+                                <option value="{{$komoditas}}">{{$komoditas}}</option>
+                            @endforeach
+                            @endif
+                        </select>
+                        @error('komoditas')
+                        <span class="text-red-500">{{$message}}</span>
+                        @enderror
+                    </div>
+                </div>
                 <div class="luas">
                     <label for="luas" class="block text-sm font-semibold leading-6 text-gray-900">Luas</label>
                     <div class="mt-1.5 mb-3">

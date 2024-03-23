@@ -16,6 +16,7 @@
                         <tr>
                             <th rowspan="2" class="p-4 text-center">No</th>
                             <th rowspan="2" class="px-6 py-3 text-center">Nama Perusahaan</th>
+                            <th rowspan="2" class="px-6 py-3 text-center">Komoditas</th>
                             <th colspan="2" class="px-6 py-3 text-center">Jumlah Produksi</th>
                             <th rowspan="2" class="px-6 py-3 text-center">Date</th>
                             <th rowspan="2" class="px-6 py-3 text-center">Aksi</th>
@@ -38,6 +39,7 @@
                                 {{$counter}}
                             </td>
                             <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$p->namaPerusahaan}}</td>
+                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$p->komoditas}}</td>
                             <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$p->volumeProduksi}}</td>
                             <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$p->tonaseProduksi}}</td>
                             <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$p->date}}</td>

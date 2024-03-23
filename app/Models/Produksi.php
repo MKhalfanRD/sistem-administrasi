@@ -11,6 +11,7 @@ class Produksi extends Model
 
     protected $fillable = [
         'namaPerusahaan',
+        'komoditas',
         'volumeProduksi',
         'tonaseProduksi',
         'date',

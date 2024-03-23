@@ -21,6 +21,7 @@ class Jamrek extends Model
         'bentukPenempatan',
         'noSeri',
         'noRekening',
+        'status',
         'fileReklamasi'
     ];
 }

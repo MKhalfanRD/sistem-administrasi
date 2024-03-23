@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Komoditas;
 use App\Models\Sumberdaya;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -20,13 +21,15 @@ class SumberdayaController extends Controller
             'Terukur' => 'Terukur',
         ];
         $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
-        return view('sumberdaya.create', compact(['jenisSdm', 'perusahaanUser']));
+        $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
+        return view('sumberdaya.create', compact(['jenisSdm', 'perusahaanUser', 'komoditas']));
     }
 
     public function store(Request $request){
         session()->flashInput($request->input());
         $request->validate([
             'namaPerusahaan' => 'required',
+            'komoditas' => 'required',
             'jenisSdm' => 'nullable',
             'volumeTereka' => 'nullable',
             'volumeTertunjuk' => 'nullable',
@@ -72,15 +75,17 @@ class SumberdayaController extends Controller
         ];
 
         $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
+        $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
         $sumberdaya = Sumberdaya::find($id);
         $jenisSdmSelected = $sumberdaya->jenisSdm;
 
-        return view('sumberdaya.edit', compact(['jenisSdm', 'perusahaanUser', 'sumberdaya', 'jenisSdmSelected']));
+        return view('sumberdaya.edit', compact(['jenisSdm', 'perusahaanUser', 'komoditas' ,'sumberdaya', 'jenisSdmSelected']));
     }
 
     public function update(Request $request, $id){
         $request->validate([
             'namaPerusahaan' => 'required',
+            'komoditas' => 'required',
             'jenisSdm' => 'nullable',
             'volumeTereka' => 'nullable',
             'volumeTertunjuk' => 'nullable',

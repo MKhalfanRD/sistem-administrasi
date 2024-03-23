@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('cadangans', function (Blueprint $table) {
             $table->id();
             $table->string('namaPerusahaan');
+            $table->string('komoditas');
             $table->string('volumeTerkira')->nullable();
             $table->string('tonaseTerkira')->nullable();
             $table->string('volumeTerbukti')->nullable();

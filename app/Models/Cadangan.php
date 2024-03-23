@@ -11,6 +11,7 @@ class Cadangan extends Model
 
     protected $fillable = [
         'namaPerusahaan',
+        'komoditas',
         'volumeTerkira',
         'tonaseTerkira',
         'volumeTerbukti',

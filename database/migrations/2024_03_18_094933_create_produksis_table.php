@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('produksis', function (Blueprint $table) {
             $table->id();
             $table->string('namaPerusahaan');
+            $table->string('komoditas');
             $table->string('volumeProduksi');
             $table->string('tonaseProduksi');
             $table->date('date');

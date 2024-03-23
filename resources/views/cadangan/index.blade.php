@@ -10,12 +10,13 @@
                 Data</button>
         </a>
 
-            <div class="w-fit mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table class="ext-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <div class="mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead class="text-base text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th rowspan="2" class="p-4 text-center">No</th>
                             <th rowspan="2" class="px-6 py-3 text-center">Nama Perusahaan</th>
+                            <th rowspan="2" class="px-6 py-3 text-center">Komoditas</th>
                             <th colspan="2" class="px-6 py-3 text-center">Terkira</th>
                             <th colspan="2" class="px-6 py-3 text-center">Terbukti</th>
                             <th rowspan="2" class="px-6 py-3 text-center">Luas</th>
@@ -42,6 +43,7 @@
                                 {{$counter}}
                             </td>
                             <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$c->namaPerusahaan}}</td>
+                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$c->komoditas}}</td>
                             <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$c->volumeTerkira}}</td>
                             <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$c->tonaseTerkira}}</td>
                             <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$c->volumeTerbukti}}</td>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Komoditas;
 use App\Models\Produksi;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -16,12 +17,15 @@ class ProduksiController extends Controller
 
     public function create(){
         $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
-        return view('produksi.create', compact(['perusahaanUser']));
+        $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
+
+        return view('produksi.create', compact(['perusahaanUser', 'komoditas']));
     }
 
     public function store(Request $request){
         $request->validate([
             'namaPerusahaan' => 'required',
+            'komoditas' => 'required',
             'volumeProduksi' => 'nullable',
             'tonaseProduksi' => 'nullable',
             'date' => 'required',
@@ -29,19 +33,22 @@ class ProduksiController extends Controller
 
         $produksiData = $request->all();
         $produksi = Produksi::create($produksiData);
-        
+
         return redirect()->route('produksi.index');
     }
 
     public function edit($id){
         $produksi = Produksi::find($id);
         $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
-        return view('produksi.edit', compact(['produksi', 'perusahaanUser']));
+        $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
+
+        return view('produksi.edit', compact(['produksi', 'perusahaanUser', 'komoditas']));
     }
 
     public function update(Request $request, $id){
         $request->validate([
             'namaPerusahaan' => 'required',
+            'komoditas' => 'required',
             'volumeProduksi' => 'nullable',
             'tonaseProduksi' => 'nullable',
             'date' => 'required',

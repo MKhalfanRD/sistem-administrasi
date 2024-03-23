@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cadangan;
+use App\Models\Komoditas;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -20,14 +21,16 @@ class CadanganController extends Controller
         ];
 
         $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
+        $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
 
-        return view('cadangan.create', compact(['jenisCadangan', 'perusahaanUser']));
+        return view('cadangan.create', compact(['jenisCadangan', 'perusahaanUser', 'komoditas']));
     }
 
     public function store(Request $request){
         session()->flashInput($request->input());
         $request->validate([
             'namaPerusahaan' => 'required',
+            'komoditas' => 'required',
             'volumeTerkira' => 'nullable',
             'volumeTerbukti' => 'nullable',
             'tonaseTerkira' => 'nullable',
@@ -67,13 +70,15 @@ class CadanganController extends Controller
         $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
         $cadangan = Cadangan::find($id);
         $cadanganSelected = $cadangan->jenisCadangan;
+        $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
 
-        return view('cadangan.edit', compact(['jenisCadangan', 'perusahaanUser', 'cadangan', 'cadanganSelected']));
+        return view('cadangan.edit', compact(['jenisCadangan', 'perusahaanUser', 'komoditas' ,'cadangan', 'cadanganSelected']));
     }
 
     public function update(Request $request, $id){
         $request->validate([
             'namaPerusahaan' => 'required',
+            'komoditas' => 'required',
             'volumeTerkira' => 'nullable',
             'volumeTerbukti' => 'nullable',
             'tonaseTerkira' => 'nullable',
