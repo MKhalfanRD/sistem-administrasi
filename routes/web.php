@@ -6,7 +6,9 @@ use App\Http\Controllers\JampasController;
 use App\Http\Controllers\JamrekController;
 use App\Http\Controllers\KabupatenController;
 use App\Http\Controllers\KomoditasController;
+use App\Http\Controllers\KTTController;
 use App\Http\Controllers\ProduksiController;
+use App\Http\Controllers\RawInventoriController;
 use App\Http\Controllers\SumberdayaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -46,6 +48,11 @@ Route::resource('cadangan', CadanganController::class);
 
 Route::resource('produksi', ProduksiController::class);
 
+Route::resource('rawInventori', RawInventoriController::class);
+
+Route::resource('ktt', KTTController::class);
+
+
 Route::get('/sidebar', function () {
     return view('sidebar');
 });
@@ -54,17 +61,6 @@ Route::get('/search', [IUPController::class, 'search']);
 
 Route::get('/export', [IUPController::class, 'export'])->name('iup.export');
 
-Route::get('/rawInventory', function () {
-    return view('rawInventory');
-});
-Route::get('/tableBuktiBayar', function () {
-    return view('tableBuktiBayar');
-});
-Route::get('/tableKTT', function () {
-    return view('tableKTT');
-});
-Route::get('/statusKTT', function () {
-    return view('statusKTT');
-});
+
 
 
