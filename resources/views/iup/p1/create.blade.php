@@ -2,11 +2,11 @@
 @section('content')
     <div class="Title">
         <div class="mx-auto max-w-2xl text-center">
-            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">WIUP</h2>
-            <p class="mt-2 text-lg leading-8 text-gray-600">Tambah Data WIUP</p>
+            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Perpanjangan 1</h2>
+            <p class="mt-2 text-lg leading-8 text-gray-600">Tambah Data Perpanjangan 1</p>
         </div>
 
-        <form action="{{route('iup.store')}}" method="POST" class="mx-auto mt-16 max-w-5xl grid grid-cols-1 gap-4 md:grid-cols-3" enctype="multipart/form-data">
+        <form action="{{route('p1.store')}}" method="POST" class="mx-auto mt-16 max-w-5xl grid grid-cols-1 gap-4 md:grid-cols-3" enctype="multipart/form-data">
             @csrf
             <div class="input-wrap">
                 <div class="namaPerusahaan">
@@ -129,7 +129,7 @@
                 </div>
 
             <div class="flex flex-row gap-3">
-                <a href="{{route('iup.index')}}">
+                <a href="{{route('p1.index')}}">
                     <button type="button" class="bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 rounded-md">Kembali</button>
                 </a>
                 <button type="submit" class=" block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Simpan</button>

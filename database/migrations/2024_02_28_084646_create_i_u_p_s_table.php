@@ -42,7 +42,11 @@ return new class extends Migration
             $table->date('tanggalBerakhir_p2')->nullable();
             $table->string('lokasiIzin');
             $table->string('statusIzin')->nullable();
-            $table->string('scanSK')->nullable();
+            $table->string('scanSK_wiup')->nullable();
+            $table->string('scanSK_eksplor')->nullable();
+            $table->string('scanSK_op')->nullable();
+            $table->string('scanSK_p1')->nullable();
+            $table->string('scanSK_p2')->nullable();
             $table->timestamps();
         });
     }

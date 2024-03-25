@@ -96,15 +96,6 @@
             </div>
             </div>
             <div class="input-warp-3">
-            <div class="scanSK">
-                    <label for="scanSK" class="block text-sm font-semibold leading-6 text-gray-900">Scan SK</label>
-                    <div class="mt-1.5 mb-3">
-                        <input type="file" id="scanSK" name="scanSK" value="{{$IUP->scanSK}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                        @error('scanSK')
-                        <span class="text-red-500">{{$message}}</span>
-                        @enderror
-                    </div>
-            </div>
             <div class="tahapanKegiatan">
                 <label for="tahapanKegiatan" class="block text-sm font-semibold leading-6 text-gray-900">Tahapan Kegiatan</label>
                 <div class="mt-1.5 mb-3">
@@ -126,7 +117,7 @@
                 </a>
                 <button type="submit" class="block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Simpan</button>
             </div>
-            <div id="modal" class="fixed mt-10 top-72 right-32 bg-gray-200 rounded-md shadow-lg overflow-hidden mx-auto max-w-64 z-50" style="display: none;">
+            <div id="modal" class="fixed mt-10 top-52 right-32 bg-gray-200 rounded-md shadow-lg overflow-hidden mx-auto max-w-64 z-50" style="display: none;">
                 <input type="hidden" name="fromModal" value="true">
             </div>
         </form>
@@ -150,6 +141,15 @@
                     <label for="noSK_wiup" id="noSK_wiup" class="block text-sm font-semibold leading-6 text-gray-900">No SK</label>
                     <div class="">
                         <input type="number" id="noSK_wiup" name="noSK_wiup" value="{{$IUP->noSK_wiup}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                </div>
+                <div class="scanSK_wiup">
+                    <label for="scanSK_wiup" id="scanSK_wiup-label" class="block text-sm font-semibold leading-6 text-gray-900">Scan SK</label>
+                    <div class="">
+                        <input type="file" id="scanSK_wiup" name="scanSK_wiup" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        @error('scanSK_wiup')
+                        <span class="text-red-500">{{$message}}</span>
+                        @enderror
                     </div>
                 </div>
                 <div class="flex justify-end mt-4">
@@ -184,6 +184,15 @@
                         <input type="date" id="tanggalBerakhir_eksplor" name="tanggalBerakhir_eksplor" value="{{$IUP->tanggalBerakhir_eksplor}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                 </div>
+                <div class="scanSK_eksplor">
+                    <label for="scanSK_eksplor" id="scanSK_eksplor-label" class="block text-sm font-semibold leading-6 text-gray-900">Scan SK</label>
+                    <div class="">
+                        <input type="file" id="scanSK_eksplor" name="scanSK_eksplor" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        @error('scanSK_eksplor')
+                        <span class="text-red-500">{{$message}}</span>
+                        @enderror
+                    </div>
+                </div>
                 <div class="flex justify-end mt-4">
                     <button type="submit" id="simpanModal" class="px-3 py-1 text-sm font-semibold text-white bg-gray-500 rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-600">Simpan</button>
                 </div>
@@ -214,6 +223,15 @@
                     <label for="tanggalBerakhir_op" id="tanggalBerakhir_op" class="block text-sm font-semibold leading-6 text-gray-900">Tanggal Berakhir</label>
                     <div class="">
                         <input type="date" id="tanggalBerakhir_op" name="tanggalBerakhir_op" value="{{$IUP->tanggalBerakhir_op}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                </div>
+                <div class="scanSK_op">
+                    <label for="scanSK_op" id="scanSK_op-label" class="block text-sm font-semibold leading-6 text-gray-900">Scan SK</label>
+                    <div class="">
+                        <input type="file" id="scanSK_op" name="scanSK_op" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        @error('scanSK_op')
+                        <span class="text-red-500">{{$message}}</span>
+                        @enderror
                     </div>
                 </div>
                 <div class="flex justify-end mt-4">
@@ -248,6 +266,15 @@
                         <input type="date" id="tanggalBerakhir_p1" name="tanggalBerakhir_p1" value="{{$IUP->tanggalBerakhir_p1}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                 </div>
+                <div class="scanSK_p1">
+                    <label for="scanSK_p1" id="scanSK_p1-label" class="block text-sm font-semibold leading-6 text-gray-900">Scan SK</label>
+                    <div class="">
+                        <input type="file" id="scanSK_p1" name="scanSK_p1" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        @error('scanSK_p1')
+                        <span class="text-red-500">{{$message}}</span>
+                        @enderror
+                    </div>
+                </div>
                 <div class="flex justify-end mt-4">
                     <button type="submit" id="simpanModal" class="px-3 py-1 text-sm font-semibold text-white bg-gray-500 rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-600">Simpan</button>
                 </div>
@@ -280,6 +307,15 @@
                         <input type="date" id="tanggalBerakhir_p2" name="tanggalBerakhir_p2" value="{{$IUP->tanggalBerakhir_p2}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                 </div>
+                <div class="scanSK_p2">
+                    <label for="scanSK_p2" id="scanSK_p2-label" class="block text-sm font-semibold leading-6 text-gray-900">Scan SK</label>
+                    <div class="">
+                        <input type="file" id="scanSK_p2" name="scanSK_p2" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        @error('scanSK_p2')
+                        <span class="text-red-500">{{$message}}</span>
+                        @enderror
+                    </div>
+                </div>
                 <div class="flex justify-end mt-4">
                     <button type="submit" id="simpanModal" class="px-3 py-1 text-sm font-semibold text-white bg-gray-500 rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-600">Simpan</button>
                 </div>
@@ -302,30 +338,35 @@
             if(selectedValue = 'WIUP'){
                 formData.tanggalSK = document.getElementById('tanggalSK_wiup').value;
                 formData.noSK = document.getElementById('noSK_wiup').value;
+                formData.scanSK_wiup = document.getElementById('scanSK_wiup').value;
             }
             else if(selectedValue = 'IUP Tahap Eksplorasi'){
                 formData.tanggalSK = document.getElementById('tanggalSK_eksplor').value;
                 formData.noSK = document.getElementById('noSK_eksplor').value;
                 formData.masaBerlaku = document.getElementById('masaBerlaku_eksplor').value;
                 formData.tanggalBerakhir = document.getElementById('tanggalBerakhir_eksplor').value;
+                formData.scanSK_eksplor = document.getElementById('scanSK_eksplor').value;
             }
             else if(selectedValue = 'IUP Tahap Operasi Produksi'){
                 formData.tanggalSK = document.getElementById('tanggalSK_op').value;
                 formData.noSK = document.getElementById('noSK_op').value;
                 formData.masaBerlaku = document.getElementById('masaBerlaku_op').value;
                 formData.tanggalBerakhir = document.getElementById('tanggalBerakhir_op').value;
+                formData.scanSK_op = document.getElementById('scanSK_op').value;
             }
             else if(selectedValue = 'Perpanjangan 1 IUP Tahap Operasi Produksi'){
                 formData.tanggalSK = document.getElementById('tanggalSK_p1').value;
                 formData.noSK = document.getElementById('noSK_p1').value;
                 formData.masaBerlaku = document.getElementById('masaBerlaku_p1').value;
                 formData.tanggalBerakhir = document.getElementById('tanggalBerakhir_p1').value;
+                formData.scanSK_p1 = document.getElementById('scanSK_p1').value;
             }
             else if(selectedValue = 'Perpanjangan 2 IUP Tahap Operasi Produksi'){
                 formData.tanggalSK = document.getElementById('tanggalSK_p2').value;
                 formData.noSK = document.getElementById('noSK_p2').value;
                 formData.masaBerlaku = document.getElementById('masaBerlaku_p2').value;
                 formData.tanggalBerakhir = document.getElementById('tanggalBerakhir_p2').value;
+                formData.scanSK_p2 = document.getElementById('scanSK_p2').value;
             }
 
             axios.post('/iup/store-from-modal', formData)

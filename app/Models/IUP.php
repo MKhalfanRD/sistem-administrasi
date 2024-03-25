@@ -40,7 +40,11 @@ class IUP extends Model
         'komoditas',
         'lokasiIzin',
         'statusIzin',
-        'scanSK'
+        'scanSK_wiup',
+        'scanSK_eksplor',
+        'scanSK_op',
+        'scanSK_p1',
+        'scanSK_p2',
     ];
 
     // protected $dispatchesEvents = [

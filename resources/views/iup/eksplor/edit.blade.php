@@ -2,35 +2,31 @@
 @section('content')
     <div class="Title">
         <div class="mx-auto max-w-2xl text-center">
-            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">WIUP</h2>
-            <p class="mt-2 text-lg leading-8 text-gray-600">Tambah Data WIUP</p>
+            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Eksplorasi</h2>
+            <p class="mt-2 text-lg leading-8 text-gray-600">Edit Data Eksplorasi</p>
         </div>
 
-        <form action="{{route('iup.store')}}" method="POST" class="mx-auto mt-16 max-w-5xl grid grid-cols-1 gap-4 md:grid-cols-3" enctype="multipart/form-data">
+        <form action="{{route('eksplor.update', $IUP->id)}}" method="POST" class="mx-auto mt-16 max-w-5xl grid grid-cols-1 gap-4 md:grid-cols-3" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <div class="input-wrap">
-                <div class="namaPerusahaan">
+                <div class="namaPerusahaan mt-1.5 mb-3">
                     <label for="namaPerusahaan" class="block text-sm font-semibold leading-6 text-gray-900">Nama Perusahaan</label>
-                    <div class="mt-1.5 mb-3">
-                        <select name="namaPerusahaan" id="namaPerusahaan" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                            @if ($perusahaanUser->isEmpty())
-                                <option value="">Belum Ada Perusahaan</option>
-                            @else
-                                <option value="" disabled selected>Pilih</option>
-                            @foreach ($perusahaanUser as $namaPerusahaan)
-                                <option value="{{$namaPerusahaan}}">{{$namaPerusahaan}}</option>
-                            @endforeach
-                            @endif
-                        </select>
-                        @error('namaPerusahaan')
-                        <span class="text-red-500">{{$message}}</span>
-                        @enderror
-                    </div>
+                    <select name="namaPerusahaan" id="namaPerusahaan" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        @if ($perusahaanUser->isEmpty())
+                            <option value="">Belum Ada Perusahaan</option>
+                        @else
+                            <option value="" disabled selected>Pilih</option>
+                        @foreach ($perusahaanUser as $namaPerusahaan)
+                            <option value="{{$namaPerusahaan}}" @if($namaPerusahaan == $eksplor->namaPerusahaan) selected @endif>{{$namaPerusahaan}}</option>
+                        @endforeach
+                        @endif
+                    </select>
                 </div>
                 <div class="alamat">
                     <label for="alamat" class="block text-sm font-semibold leading-6 text-gray-900">Alamat</label>
                     <div class="mt-1.5 mb-3">
-                        <input type="text" name="alamat" id="alamat" value="{{old('alamat') ?? ''}}" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="text" name="alamat" id="alamat"value="{{$eksplor->alamat}}" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                         @error('alamat')
                         <span class="text-red-500">{{$message}}</span>
                         @enderror
@@ -39,7 +35,7 @@
                 <div class="npwp">
                     <label for="npwp" class="block text-sm font-semibold leading-6 text-gray-900">NPWP</label>
                     <div class="mt-1.5 mb-3">
-                        <input type="number" name="npwp" id="npwp" value="{{old('npwp') ?? ''}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="text" name="npwp" id="npwp" value="{{$eksplor->npwp}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                         @error('npwp')
                         <span class="text-red-500">{{$message}}</span>
                         @enderror
@@ -48,7 +44,7 @@
                 <div class="nib">
                     <label for="nib" class="block text-sm font-semibold leading-6 text-gray-900">NIB</label>
                     <div class="mt-1.5 mb-3">
-                        <input type="number" name="nib" id="nib" value="{{old('nib') ?? ''}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="text" name="nib" id="nib" value="{{$eksplor->nib}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                         @error('nib')
                         <span class="text-red-500">{{$message}}</span>
                         @enderror
@@ -63,85 +59,69 @@
                             @if ($kabupaten->isEmpty())
                                 <option value="">Belum Ada Kabupaten</option>
                             @else
-                            <option value="" disabled selected>Pilih</option>
+                                <option value="" disabled selected>Pilih</option>
                             @foreach ($kabupaten as $kabupaten)
-                                <option value="{{$kabupaten}}">{{$kabupaten}}</option>
+                                <option value="{{$kabupaten}}" @if($kabupaten == $eksplor->kabupaten) selected @endif>{{$kabupaten}}</option>
                             @endforeach
                             @endif
                         </select>
-                        @error('kabupaten')
-                        <span class="text-red-500">{{$message}}</span>
-                        @enderror
                     </div>
                 </div>
                 <div class="luasWilayah">
                     <label for="luasWilayah" class="block text-sm font-semibold leading-6 text-gray-900">Luas Wilayah</label>
                     <div class="mt-1.5 mb-3">
-                        <input type="text" id="luasWilayah" name="luasWilayah" value="{{old('luasWilayah') ?? ''}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="number" id="luasWilayah" name="luasWilayah" value="{{$eksplor->luasWilayah}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                         @error('luasWilayah')
                         <span class="text-red-500">{{$message}}</span>
                         @enderror
                     </div>
                 </div>
                 <div class="komoditas">
-                    <label for="komoditas" class="block text-sm font-semibold leading-6 text-gray-900">Komoditas</label>
-                    <div class="mt-1.5 mb-3">
-                        <select name="komoditas" id="komoditas" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                            @if ($komoditas->isEmpty())
-                                <option value="">Belum Ada Komoditas</option>
-                            @else
-                                <option value="" disabled selected>Pilih</option>
-                            @foreach ($komoditas as $komoditas)
-                                <option value="{{$komoditas}}">{{$komoditas}}</option>
-                            @endforeach
-                            @endif
-                        </select>
-                        @error('komoditas')
-                        <span class="text-red-500">{{$message}}</span>
-                        @enderror
-                    </div>
-                </div>
-                <div class="lokasiIzin">
-                        <label for="lokasiIzin" class="block text-sm font-semibold leading-6 text-gray-900">Lokasi Izin</label>
+                        <label for="komoditas" class="block text-sm font-semibold leading-6 text-gray-900">Komoditas</label>
                         <div class="mt-1.5 mb-3">
-                            <input type="text" id="lokasiIzin" name="lokasiIzin" value="{{old('lokasiIzin') ?? ''}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                            @error('lokasiIzin')
+                            <input type="text" id="komoditas" name="komoditas" value="{{$eksplor->komoditas}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            @error('komoditas')
                             <span class="text-red-500">{{$message}}</span>
                             @enderror
                         </div>
                 </div>
-            </div>
-                <div class="input-warp-3">
-                <div class="tahapanKegiatan">
-                    <label for="tahapanKegiatan" class="block text-sm font-semibold leading-6 text-gray-900">Tahapan Kegiatan</label>
+                <div class="lokasiIzin">
+                    <label for="lokasiIzin" class="block text-sm font-semibold leading-6 text-gray-900">Lokasi Izin</label>
                     <div class="mt-1.5 mb-3">
-                        <select name="tahapanKegiatan" id="tahapanKegiatan" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                            <option value="" disabled selected>Pilih</option>
-                            @foreach ($tahapanKegiatan as $key => $value)
-                                <option value="{{$key}}">{{$value}}</option>
-                            @endforeach
-                        </select>
-                        @error('tahapanKegiatan')
+                        <input type="text" id="lokasiIzin" name="lokasiIzin" value="{{$eksplor->lokasiIzin}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        @error('lokasiIzin')
                         <span class="text-red-500">{{$message}}</span>
                         @enderror
                     </div>
+            </div>
+            </div>
+            <div class="input-warp-3">
+            <div class="tahapanKegiatan">
+                <label for="tahapanKegiatan" class="block text-sm font-semibold leading-6 text-gray-900">Tahapan Kegiatan</label>
+                <div class="mt-1.5 mb-3">
+                    <select name="tahapanKegiatan" id="tahapanKegiatan" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <option value="" disabled selected>Pilih</option>
+                        @foreach ($tahapanKegiatan as $key => $value)
+                            <option value="{{$key}}">{{$value}}</option>
+                        @endforeach
+                    </select>
+                    @error('tahapanKegiatan')
+                    <span class="text-red-500">{{$message}}</span>
+                    @enderror
                 </div>
-                </div>
-
+            </div>
+            </div>
             <div class="flex flex-row gap-3">
-                <a href="{{route('iup.index')}}">
+                <a href="{{route('eksplor.index')}}">
                     <button type="button" class="bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 rounded-md">Kembali</button>
                 </a>
-                <button type="submit" class=" block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Simpan</button>
+                <button type="submit" class="block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Simpan</button>
             </div>
             <div id="modal" class="fixed mt-10 top-52 right-32 bg-gray-200 rounded-md shadow-lg overflow-hidden mx-auto max-w-64 z-50" style="display: none;">
                 <input type="hidden" name="fromModal" value="true">
             </div>
         </form>
-
     </div>
-
-
 
     <script>
         document.getElementById('tahapanKegiatan').addEventListener('change', function() {
@@ -154,19 +134,19 @@
                 <div class="tanggalSK_wiup">
                     <label for="tanggalSK_wiup" id="tanggalSK_wiup" class="block text-sm font-semibold leading-6 text-gray-900">Tanggal SK</label>
                     <div class="">
-                        <input type="date" id="tanggalSK_wiup" name="tanggalSK_wiup" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="date" id="tanggalSK_wiup" name="tanggalSK_wiup" value="{{$IUP->tanggalSK_wiup}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                 </div>
                 </div>
                 <div class="noSK_wiup">
                     <label for="noSK_wiup" id="noSK_wiup" class="block text-sm font-semibold leading-6 text-gray-900">No SK</label>
                     <div class="">
-                        <input type="number" id="noSK_wiup" name="noSK_wiup" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="number" id="noSK_wiup" name="noSK_wiup" value="{{$IUP->noSK_wiup}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                 </div>
                 <div class="scanSK_wiup">
                     <label for="scanSK_wiup" id="scanSK_wiup-label" class="block text-sm font-semibold leading-6 text-gray-900">Scan SK</label>
                     <div class="">
-                        <input type="file" id="scanSK_wiup" name="scanSK_wiup" value="{{old('scanSK_wiup') ?? ''}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="file" id="scanSK_wiup" name="scanSK_wiup" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                         @error('scanSK_wiup')
                         <span class="text-red-500">{{$message}}</span>
                         @enderror
@@ -183,31 +163,31 @@
                 <div class="tanggalSK_eksplor">
                     <label for="tanggalSK_eksplor" id="tanggalSK_eksplor" class="block text-sm font-semibold leading-6 text-gray-900">Tanggal SK</label>
                     <div class="">
-                        <input type="date" id="tanggalSK_eksplor" name="tanggalSK_eksplor" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="date" id="tanggalSK_eksplor" name="tanggalSK_eksplor" value="{{$IUP->tanggalSK_eksplor}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                 </div>
                 <div class="noSK_eksplor">
                     <label for="noSK_eksplor" id="noSK_eksplor" class="block text-sm font-semibold leading-6 text-gray-900">No SK</label>
                     <div class="">
-                        <input type="number" id="noSK_eksplor" name="noSK_eksplor" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="number" id="noSK_eksplor" name="noSK_eksplor" value="{{$IUP->noSK_eksplor}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                 </div>
                 <div class="masaBerlaku_eksplor">
                     <label for="masaBerlaku_eksplor" id="masaBerlaku_eksplor" class="block text-sm font-semibold leading-6 text-gray-900">Masa Berlaku</label>
                     <div class="">
-                        <input type="number" id="masaBerlaku_eksplor" name="masaBerlaku_eksplor" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="number" id="masaBerlaku_eksplor" name="masaBerlaku_eksplor" value="{{$IUP->masaBerlaku_eksplor}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                 </div>
                 <div class="tanggalBerakhir_eksplor">
                     <label for="tanggalBerakhir_eksplor" id="tanggalBerakhir_eksplor" class="block text-sm font-semibold leading-6 text-gray-900">Tanggal Berakhir</label>
                     <div class="">
-                        <input type="date" id="tanggalBerakhir_eksplor" name="tanggalBerakhir_eksplor" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="date" id="tanggalBerakhir_eksplor" name="tanggalBerakhir_eksplor" value="{{$IUP->tanggalBerakhir_eksplor}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                 </div>
                 <div class="scanSK_eksplor">
                     <label for="scanSK_eksplor" id="scanSK_eksplor-label" class="block text-sm font-semibold leading-6 text-gray-900">Scan SK</label>
                     <div class="">
-                        <input type="file" id="scanSK_eksplor" name="scanSK_eksplor" value="{{old('scanSK_eksplor') ?? ''}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="file" id="scanSK_eksplor" name="scanSK_eksplor" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                         @error('scanSK_eksplor')
                         <span class="text-red-500">{{$message}}</span>
                         @enderror
@@ -224,31 +204,31 @@
                 <div class="tanggalSK_op">
                     <label for="tanggalSK_op" id="tanggalSK_op" class="block text-sm font-semibold leading-6 text-gray-900">Tanggal SK</label>
                     <div class="">
-                        <input type="date" id="tanggalSK_op" name="tanggalSK_op" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="date" id="tanggalSK_op" name="tanggalSK_op" value="{{$IUP->tanggalSK_op}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                 </div>
                 <div class="noSK_op">
                     <label for="noSK_op" id="noSK_op" class="block text-sm font-semibold leading-6 text-gray-900">No SK</label>
                     <div class="">
-                        <input type="number" id="noSK_op" name="noSK_op" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="number" id="noSK_op" name="noSK_op" value="{{$IUP->noSK_op}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                 </div>
                 <div class="masaBerlaku_op">
                     <label for="masaBerlaku_op" id="masaBerlaku_op" class="block text-sm font-semibold leading-6 text-gray-900">Masa Berlaku</label>
                     <div class="">
-                        <input type="number" id="masaBerlaku_op" name="masaBerlaku_op" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="number" id="masaBerlaku_op" name="masaBerlaku_op" value="{{$IUP->masaBerlaku_op}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                 </div>
                 <div class="tanggalBerakhir_op">
                     <label for="tanggalBerakhir_op" id="tanggalBerakhir_op" class="block text-sm font-semibold leading-6 text-gray-900">Tanggal Berakhir</label>
                     <div class="">
-                        <input type="date" id="tanggalBerakhir_op" name="tanggalBerakhir_op" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="date" id="tanggalBerakhir_op" name="tanggalBerakhir_op" value="{{$IUP->tanggalBerakhir_op}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                 </div>
                 <div class="scanSK_op">
                     <label for="scanSK_op" id="scanSK_op-label" class="block text-sm font-semibold leading-6 text-gray-900">Scan SK</label>
                     <div class="">
-                        <input type="file" id="scanSK_op" name="scanSK_op" value="{{old('scanSK_op') ?? ''}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="file" id="scanSK_op" name="scanSK_op" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                         @error('scanSK_op')
                         <span class="text-red-500">{{$message}}</span>
                         @enderror
@@ -265,31 +245,31 @@
                 <div class="tanggalSK_p1">
                     <label for="tanggalSK_p1" id="tanggalSK_p1" class="block text-sm font-semibold leading-6 text-gray-900">Tanggal SK</label>
                     <div class="">
-                        <input type="date" id="tanggalSK_p1" name="tanggalSK_p1" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="date" id="tanggalSK_p1" name="tanggalSK_p1" value="{{$IUP->tanggalSK_p1}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                 </div>
                 <div class="noSK_p1">
                     <label for="noSK_p1" id="noSK_p1" class="block text-sm font-semibold leading-6 text-gray-900">No SK</label>
                     <div class="">
-                        <input type="number" id="noSK_p1" name="noSK_p1" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="number" id="noSK_p1" name="noSK_p1" value="{{$IUP->noSK_p1}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                 </div>
                 <div class="masaBerlaku_p1">
                     <label for="masaBerlaku_p1" id="masaBerlaku_p1" class="block text-sm font-semibold leading-6 text-gray-900">Masa Berlaku</label>
                     <div class="">
-                        <input type="number" id="masaBerlaku_p1" name="masaBerlaku_p1" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="number" id="masaBerlaku_p1" name="masaBerlaku_p1" value="{{$IUP->masaBerlaku_p1}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                 </div>
                 <div class="tanggalBerakhir_p1">
                     <label for="tanggalBerakhir_p1" id="tanggalBerakhir_p1" class="block text-sm font-semibold leading-6 text-gray-900">Tanggal Berakhir</label>
                     <div class="">
-                        <input type="date" id="tanggalBerakhir_p1" name="tanggalBerakhir_p1" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="date" id="tanggalBerakhir_p1" name="tanggalBerakhir_p1" value="{{$IUP->tanggalBerakhir_p1}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                 </div>
                 <div class="scanSK_p1">
                     <label for="scanSK_p1" id="scanSK_p1-label" class="block text-sm font-semibold leading-6 text-gray-900">Scan SK</label>
                     <div class="">
-                        <input type="file" id="scanSK_p1" name="scanSK_p1" value="{{old('scanSK_p1') ?? ''}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="file" id="scanSK_p1" name="scanSK_p1" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                         @error('scanSK_p1')
                         <span class="text-red-500">{{$message}}</span>
                         @enderror
@@ -306,31 +286,31 @@
                 <div class="tanggalSK_p2">
                     <label for="tanggalSK_p2" id="tanggalSK_p2" class="block text-sm font-semibold leading-6 text-gray-900">Tanggal SK</label>
                     <div class="">
-                        <input type="date" id="tanggalSK_p2" name="tanggalSK_p2" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="date" id="tanggalSK_p2" name="tanggalSK_p2" value="{{$IUP->tanggalSK_p2}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                 </div>
                 <div class="noSK_p2">
                     <label for="noSK_p2" id="noSK_p2" class="block text-sm font-semibold leading-6 text-gray-900">No SK</label>
                     <div class="">
-                        <input type="number" id="noSK_p2" name="noSK_p2" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="number" id="noSK_p2" name="noSK_p2" value="{{$IUP->noSK_p2}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                 </div>
                 <div class="masaBerlaku_p2">
                     <label for="masaBerlaku_p2" id="masaBerlaku_p2" class="block text-sm font-semibold leading-6 text-gray-900">Masa Berlaku</label>
                     <div class="">
-                        <input type="number" id="masaBerlaku_p2" name="masaBerlaku_p2" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="number" id="masaBerlaku_p2" name="masaBerlaku_p2" value="{{$IUP->masaBerlaku_p2}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                 </div>
                 <div class="tanggalBerakhir_p2">
                     <label for="tanggalBerakhir_p2" id="tanggalBerakhir_p2" class="block text-sm font-semibold leading-6 text-gray-900">Tanggal Berakhir</label>
                     <div class="">
-                        <input type="date" id="tanggalBerakhir_p2" name="tanggalBerakhir_p2" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="date" id="tanggalBerakhir_p2" name="tanggalBerakhir_p2" value="{{$IUP->tanggalBerakhir_p2}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                 </div>
                 <div class="scanSK_p2">
                     <label for="scanSK_p2" id="scanSK_p2-label" class="block text-sm font-semibold leading-6 text-gray-900">Scan SK</label>
                     <div class="">
-                        <input type="file" id="scanSK_p2" name="scanSK_p2" value="{{old('scanSK_p2') ?? ''}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="file" id="scanSK_p2" name="scanSK_p2" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                         @error('scanSK_p2')
                         <span class="text-red-500">{{$message}}</span>
                         @enderror
@@ -368,10 +348,10 @@
                 formData.scanSK_eksplor = document.getElementById('scanSK_eksplor').value;
             }
             else if(selectedValue = 'IUP Tahap Operasi Produksi'){
-                formData.tanggalSK = document.getElementById('tanggalSKop').value;
-                formData.noSK = document.getElementById('noSKop').value;
-                formData.masaBerlaku = document.getElementById('masaBerlakuop').value;
-                formData.tanggalBerakhir = document.getElementById('tanggalBerakhirop').value;
+                formData.tanggalSK = document.getElementById('tanggalSK_op').value;
+                formData.noSK = document.getElementById('noSK_op').value;
+                formData.masaBerlaku = document.getElementById('masaBerlaku_op').value;
+                formData.tanggalBerakhir = document.getElementById('tanggalBerakhir_op').value;
                 formData.scanSK_op = document.getElementById('scanSK_op').value;
             }
             else if(selectedValue = 'Perpanjangan 1 IUP Tahap Operasi Produksi'){
