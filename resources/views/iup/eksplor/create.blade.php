@@ -83,24 +83,6 @@
                         @enderror
                     </div>
                 </div>
-                <div class="komoditas">
-                    <label for="komoditas" class="block text-sm font-semibold leading-6 text-gray-900">Komoditas</label>
-                    <div class="mt-1.5 mb-3">
-                        <select name="komoditas" id="komoditas" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                            @if ($komoditas->isEmpty())
-                                <option value="">Belum Ada Komoditas</option>
-                            @else
-                                <option value="" disabled selected>Pilih</option>
-                            @foreach ($komoditas as $komoditas)
-                                <option value="{{$komoditas}}">{{$komoditas}}</option>
-                            @endforeach
-                            @endif
-                        </select>
-                        @error('komoditas')
-                        <span class="text-red-500">{{$message}}</span>
-                        @enderror
-                    </div>
-                </div>
                 <div class="lokasiIzin">
                         <label for="lokasiIzin" class="block text-sm font-semibold leading-6 text-gray-900">Lokasi Izin</label>
                         <div class="mt-1.5 mb-3">
@@ -134,7 +116,7 @@
                 </a>
                 <button type="submit" class=" block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Simpan</button>
             </div>
-            <div id="modal" class="fixed mt-10 top-52 right-32 bg-gray-200 rounded-md shadow-lg overflow-hidden mx-auto max-w-64 z-50" style="display: none;">
+            <div id="modal" class="fixed mt-10 top-52 right-32 bg-gray-200 rounded-md shadow-lg overflow-hidden mx-auto max-w-sm z-50" style="display: none;">
                 <input type="hidden" name="fromModal" value="true">
             </div>
         </form>
@@ -150,7 +132,7 @@
 
             if (selectedValue === 'WIUP') {
                 modalContent = `
-                <div class="mt-1.5 mb-3 px-10 max-w-xs mx-auto">
+                <div class="mt-1.5 mb-3 px-3 grid grid-cols-1 gap-4 md:grid-cols-2 mx-auto">
                 <div class="tanggalSK_wiup">
                     <label for="tanggalSK_wiup" id="tanggalSK_wiup" class="block text-sm font-semibold leading-6 text-gray-900">Tanggal SK</label>
                     <div class="">
@@ -161,6 +143,38 @@
                     <label for="noSK_wiup" id="noSK_wiup" class="block text-sm font-semibold leading-6 text-gray-900">No SK</label>
                     <div class="">
                         <input type="number" id="noSK_wiup" name="noSK_wiup" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                </div>
+                <div class="golongan_wiup">
+                    <label for="golongan" class="block text-sm font-semibold leading-6 text-gray-900">Golongan</label>
+                    <div class="mt-1.5 mb-3">
+                        <select name="golongan_wiup" id="golongan_wiup" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            <option value="" disabled selected>Pilih</option>
+                            @foreach ($golongan_wiup as $key => $value)
+                                <option value="{{$key}}">{{$value}}</option>
+                            @endforeach
+                        </select>
+                        @error('golongan_wiup')
+                        <span class="text-red-500">{{$message}}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="komoditas_wiup">
+                    <label for="komoditas_wiup" class="block text-sm font-semibold leading-6 text-gray-900">Komoditas</label>
+                    <div class="mt-1.5 mb-3">
+                        <select name="komoditas_wiup" id="komoditas_wiup" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            @if ($komoditas->isEmpty())
+                            <option value="">Belum Ada Perusahaan</option>
+                        @else
+                            <option value="" disabled selected>Pilih</option>
+                        @foreach ($komoditas as $komoditas_wiup)
+                            <option value="{{$komoditas_wiup}}">{{$komoditas_wiup}}</option>
+                        @endforeach
+                        @endif
+                        </select>
+                        @error('komoditas_wiup')
+                        <span class="text-red-500">{{$message}}</span>
+                        @enderror
                     </div>
                 </div>
                 <div class="scanSK_wiup">
@@ -179,7 +193,7 @@
                 `;
             } else if (selectedValue === 'IUP Tahap Eksplorasi') {
                 modalContent = `
-                <div class="mt-1.5 mb-3 px-10 max-w-xs mx-auto">
+                <div class="mt-1.5 mb-3 px-3 grid grid-cols-1 gap-4 md:grid-cols-2 mx-auto">
                 <div class="tanggalSK_eksplor">
                     <label for="tanggalSK_eksplor" id="tanggalSK_eksplor" class="block text-sm font-semibold leading-6 text-gray-900">Tanggal SK</label>
                     <div class="">
@@ -204,6 +218,38 @@
                         <input type="date" id="tanggalBerakhir_eksplor" name="tanggalBerakhir_eksplor" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                 </div>
+                <div class="golongan_eksplor">
+                    <label for="golongan" class="block text-sm font-semibold leading-6 text-gray-900">Golongan</label>
+                    <div class="mt-1.5 mb-3">
+                        <select name="golongan_eksplor" id="golongan_eksplor" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            <option value="" disabled selected>Pilih</option>
+                            @foreach ($golongan_eksplor as $key => $value)
+                                <option value="{{$key}}">{{$value}}</option>
+                            @endforeach
+                        </select>
+                        @error('golongan_eksplor')
+                        <span class="text-red-500">{{$message}}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="komoditas_eksplor">
+                    <label for="komoditas_eksplor" class="block text-sm font-semibold leading-6 text-gray-900">Komoditas</label>
+                    <div class="mt-1.5 mb-3">
+                        <select name="komoditas_eksplor" id="komoditas_eksplor" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            @if ($komoditas->isEmpty())
+                            <option value="">Belum Ada Perusahaan</option>
+                        @else
+                            <option value="" disabled selected>Pilih</option>
+                        @foreach ($komoditas as $komoditas_eksplor)
+                            <option value="{{$komoditas_eksplor}}">{{$komoditas_eksplor}}</option>
+                        @endforeach
+                        @endif
+                        </select>
+                        @error('komoditas_eksplor')
+                        <span class="text-red-500">{{$message}}</span>
+                        @enderror
+                    </div>
+                </div>
                 <div class="scanSK_eksplor">
                     <label for="scanSK_eksplor" id="scanSK_eksplor-label" class="block text-sm font-semibold leading-6 text-gray-900">Scan SK</label>
                     <div class="">
@@ -220,7 +266,7 @@
                 `;
             } else if (selectedValue === 'IUP Tahap Operasi Produksi') {
                 modalContent = `
-                <div class="mt-1.5 mb-3 px-10 max-w-xs mx-auto">
+                <div class="mt-1.5 mb-3 px-3 grid grid-cols-1 gap-4 md:grid-cols-2 mx-auto">
                 <div class="tanggalSK_op">
                     <label for="tanggalSK_op" id="tanggalSK_op" class="block text-sm font-semibold leading-6 text-gray-900">Tanggal SK</label>
                     <div class="">
@@ -245,6 +291,38 @@
                         <input type="date" id="tanggalBerakhir_op" name="tanggalBerakhir_op" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                 </div>
+                <div class="golongan_op">
+                    <label for="golongan" class="block text-sm font-semibold leading-6 text-gray-900">Golongan</label>
+                    <div class="mt-1.5 mb-3">
+                        <select name="golongan_op" id="golongan_op" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            <option value="" disabled selected>Pilih</option>
+                            @foreach ($golongan_op as $key => $value)
+                                <option value="{{$key}}">{{$value}}</option>
+                            @endforeach
+                        </select>
+                        @error('golongan_op')
+                        <span class="text-red-500">{{$message}}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="komoditas_op">
+                    <label for="komoditas_op" class="block text-sm font-semibold leading-6 text-gray-900">Komoditas</label>
+                    <div class="mt-1.5 mb-3">
+                        <select name="komoditas_op" id="komoditas_op" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            @if ($komoditas->isEmpty())
+                            <option value="">Belum Ada Perusahaan</option>
+                        @else
+                            <option value="" disabled selected>Pilih</option>
+                        @foreach ($komoditas as $komoditas_op)
+                            <option value="{{$komoditas_op}}">{{$komoditas_op}}</option>
+                        @endforeach
+                        @endif
+                        </select>
+                        @error('komoditas_op')
+                        <span class="text-red-500">{{$message}}</span>
+                        @enderror
+                    </div>
+                </div>
                 <div class="scanSK_op">
                     <label for="scanSK_op" id="scanSK_op-label" class="block text-sm font-semibold leading-6 text-gray-900">Scan SK</label>
                     <div class="">
@@ -261,7 +339,7 @@
                 `;
             } else if (selectedValue === 'Perpanjangan 1 IUP Tahap Operasi Produksi') {
                 modalContent = `
-                <div class="mt-1.5 mb-3 px-10 max-w-xs mx-auto">
+                <div class="mt-1.5 mb-3 px-3 grid grid-cols-1 gap-4 md:grid-cols-2 mx-auto">
                 <div class="tanggalSK_p1">
                     <label for="tanggalSK_p1" id="tanggalSK_p1" class="block text-sm font-semibold leading-6 text-gray-900">Tanggal SK</label>
                     <div class="">
@@ -286,6 +364,38 @@
                         <input type="date" id="tanggalBerakhir_p1" name="tanggalBerakhir_p1" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                 </div>
+                <div class="golongan_p1">
+                    <label for="golongan" class="block text-sm font-semibold leading-6 text-gray-900">Golongan</label>
+                    <div class="mt-1.5 mb-3">
+                        <select name="golongan_p1" id="golongan_p1" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            <option value="" disabled selected>Pilih</option>
+                            @foreach ($golongan_p1 as $key => $value)
+                                <option value="{{$key}}">{{$value}}</option>
+                            @endforeach
+                        </select>
+                        @error('golongan_p1')
+                        <span class="text-red-500">{{$message}}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="komoditas_p1">
+                    <label for="komoditas_p1" class="block text-sm font-semibold leading-6 text-gray-900">Komoditas</label>
+                    <div class="mt-1.5 mb-3">
+                        <select name="komoditas_p1" id="komoditas_p1" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            @if ($komoditas->isEmpty())
+                            <option value="">Belum Ada Perusahaan</option>
+                        @else
+                            <option value="" disabled selected>Pilih</option>
+                        @foreach ($komoditas as $komoditas_p1)
+                            <option value="{{$komoditas_p1}}">{{$komoditas_p1}}</option>
+                        @endforeach
+                        @endif
+                        </select>
+                        @error('komoditas_p1')
+                        <span class="text-red-500">{{$message}}</span>
+                        @enderror
+                    </div>
+                </div>
                 <div class="scanSK_p1">
                     <label for="scanSK_p1" id="scanSK_p1-label" class="block text-sm font-semibold leading-6 text-gray-900">Scan SK</label>
                     <div class="">
@@ -302,7 +412,7 @@
                 `;
             } else if (selectedValue === 'Perpanjangan 2 IUP Tahap Operasi Produksi') {
                 modalContent = `
-                <div class="mt-1.5 mb-3 px-10 max-w-xs mx-auto">
+                <div class="mt-1.5 mb-3 px-3 grid grid-cols-1 gap-4 md:grid-cols-2 mx-auto">
                 <div class="tanggalSK_p2">
                     <label for="tanggalSK_p2" id="tanggalSK_p2" class="block text-sm font-semibold leading-6 text-gray-900">Tanggal SK</label>
                     <div class="">
@@ -325,6 +435,38 @@
                     <label for="tanggalBerakhir_p2" id="tanggalBerakhir_p2" class="block text-sm font-semibold leading-6 text-gray-900">Tanggal Berakhir</label>
                     <div class="">
                         <input type="date" id="tanggalBerakhir_p2" name="tanggalBerakhir_p2" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                </div>
+                <div class="golongan_p2">
+                    <label for="golongan" class="block text-sm font-semibold leading-6 text-gray-900">Golongan</label>
+                    <div class="mt-1.5 mb-3">
+                        <select name="golongan_p2" id="golongan_p2" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            <option value="" disabled selected>Pilih</option>
+                            @foreach ($golongan_p2 as $key => $value)
+                                <option value="{{$key}}">{{$value}}</option>
+                            @endforeach
+                        </select>
+                        @error('golongan_p2')
+                        <span class="text-red-500">{{$message}}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="komoditas_p2">
+                    <label for="komoditas_p2" class="block text-sm font-semibold leading-6 text-gray-900">Komoditas</label>
+                    <div class="mt-1.5 mb-3">
+                        <select name="komoditas_p2" id="komoditas_p2" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            @if ($komoditas->isEmpty())
+                            <option value="">Belum Ada Perusahaan</option>
+                        @else
+                            <option value="" disabled selected>Pilih</option>
+                        @foreach ($komoditas as $komoditas_p2)
+                            <option value="{{$komoditas_p2}}">{{$komoditas_p2}}</option>
+                        @endforeach
+                        @endif
+                        </select>
+                        @error('komoditas_p2')
+                        <span class="text-red-500">{{$message}}</span>
+                        @enderror
                     </div>
                 </div>
                 <div class="scanSK_p2">

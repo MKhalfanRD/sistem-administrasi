@@ -6,7 +6,7 @@
         </div>
         <a href="{{ route('iup.create') }}">
             <button type="submit"
-                class="mt-5 mb-5 block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Tambah
+                class="mt-5 mb-5 rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Tambah
                 Data</button>
         </a>
     <div class="button-wrap flex justify-between">
@@ -77,9 +77,6 @@
                             Luas Wilayah
                         </th>
                         <th scope="col" class="px-6 py-3 text-center">
-                            Komoditas
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-center">
                             Lokasi Izin
                         </th>
                         <th scope="col" class="px-6 py-3 text-center">
@@ -103,28 +100,25 @@
                                 @endphp
                                 {{ $counter }}
                             </th>
-                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $iup->namaPerusahaan }}
                             </td>
-                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $iup->alamat }}
                             </td>
-                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $iup->npwp }}
                             </td>
-                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $iup->nib }}
                             </td>
-                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $iup->kabupaten }}
                             </td>
-                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $iup->luasWilayah }}
                             </td>
-                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $iup->komoditas }}
-                            </td>
-                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $iup->lokasiIzin }}
                             </td>
                             <td class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -134,8 +128,7 @@
                                     <span class="bg-red-300 px-2 py-2 text-red-700 rounded-md">Tidak Aktif</span>
                                 @endif
                             </td>
-                            <th scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <th scope="row" class="flex justify-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 <div class="btn-wrap flex flex-row gap-3">
                                     <a href="{{ route('iup.edit', $iup->id) }}">
                                         <button type="submit"
@@ -157,16 +150,18 @@
                                         <thead
                                             class="text-base text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                             <tr class="text-center">
-                                                <th colspan="3" class="border-r-2 border-white">WIUP</th>
-                                                <th colspan="5" class="border-r-2 border-white">IUP Eksplorasi</th>
-                                                <th colspan="5" class="border-r-2 border-white">IUP Operasi Produksi</th>
-                                                <th colspan="5" class="border-r-2 border-white">Perpanjangan 1</th>
-                                                <th colspan="5">Perpanjangan 2</th>
+                                                <th colspan="5" class="border-r-2 border-white">WIUP</th>
+                                                <th colspan="7" class="border-r-2 border-white">IUP Eksplorasi</th>
+                                                <th colspan="7" class="border-r-2 border-white">IUP Operasi Produksi</th>
+                                                <th colspan="7" class="border-r-2 border-white">Perpanjangan 1</th>
+                                                <th colspan="7">Perpanjangan 2</th>
                                             </tr>
                                             <tr>
                                                 <div class="wiup">
                                                     <th class="px-6 py-3 text-center">Tanggal SK</th>
                                                     <th class="px-6 py-3 text-center">No SK</th>
+                                                    <th class="px-6 py-3 text-center">Golongan</th>
+                                                    <th class="px-6 py-3 text-center">Komoditas</th>
                                                     <th class="px-6 py-3 text-center border-r-2 border-white">Scan SK</th>
                                                 </div>
                                                 <div class="eksplorasi">
@@ -174,6 +169,8 @@
                                                     <th class="px-6 py-3 text-center">No SK</th>
                                                     <th class="px-6 py-3 text-center">Masa Berlaku</th>
                                                     <th class="px-6 py-3 text-cente">Tanggal Berakhir</th>
+                                                    <th class="px-6 py-3 text-center">Golongan</th>
+                                                    <th class="px-6 py-3 text-center">Komoditas</th>
                                                     <th class="px-6 py-3 text-center border-r-2 border-white">Scan SK</th>
                                                 </div>
                                                 <div class="operasiProduksi">
@@ -181,6 +178,8 @@
                                                     <th class="px-6 py-3 text-center">No SK</th>
                                                     <th class="px-6 py-3 text-center">Masa Berlaku</th>
                                                     <th class="px-6 py-3 text-center">Tanggal Berakhir</th>
+                                                    <th class="px-6 py-3 text-center">Golongan</th>
+                                                    <th class="px-6 py-3 text-center">Komoditas</th>
                                                     <th class="px-6 py-3 text-center border-r-2 border-white">Scan SK</th>
                                                 </div>
                                                 <div class="perpanjangan1">
@@ -188,6 +187,8 @@
                                                     <th class="px-6 py-3 text-center">No SK</th>
                                                     <th class="px-6 py-3 text-center">Masa Berlaku</th>
                                                     <th class="px-6 py-3 text-center">Tanggal Berakhir</th>
+                                                    <th class="px-6 py-3 text-center">Golongan</th>
+                                                    <th class="px-6 py-3 text-center">Komoditas</th>
                                                     <th class="px-6 py-3 text-center border-r-2 border-white">Scan SK</th>
                                                 </div>
                                                 <div class="perpanjangan2">
@@ -195,6 +196,8 @@
                                                     <th class="px-6 py-3 text-center">No SK</th>
                                                     <th class="px-6 py-3 text-center">Masa Berlaku</th>
                                                     <th class="px-6 py-3 text-center">Tanggal Berakhir</th>
+                                                    <th class="px-6 py-3 text-center">Golongan</th>
+                                                    <th class="px-6 py-3 text-center">Komoditas</th>
                                                     <th class="px-6 py-3 text-center">Scan SK</th>
                                                 </div>
                                             </tr>
@@ -209,6 +212,14 @@
                                                     <td
                                                         class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                         {{ $iup->noSK_wiup }}
+                                                    </td>
+                                                    <td
+                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        {{ $iup->golongan_wiup }}
+                                                    </td>
+                                                    <td
+                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        {{ $iup->komoditas_wiup }}
                                                     </td>
                                                     <td
                                                         class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white border-r-2 border-white">
@@ -241,6 +252,14 @@
                                                         {{ $iup->tanggalBerakhir_eksplor }}
                                                     </td>
                                                     <td
+                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        {{ $iup->golongan_eksplor }}
+                                                    </td>
+                                                    <td
+                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        {{ $iup->komoditas_eksplor }}
+                                                    </td>
+                                                    <td
                                                         class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white border-r-2 border-white">
                                                         @if ($iup->scanSK_eksplor)
                                                         <a href="{{ asset('storage/' . $iup->scanSK_eksplor) }}" target="_blank">
@@ -269,6 +288,14 @@
                                                     <td
                                                         class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                         {{ $iup->tanggalBerakhir_op }}
+                                                    </td>
+                                                    <td
+                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        {{ $iup->golongan_op }}
+                                                    </td>
+                                                    <td
+                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        {{ $iup->komoditas_op }}
                                                     </td>
                                                     <td
                                                         class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white border-r-2 border-white">
@@ -301,6 +328,14 @@
                                                         {{ $iup->tanggalBerakhir_p1 }}
                                                     </td>
                                                     <td
+                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        {{ $iup->golongan_p1 }}
+                                                    </td>
+                                                    <td
+                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        {{ $iup->komoditas_p1 }}
+                                                    </td>
+                                                    <td
                                                         class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white border-r-2 border-white">
                                                         @if ($iup->scanSK_p1)
                                                         <a href="{{ asset('storage/' . $iup->scanSK_p1) }}" target="_blank">
@@ -329,6 +364,14 @@
                                                     <td
                                                         class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                         {{ $iup->tanggalBerakhir_p2 }}
+                                                    </td>
+                                                    <td
+                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        {{ $iup->golongan_p2 }}
+                                                    </td>
+                                                    <td
+                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        {{ $iup->komoditas_p2 }}
                                                     </td>
                                                     <td
                                                         class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">

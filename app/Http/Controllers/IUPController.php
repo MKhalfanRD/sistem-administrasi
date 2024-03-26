@@ -90,11 +90,37 @@ class IUPController extends Controller
             'Perpanjangan 2 IUP Tahap Operasi Produksi' => 'Perpanjangan 2 IUP Tahap Operasi Produksi',
         ];
 
+        $golongan_wiup = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_eksplor = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_op = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_p1 = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_p2 = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+
         $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
         $kabupaten = Kabupaten::whereNotNull('kabupaten')->pluck('kabupaten', 'id');
         $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
 
-        return view('iup/wiup.create', compact('tahapanKegiatan', 'perusahaanUser', 'kabupaten', 'komoditas'));
+        return view('iup/wiup.create', compact('tahapanKegiatan', 'perusahaanUser', 'kabupaten', 'komoditas', 'golongan_wiup', 'golongan_eksplor', 'golongan_op', 'golongan_p1', 'golongan_p2'));
     }
 
     public function wiupStore(Request $request){
@@ -125,7 +151,16 @@ class IUPController extends Controller
             'tanggalBerakhir_p2' => 'nullable',
             'luasWilayah' => 'nullable|numeric',
             'tahapanKegiatan' => 'nullable',
-            'komoditas' => 'required',
+            'golongan_wiup' => 'nullable',
+            'golongan_eksplor' => 'nullable',
+            'golongan_op' => 'nullable',
+            'golongan_p1' => 'nullable',
+            'golongan_p2' => 'nullable',
+            'komoditas_wiup' => 'nullable',
+            'komoditas_eksplor' => 'nullable',
+            'komoditas_op' => 'nullable',
+            'komoditas_p1' => 'nullable',
+            'komoditas_p2' => 'nullable',
             'lokasiIzin' => 'required',
             'scanSK_wiup' => 'nullable|file|mimes:pdf',
             'scanSK_eksplor' => 'nullable|file|mimes:pdf',
@@ -203,10 +238,10 @@ class IUPController extends Controller
         // dd($jenisKegiatan);
 
         $iup = IUP::create($iupData);
+        dd($iup);
         return redirect()->route('wiup.index');
     }
     public function wiupEdit($id){
-        $IUP = IUP::find($id);
         $wiup = IUP::find($id);
         $tahapanKegiatan = [
             'WIUP' => 'WIUP',
@@ -216,12 +251,45 @@ class IUPController extends Controller
             'Perpanjangan 2 IUP Tahap Operasi Produksi' => 'Perpanjangan 2 IUP Tahap Operasi Produksi',
         ];
 
+        $golongan_wiup = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_eksplor = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_op = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_p1 = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_p2 = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+
         $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
         $kabupaten = Kabupaten::whereNotNull('kabupaten')->pluck('kabupaten', 'id');
+        $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
 
-        $tahapanKegiatanSelected = $wiup->tahapanKegiatan;
+        $IUP = IUP::find($id);
+        $golonganSelectedWiup = $IUP->golongan_wiup;
+        $golonganSelectedEksplor = $IUP->golongan_eksplor;
+        $golonganSelectedOp = $IUP->golongan_op;
+        $golonganSelectedP1 = $IUP->golongan_p1;
+        $golonganSelectedP2 = $IUP->golongan_p2;
+
         // $data = IUP::find($id);
-        return view('iup/wiup.edit', compact(['IUP','wiup', 'tahapanKegiatan', 'perusahaanUser', 'kabupaten', 'tahapanKegiatanSelected']));
+        return view('iup/wiup.edit', compact(['IUP', 'wiup', 'tahapanKegiatan', 'perusahaanUser', 'kabupaten', 'komoditas', 'golongan_wiup', 'golongan_eksplor', 'golongan_op', 'golongan_p1', 'golongan_p2', 'golonganSelectedWiup', 'golonganSelectedEksplor', 'golonganSelectedOp', 'golonganSelectedP1', 'golonganSelectedP2']));
     }
 
     public function wiupUpdate(Request $request, $id){
@@ -251,7 +319,16 @@ class IUPController extends Controller
             'tanggalBerakhir_p2' => 'nullable',
             'luasWilayah' => 'nullable|numeric',
             'tahapanKegiatan' => 'nullable',
-            'komoditas' => 'required',
+            'golongan_wiup' => 'nullable',
+            'golongan_eksplor' => 'nullable',
+            'golongan_op' => 'nullable',
+            'golongan_p1' => 'nullable',
+            'golongan_p2' => 'nullable',
+            'komoditas_wiup' => 'nullable',
+            'komoditas_eksplor' => 'nullable',
+            'komoditas_op' => 'nullable',
+            'komoditas_p1' => 'nullable',
+            'komoditas_p2' => 'nullable',
             'lokasiIzin' => 'required',
             'scanSK_wiup' => 'nullable|file|mimes:pdf',
             'scanSK_eksplor' => 'nullable|file|mimes:pdf',
@@ -332,6 +409,7 @@ class IUPController extends Controller
         $iupData['jenisKegiatan'] = $jenisKegiatan;
 
         $iup->update($iupData);
+        dd($iup);
         return redirect()->route('wiup.index');
     }
 
@@ -366,11 +444,37 @@ class IUPController extends Controller
             'Perpanjangan 2 IUP Tahap Operasi Produksi' => 'Perpanjangan 2 IUP Tahap Operasi Produksi',
         ];
 
+        $golongan_wiup = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_eksplor = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_op = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_p1 = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_p2 = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+
         $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
         $kabupaten = Kabupaten::whereNotNull('kabupaten')->pluck('kabupaten', 'id');
         $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
 
-        return view('iup/eksplor.create', compact('tahapanKegiatan', 'perusahaanUser', 'kabupaten', 'komoditas'));
+        return view('iup/eksplor.create', compact('tahapanKegiatan', 'perusahaanUser', 'kabupaten', 'komoditas', 'golongan_wiup', 'golongan_eksplor', 'golongan_op', 'golongan_p1', 'golongan_p2'));
     }
 
     public function eksplorStore(Request $request){
@@ -401,7 +505,16 @@ class IUPController extends Controller
             'tanggalBerakhir_p2' => 'nullable',
             'luasWilayah' => 'nullable|numeric',
             'tahapanKegiatan' => 'nullable',
-            'komoditas' => 'required',
+            'golongan_wiup' => 'nullable',
+            'golongan_eksplor' => 'nullable',
+            'golongan_op' => 'nullable',
+            'golongan_p1' => 'nullable',
+            'golongan_p2' => 'nullable',
+            'komoditas_wiup' => 'nullable',
+            'komoditas_eksplor' => 'nullable',
+            'komoditas_op' => 'nullable',
+            'komoditas_p1' => 'nullable',
+            'komoditas_p2' => 'nullable',
             'lokasiIzin' => 'required',
             'scanSK_wiup' => 'nullable|file|mimes:pdf',
             'scanSK_eksplor' => 'nullable|file|mimes:pdf',
@@ -482,7 +595,6 @@ class IUPController extends Controller
         return redirect()->route('eksplor.index');
     }
     public function eksplorEdit($id){
-        $IUP = IUP::find($id);
         $eksplor = IUP::find($id);
         $tahapanKegiatan = [
             'WIUP' => 'WIUP',
@@ -492,11 +604,45 @@ class IUPController extends Controller
             'Perpanjangan 2 IUP Tahap Operasi Produksi' => 'Perpanjangan 2 IUP Tahap Operasi Produksi',
         ];
 
+        $golongan_wiup = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_eksplor = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_op = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_p1 = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_p2 = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+
         $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
         $kabupaten = Kabupaten::whereNotNull('kabupaten')->pluck('kabupaten', 'id');
+        $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
+
+        $IUP = IUP::find($id);
+        $golonganSelectedWiup = $IUP->golongan_wiup;
+        $golonganSelectedEksplor = $IUP->golongan_eksplor;
+        $golonganSelectedOp = $IUP->golongan_op;
+        $golonganSelectedP1 = $IUP->golongan_p1;
+        $golonganSelectedP2 = $IUP->golongan_p2;
 
         // $data = IUP::find($id);
-        return view('iup/eksplor.edit', compact(['IUP','eksplor', 'tahapanKegiatan', 'perusahaanUser', 'kabupaten']));
+        return view('iup/eksplor.edit', compact(['IUP', 'eksplor', 'tahapanKegiatan', 'perusahaanUser', 'kabupaten', 'komoditas', 'golongan_wiup', 'golongan_eksplor', 'golongan_op', 'golongan_p1', 'golongan_p2', 'golonganSelectedWiup', 'golonganSelectedEksplor', 'golonganSelectedOp', 'golonganSelectedP1', 'golonganSelectedP2']));
     }
 
     public function eksplorUpdate(Request $request, $id){
@@ -526,7 +672,16 @@ class IUPController extends Controller
             'tanggalBerakhir_p2' => 'nullable',
             'luasWilayah' => 'nullable|numeric',
             'tahapanKegiatan' => 'nullable',
-            'komoditas' => 'required',
+            'golongan_wiup' => 'nullable',
+            'golongan_eksplor' => 'nullable',
+            'golongan_op' => 'nullable',
+            'golongan_p1' => 'nullable',
+            'golongan_p2' => 'nullable',
+            'komoditas_wiup' => 'nullable',
+            'komoditas_eksplor' => 'nullable',
+            'komoditas_op' => 'nullable',
+            'komoditas_p1' => 'nullable',
+            'komoditas_p2' => 'nullable',
             'lokasiIzin' => 'required',
             'scanSK_wiup' => 'nullable|file|mimes:pdf',
             'scanSK_eksplor' => 'nullable|file|mimes:pdf',
@@ -641,11 +796,37 @@ class IUPController extends Controller
             'Perpanjangan 2 IUP Tahap Operasi Produksi' => 'Perpanjangan 2 IUP Tahap Operasi Produksi',
         ];
 
+        $golongan_wiup = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_eksplor = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_op = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_p1 = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_p2 = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+
         $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
         $kabupaten = Kabupaten::whereNotNull('kabupaten')->pluck('kabupaten', 'id');
         $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
 
-        return view('iup/op.create', compact('tahapanKegiatan', 'perusahaanUser', 'kabupaten', 'komoditas'));
+        return view('iup/op.create', compact('tahapanKegiatan', 'perusahaanUser', 'kabupaten', 'komoditas', 'golongan_wiup', 'golongan_eksplor', 'golongan_op', 'golongan_p1', 'golongan_p2'));
     }
 
     public function opStore(Request $request){
@@ -676,7 +857,16 @@ class IUPController extends Controller
             'tanggalBerakhir_p2' => 'nullable',
             'luasWilayah' => 'nullable|numeric',
             'tahapanKegiatan' => 'nullable',
-            'komoditas' => 'required',
+            'golongan_wiup' => 'nullable',
+            'golongan_eksplor' => 'nullable',
+            'golongan_op' => 'nullable',
+            'golongan_p1' => 'nullable',
+            'golongan_p2' => 'nullable',
+            'komoditas_wiup' => 'nullable',
+            'komoditas_eksplor' => 'nullable',
+            'komoditas_op' => 'nullable',
+            'komoditas_p1' => 'nullable',
+            'komoditas_p2' => 'nullable',
             'lokasiIzin' => 'required',
             'scanSK_wiup' => 'nullable|file|mimes:pdf',
             'scanSK_eksplor' => 'nullable|file|mimes:pdf',
@@ -757,7 +947,6 @@ class IUPController extends Controller
         return redirect()->route('op.index');
     }
     public function opEdit($id){
-        $IUP = IUP::find($id);
         $op = IUP::find($id);
         $tahapanKegiatan = [
             'WIUP' => 'WIUP',
@@ -767,11 +956,45 @@ class IUPController extends Controller
             'Perpanjangan 2 IUP Tahap Operasi Produksi' => 'Perpanjangan 2 IUP Tahap Operasi Produksi',
         ];
 
+        $golongan_wiup = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_eksplor = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_op = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_p1 = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_p2 = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+
         $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
         $kabupaten = Kabupaten::whereNotNull('kabupaten')->pluck('kabupaten', 'id');
+        $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
+
+        $IUP = IUP::find($id);
+        $golonganSelectedWiup = $IUP->golongan_wiup;
+        $golonganSelectedEksplor = $IUP->golongan_eksplor;
+        $golonganSelectedOp = $IUP->golongan_op;
+        $golonganSelectedP1 = $IUP->golongan_p1;
+        $golonganSelectedP2 = $IUP->golongan_p2;
 
         // $data = IUP::find($id);
-        return view('iup/op.edit', compact(['IUP','op', 'tahapanKegiatan', 'perusahaanUser', 'kabupaten']));
+        return view('iup/op.edit', compact(['IUP', 'op', 'tahapanKegiatan', 'perusahaanUser', 'kabupaten', 'komoditas', 'golongan_wiup', 'golongan_eksplor', 'golongan_op', 'golongan_p1', 'golongan_p2', 'golonganSelectedWiup', 'golonganSelectedEksplor', 'golonganSelectedOp', 'golonganSelectedP1', 'golonganSelectedP2']));
     }
 
     public function opUpdate(Request $request, $id){
@@ -801,7 +1024,16 @@ class IUPController extends Controller
             'tanggalBerakhir_p2' => 'nullable',
             'luasWilayah' => 'nullable|numeric',
             'tahapanKegiatan' => 'nullable',
-            'komoditas' => 'required',
+            'golongan_wiup' => 'nullable',
+            'golongan_eksplor' => 'nullable',
+            'golongan_op' => 'nullable',
+            'golongan_p1' => 'nullable',
+            'golongan_p2' => 'nullable',
+            'komoditas_wiup' => 'nullable',
+            'komoditas_eksplor' => 'nullable',
+            'komoditas_op' => 'nullable',
+            'komoditas_p1' => 'nullable',
+            'komoditas_p2' => 'nullable',
             'lokasiIzin' => 'required',
             'scanSK_wiup' => 'nullable|file|mimes:pdf',
             'scanSK_eksplor' => 'nullable|file|mimes:pdf',
@@ -916,11 +1148,37 @@ class IUPController extends Controller
             'Perpanjangan 2 IUP Tahap Operasi Produksi' => 'Perpanjangan 2 IUP Tahap Operasi Produksi',
         ];
 
+        $golongan_wiup = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_eksplor = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_op = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_p1 = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_p2 = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+
         $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
         $kabupaten = Kabupaten::whereNotNull('kabupaten')->pluck('kabupaten', 'id');
         $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
 
-        return view('iup/p1.create', compact('tahapanKegiatan', 'perusahaanUser', 'kabupaten', 'komoditas'));
+        return view('iup/p1.create', compact('tahapanKegiatan', 'perusahaanUser', 'kabupaten', 'komoditas', 'golongan_wiup', 'golongan_eksplor', 'golongan_op', 'golongan_p1', 'golongan_p2'));
     }
 
     public function p1Store(Request $request){
@@ -951,7 +1209,16 @@ class IUPController extends Controller
             'tanggalBerakhir_p2' => 'nullable',
             'luasWilayah' => 'nullable|numeric',
             'tahapanKegiatan' => 'nullable',
-            'komoditas' => 'required',
+            'golongan_wiup' => 'nullable',
+            'golongan_eksplor' => 'nullable',
+            'golongan_op' => 'nullable',
+            'golongan_p1' => 'nullable',
+            'golongan_p2' => 'nullable',
+            'komoditas_wiup' => 'nullable',
+            'komoditas_eksplor' => 'nullable',
+            'komoditas_op' => 'nullable',
+            'komoditas_p1' => 'nullable',
+            'komoditas_p2' => 'nullable',
             'lokasiIzin' => 'required',
             'scanSK_wiup' => 'nullable|file|mimes:pdf',
             'scanSK_eksplor' => 'nullable|file|mimes:pdf',
@@ -1029,6 +1296,7 @@ class IUPController extends Controller
         // dd($jenisKegiatan);
 
         $iup = IUP::create($iupData);
+        dd($iup);
         return redirect()->route('p1.index');
     }
     public function p1Edit($id){
@@ -1042,11 +1310,45 @@ class IUPController extends Controller
             'Perpanjangan 2 IUP Tahap Operasi Produksi' => 'Perpanjangan 2 IUP Tahap Operasi Produksi',
         ];
 
+        $golongan_wiup = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_eksplor = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_op = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_p1 = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_p2 = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+
         $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
         $kabupaten = Kabupaten::whereNotNull('kabupaten')->pluck('kabupaten', 'id');
+        $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
+
+        $IUP = IUP::find($id);
+        $golonganSelectedWiup = $IUP->golongan_wiup;
+        $golonganSelectedEksplor = $IUP->golongan_eksplor;
+        $golonganSelectedOp = $IUP->golongan_op;
+        $golonganSelectedP1 = $IUP->golongan_p1;
+        $golonganSelectedP2 = $IUP->golongan_p2;
 
         // $data = IUP::find($id);
-        return view('iup/p1.edit', compact(['IUP','p1', 'tahapanKegiatan', 'perusahaanUser', 'kabupaten']));
+        return view('iup/p1.edit', compact(['IUP', 'p1', 'tahapanKegiatan', 'perusahaanUser', 'kabupaten', 'komoditas', 'golongan_wiup', 'golongan_eksplor', 'golongan_op', 'golongan_p1', 'golongan_p2', 'golonganSelectedWiup', 'golonganSelectedEksplor', 'golonganSelectedOp', 'golonganSelectedP1', 'golonganSelectedP2']));
     }
 
     public function p1Update(Request $request, $id){
@@ -1076,7 +1378,16 @@ class IUPController extends Controller
             'tanggalBerakhir_p2' => 'nullable',
             'luasWilayah' => 'nullable|numeric',
             'tahapanKegiatan' => 'nullable',
-            'komoditas' => 'required',
+            'golongan_wiup' => 'nullable',
+            'golongan_eksplor' => 'nullable',
+            'golongan_op' => 'nullable',
+            'golongan_p1' => 'nullable',
+            'golongan_p2' => 'nullable',
+            'komoditas_wiup' => 'nullable',
+            'komoditas_eksplor' => 'nullable',
+            'komoditas_op' => 'nullable',
+            'komoditas_p1' => 'nullable',
+            'komoditas_p2' => 'nullable',
             'lokasiIzin' => 'required',
             'scanSK_wiup' => 'nullable|file|mimes:pdf',
             'scanSK_eksplor' => 'nullable|file|mimes:pdf',
@@ -1157,6 +1468,7 @@ class IUPController extends Controller
         $iupData['jenisKegiatan'] = $jenisKegiatan;
 
         $iup->update($iupData);
+        dd($iup);
         return redirect()->route('p1.index');
     }
 
@@ -1191,11 +1503,37 @@ class IUPController extends Controller
             'Perpanjangan 2 IUP Tahap Operasi Produksi' => 'Perpanjangan 2 IUP Tahap Operasi Produksi',
         ];
 
+        $golongan_wiup = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_eksplor = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_op = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_p1 = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_p2 = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+
         $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
         $kabupaten = Kabupaten::whereNotNull('kabupaten')->pluck('kabupaten', 'id');
         $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
 
-        return view('iup/p2.create', compact('tahapanKegiatan', 'perusahaanUser', 'kabupaten', 'komoditas'));
+        return view('iup/p2.create', compact('tahapanKegiatan', 'perusahaanUser', 'kabupaten', 'komoditas', 'golongan_wiup', 'golongan_eksplor', 'golongan_op', 'golongan_p1', 'golongan_p2'));
     }
 
     public function p2Store(Request $request){
@@ -1226,7 +1564,16 @@ class IUPController extends Controller
             'tanggalBerakhir_p2' => 'nullable',
             'luasWilayah' => 'nullable|numeric',
             'tahapanKegiatan' => 'nullable',
-            'komoditas' => 'required',
+            'golongan_wiup' => 'nullable',
+            'golongan_eksplor' => 'nullable',
+            'golongan_op' => 'nullable',
+            'golongan_p1' => 'nullable',
+            'golongan_p2' => 'nullable',
+            'komoditas_wiup' => 'nullable',
+            'komoditas_eksplor' => 'nullable',
+            'komoditas_op' => 'nullable',
+            'komoditas_p1' => 'nullable',
+            'komoditas_p2' => 'nullable',
             'lokasiIzin' => 'required',
             'scanSK_wiup' => 'nullable|file|mimes:pdf',
             'scanSK_eksplor' => 'nullable|file|mimes:pdf',
@@ -1317,11 +1664,45 @@ class IUPController extends Controller
             'Perpanjangan 2 IUP Tahap Operasi Produksi' => 'Perpanjangan 2 IUP Tahap Operasi Produksi',
         ];
 
+        $golongan_wiup = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_eksplor = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_op = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_p1 = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_p2 = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+
         $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
         $kabupaten = Kabupaten::whereNotNull('kabupaten')->pluck('kabupaten', 'id');
+        $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
+
+        $IUP = IUP::find($id);
+        $golonganSelectedWiup = $IUP->golongan_wiup;
+        $golonganSelectedEksplor = $IUP->golongan_eksplor;
+        $golonganSelectedOp = $IUP->golongan_op;
+        $golonganSelectedP1 = $IUP->golongan_p1;
+        $golonganSelectedP2 = $IUP->golongan_p2;
 
         // $data = IUP::find($id);
-        return view('iup/p2.edit', compact(['IUP','p2', 'tahapanKegiatan', 'perusahaanUser', 'kabupaten']));
+        return view('iup/p2.edit', compact(['IUP', 'p2', 'tahapanKegiatan', 'perusahaanUser', 'kabupaten', 'komoditas', 'golongan_wiup', 'golongan_eksplor', 'golongan_op', 'golongan_p1', 'golongan_p2', 'golonganSelectedWiup', 'golonganSelectedEksplor', 'golonganSelectedOp', 'golonganSelectedP1', 'golonganSelectedP2']));
     }
 
     public function p2Update(Request $request, $id){
@@ -1351,7 +1732,16 @@ class IUPController extends Controller
             'tanggalBerakhir_p2' => 'nullable',
             'luasWilayah' => 'nullable|numeric',
             'tahapanKegiatan' => 'nullable',
-            'komoditas' => 'required',
+            'golongan_wiup' => 'nullable',
+            'golongan_eksplor' => 'nullable',
+            'golongan_op' => 'nullable',
+            'golongan_p1' => 'nullable',
+            'golongan_p2' => 'nullable',
+            'komoditas_wiup' => 'nullable',
+            'komoditas_eksplor' => 'nullable',
+            'komoditas_op' => 'nullable',
+            'komoditas_p1' => 'nullable',
+            'komoditas_p2' => 'nullable',
             'lokasiIzin' => 'required',
             'scanSK_wiup' => 'nullable|file|mimes:pdf',
             'scanSK_eksplor' => 'nullable|file|mimes:pdf',
@@ -1460,11 +1850,37 @@ class IUPController extends Controller
             'Perpanjangan 2 IUP Tahap Operasi Produksi' => 'Perpanjangan 2 IUP Tahap Operasi Produksi',
         ];
 
+        $golongan_wiup = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_eksplor = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_op = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_p1 = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_p2 = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+
         $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
         $kabupaten = Kabupaten::whereNotNull('kabupaten')->pluck('kabupaten', 'id');
         $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
 
-        return view('iup.create', compact('tahapanKegiatan', 'perusahaanUser', 'kabupaten', 'komoditas'));
+        return view('iup.create', compact('tahapanKegiatan', 'perusahaanUser', 'kabupaten', 'komoditas', 'golongan_wiup', 'golongan_eksplor', 'golongan_op', 'golongan_p1', 'golongan_p2'));
     }
 
     /**
@@ -1499,7 +1915,16 @@ class IUPController extends Controller
             'tanggalBerakhir_p2' => 'nullable',
             'luasWilayah' => 'nullable|numeric',
             'tahapanKegiatan' => 'nullable',
-            'komoditas' => 'required',
+            'golongan_wiup' => 'nullable',
+            'golongan_eksplor' => 'nullable',
+            'golongan_op' => 'nullable',
+            'golongan_p1' => 'nullable',
+            'golongan_p2' => 'nullable',
+            'komoditas_wiup' => 'nullable',
+            'komoditas_eksplor' => 'nullable',
+            'komoditas_op' => 'nullable',
+            'komoditas_p1' => 'nullable',
+            'komoditas_p2' => 'nullable',
             'lokasiIzin' => 'required',
             'scanSK_wiup' => 'nullable|file|mimes:pdf',
             'scanSK_eksplor' => 'nullable|file|mimes:pdf',
@@ -1579,7 +2004,7 @@ class IUPController extends Controller
         $iup = IUP::create($iupData);
 
         // dd($tanggalMulai, $tanggalBerakhir, now());
-        // dd($iup);
+        dd($iup);
         return redirect()->route('iup.index');
     }
 
@@ -1605,14 +2030,46 @@ class IUPController extends Controller
             'Perpanjangan 2 IUP Tahap Operasi Produksi' => 'Perpanjangan 2 IUP Tahap Operasi Produksi',
         ];
 
+        $golongan_wiup = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_eksplor = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_op = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_p1 = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+        $golongan_p2 = [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+
         $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
         $kabupaten = Kabupaten::whereNotNull('kabupaten')->pluck('kabupaten', 'id');
         $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
 
         $IUP = IUP::find($id);
-        $tahapanKegiatanSelected = $IUP->tahapanKegiatan;
+        $golonganSelectedWiup = $IUP->golongan_wiup;
+        $golonganSelectedEksplor = $IUP->golongan_eksplor;
+        $golonganSelectedOp = $IUP->golongan_op;
+        $golonganSelectedP1 = $IUP->golongan_p1;
+        $golonganSelectedP2 = $IUP->golongan_p2;
+        // $komoditasSelectedWiup = $IUP->komoditas_wiup;
+
         // $data = IUP::find($id);
-        return view('iup.edit', compact(['IUP', 'tahapanKegiatanSelected', 'tahapanKegiatan', 'perusahaanUser', 'kabupaten', 'komoditas']));
+        return view('iup.edit', compact(['IUP', 'tahapanKegiatan', 'perusahaanUser', 'kabupaten', 'komoditas', 'golongan_wiup', 'golongan_eksplor', 'golongan_op', 'golongan_p1', 'golongan_p2', 'golonganSelectedWiup', 'golonganSelectedEksplor', 'golonganSelectedOp', 'golonganSelectedP1', 'golonganSelectedP2']));
     }
 
     /**
@@ -1647,7 +2104,16 @@ class IUPController extends Controller
             'tanggalBerakhir_p2' => 'nullable',
             'luasWilayah' => 'nullable|numeric',
             'tahapanKegiatan' => 'nullable',
-            'komoditas' => 'required',
+            'golongan_wiup' => 'nullable',
+            'golongan_eksplor' => 'nullable',
+            'golongan_op' => 'nullable',
+            'golongan_p1' => 'nullable',
+            'golongan_p2' => 'nullable',
+            'komoditas_wiup' => 'nullable',
+            'komoditas_eksplor' => 'nullable',
+            'komoditas_op' => 'nullable',
+            'komoditas_p1' => 'nullable',
+            'komoditas_p2' => 'nullable',
             'lokasiIzin' => 'required',
             'scanSK_wiup' => 'nullable|file|mimes:pdf',
             'scanSK_eksplor' => 'nullable|file|mimes:pdf',

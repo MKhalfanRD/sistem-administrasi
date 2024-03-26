@@ -6,7 +6,7 @@
         </div>
         <a href="{{ route('wiup.create') }}">
             <button type="submit"
-                class="mt-5 mb-5 block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Tambah
+                class="mt-5 mb-5 rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Tambah
                 Data</button>
         </a>
     <div class="button-wrap flex justify-between">
@@ -83,6 +83,9 @@
                             Luas Wilayah
                         </th>
                         <th scope="col" class="px-6 py-3 text-center">
+                            Golongan
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-center">
                             Komoditas
                         </th>
                         <th scope="col" class="px-6 py-3 text-center">
@@ -137,7 +140,10 @@
                                 {{ $wiup->luasWilayah }}
                             </td>
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $wiup->komoditas }}
+                                {{ $wiup->golongan_wiup }}
+                            </td>
+                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $wiup->komoditas_wiup }}
                             </td>
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $wiup->lokasiIzin }}

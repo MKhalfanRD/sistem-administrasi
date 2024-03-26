@@ -26,7 +26,16 @@ return new class extends Migration
             $table->string('luasWilayah');
             $table->string('tahapanKegiatan')->nullable();
             $table->string('jenisKegiatan')->nullable();
-            $table->string('komoditas');
+            $table->string('komoditas_wiup')->nullable();
+            $table->string('komoditas_eksplor')->nullable();
+            $table->string('komoditas_op')->nullable();
+            $table->string('komoditas_p1')->nullable();
+            $table->string('komoditas_p2')->nullable();
+            $table->string('golongan_wiup')->nullable();
+            $table->string('golongan_eksplor')->nullable();
+            $table->string('golongan_op')->nullable();
+            $table->string('golongan_p1')->nullable();
+            $table->string('golongan_p2')->nullable();
             $table->integer('masaBerlaku_eksplor')->nullable();
             $table->integer('masaBerlaku_op')->nullable();
             $table->integer('masaBerlaku_p1')->nullable();

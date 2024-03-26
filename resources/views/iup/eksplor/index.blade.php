@@ -6,7 +6,7 @@
         </div>
         <a href="{{ route('eksplor.create') }}">
             <button type="submit"
-                class="mt-5 mb-5 block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Tambah
+                class="mt-5 mb-5 rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Tambah
                 Data</button>
         </a>
     <div class="button-wrap flex justify-between">
@@ -89,6 +89,9 @@
                             Luas Wilayah
                         </th>
                         <th scope="col" class="px-6 py-3 text-center">
+                            Golongan
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-center">
                             Komoditas
                         </th>
                         <th scope="col" class="px-6 py-3 text-center">
@@ -111,7 +114,7 @@
                     @endphp
                     @foreach ($eksplor as $eksplor)
                         <tr
-                            class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600 expandable-row cursor-pointer">
+                            class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <th class="px-6 py-4">
                                 @php
                                     $counter++;
@@ -149,7 +152,10 @@
                                 {{ $eksplor->luasWilayah }}
                             </td>
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $eksplor->komoditas }}
+                                {{ $eksplor->golongan_eksplor}}
+                            </td>
+                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $eksplor->komoditas_eksplor}}
                             </td>
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $eksplor->lokasiIzin }}

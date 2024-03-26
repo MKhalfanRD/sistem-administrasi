@@ -5,7 +5,7 @@
             <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Table User</h2>
         </div>
         <a href="{{route('user.create')}}">
-            <button type="submit" class="mt-5 mb-5 ml-0.5 block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Tambah Data</button>
+            <button type="submit" class="mt-5 mb-5 ml-1 rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Tambah Data</button>
         </a>
         <div class="grid grid-cols-1 gap-4 md:grid-cols-4">
             @foreach ($userData as $ud)
