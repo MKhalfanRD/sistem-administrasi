@@ -52,8 +52,8 @@
         @endif --}}
 
         <div class="mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead class="text-base text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-400">
+                <thead class="text-base bg-gray-700 text-gray-400">
                     <tr>
                         <th scope="col" class="p-4">
                             No
@@ -93,42 +93,42 @@
                     @endphp
                     @foreach ($iup as $iup)
                         <tr
-                            class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600 expandable-row cursor-pointer">
+                            class=" bg-gray-800 hover:bg-gray-600 expandable-row cursor-pointer">
                             <th class="px-6 py-4">
                                 @php
                                     $counter++;
                                 @endphp
                                 {{ $counter }}
                             </th>
-                            <td class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="text-center px-6 py-4 font-medium  whitespace-nowrap text-white">
                                 {{ $iup->namaPerusahaan }}
                             </td>
-                            <td class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="text-center px-6 py-4 font-medium  whitespace-nowrap text-white">
                                 {{ $iup->alamat }}
                             </td>
-                            <td class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="text-center px-6 py-4 font-medium  whitespace-nowrap text-white">
                                 {{ $iup->npwp }}
                             </td>
-                            <td class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="text-center px-6 py-4 font-medium  whitespace-nowrap text-white">
                                 {{ $iup->nib }}
                             </td>
-                            <td class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="text-center px-6 py-4 font-medium  whitespace-nowrap text-white">
                                 {{ $iup->kabupaten }}
                             </td>
-                            <td class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="text-center px-6 py-4 font-medium  whitespace-nowrap text-white">
                                 {{ $iup->luasWilayah }}
                             </td>
-                            <td class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="text-center px-6 py-4 font-medium  whitespace-nowrap text-white">
                                 {{ $iup->lokasiIzin }}
                             </td>
-                            <td class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="text-center px-6 py-4 font-medium  whitespace-nowrap text-white">
                                 @if ($iup->statusIzin == 'Aktif')
                                     <span class="bg-green-300 px-3 py-2 text-green-700 rounded-md">Aktif</span>
                                 @else
                                     <span class="bg-red-300 px-2 py-2 text-red-700 rounded-md">Tidak Aktif</span>
                                 @endif
                             </td>
-                            <th scope="row" class="flex justify-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <th scope="row" class="flex justify-center px-6 py-4 font-medium  whitespace-nowrap text-white">
                                 <div class="btn-wrap flex flex-row gap-3">
                                     <a href="{{ route('iup.edit', $iup->id) }}">
                                         <button type="submit"
@@ -148,7 +148,7 @@
                                 <div class="details-content">
                                     <table class="table-auto w-full">
                                         <thead
-                                            class="text-base text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                            class="text-base bg-gray-700 text-gray-400">
                                             <tr class="text-center">
                                                 <th colspan="5" class="border-r-2 border-white">WIUP</th>
                                                 <th colspan="7" class="border-r-2 border-white">IUP Eksplorasi</th>
@@ -203,26 +203,26 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr class="bg-white dark:bg-gray-800  hover:bg-gray-50 dark:hover:bg-gray-600">
+                                            <tr class=" bg-gray-800  hover:bg-gray-600">
                                                 <div class="wiup">
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">
+                                                        class="text-center font-medium  whitespace-nowrap text-white py-2">
                                                         {{ $iup->tanggalSK_wiup }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white">
                                                         {{ $iup->noSK_wiup }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white">
                                                         {{ $iup->golongan_wiup }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white">
                                                         {{ $iup->komoditas_wiup }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white border-r-2 border-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white border-r-2 border-white">
                                                         @if ($iup->scanSK_wiup)
                                                         <a href="{{ asset('storage/' . $iup->scanSK_wiup) }}" target="_blank">
                                                             <img src="{{ asset('icon/ikon-pdf.png') }}"
@@ -236,31 +236,31 @@
                                                 </div>
                                                 <div class="eksplorasi">
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white">
                                                         {{ $iup->tanggalSK_eksplor }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white">
                                                         {{ $iup->noSK_eksplor }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white">
                                                         {{ $iup->masaBerlaku_eksplor }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white">
                                                         {{ $iup->tanggalBerakhir_eksplor }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white">
                                                         {{ $iup->golongan_eksplor }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white">
                                                         {{ $iup->komoditas_eksplor }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white border-r-2 border-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white border-r-2 border-white">
                                                         @if ($iup->scanSK_eksplor)
                                                         <a href="{{ asset('storage/' . $iup->scanSK_eksplor) }}" target="_blank">
                                                             <img src="{{ asset('icon/ikon-pdf.png') }}"
@@ -274,31 +274,31 @@
                                                 </div>
                                                 <div class="operasiProduksi">
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white">
                                                         {{ $iup->tanggalSK_op }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white">
                                                         {{ $iup->noSK_op }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white">
                                                         {{ $iup->masaBerlaku_op }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white">
                                                         {{ $iup->tanggalBerakhir_op }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white">
                                                         {{ $iup->golongan_op }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white">
                                                         {{ $iup->komoditas_op }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white border-r-2 border-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white border-r-2 border-white">
                                                         @if ($iup->scanSK_op)
                                                         <a href="{{ asset('storage/' . $iup->scanSK_op) }}" target="_blank">
                                                             <img src="{{ asset('icon/ikon-pdf.png') }}"
@@ -312,31 +312,31 @@
                                                 </div>
                                                 <div class="perpanjangan1">
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white">
                                                         {{ $iup->tanggalSK_p1 }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white">
                                                         {{ $iup->noSK_p1 }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white">
                                                         {{ $iup->masaBerlaku_p1 }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white">
                                                         {{ $iup->tanggalBerakhir_p1 }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white">
                                                         {{ $iup->golongan_p1 }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white">
                                                         {{ $iup->komoditas_p1 }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white border-r-2 border-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white border-r-2 border-white">
                                                         @if ($iup->scanSK_p1)
                                                         <a href="{{ asset('storage/' . $iup->scanSK_p1) }}" target="_blank">
                                                             <img src="{{ asset('icon/ikon-pdf.png') }}"
@@ -350,31 +350,31 @@
                                                 </div>
                                                 <div class="perpanjangan2">
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white">
                                                         {{ $iup->tanggalSK_p2 }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white">
                                                         {{ $iup->noSK_p2 }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white">
                                                         {{ $iup->masaBerlaku_p2 }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white">
                                                         {{ $iup->tanggalBerakhir_p2 }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white">
                                                         {{ $iup->golongan_p2 }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white">
                                                         {{ $iup->komoditas_p2 }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium  whitespace-nowrap text-white">
                                                         @if ($iup->scanSK_p2)
                                                         <a href="{{ asset('storage/' . $iup->scanSK_p2) }}" target="_blank">
                                                             <img src="{{ asset('icon/ikon-pdf.png') }}"

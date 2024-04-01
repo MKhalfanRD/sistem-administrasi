@@ -9,8 +9,8 @@
     </a>
 
     <div class="mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-base text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+            <thead class="text-base text-gray-400 bg-gray-700">
                 <tr>
                     <th scope="col" class="p-4">
                         No
@@ -64,23 +64,23 @@
                 {{-- @if (isset($filepath))
                     <a href="{{asset($filepath)}}" download="{{$jr->scanSK}}.pdf"></a>
                 @endif --}}
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <tr class="bg-gray-800 hover:bg-gray-600">
                     <td class="px-6 py-4">
                         @php
                             $counter++;
                         @endphp
                         {{$counter}}
                     </td>
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">
                         {{$jp->namaPerusahaan}}
                     </th>
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">
                         {{$jp->besaranDitetapkan}}
                     </th>
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">
                         {{$jp->tanggal}}
                     </th>
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">
                         @if ($jp->filePenempatan)
                         <a href="{{ asset('storage/' . $jp->filePenempatan) }}" target="_blank">
                             <img src="{{ asset('icon/ikon-pdf.png') }}"
@@ -90,28 +90,28 @@
                     @else
                         <p>Tidak Ada</p>
                     @endif                    </th>
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">
                         {{$jp->besaranDitempatkan}}
                     </th>
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">
                         {{$jp->tanggalPenempatan}}
                     </th>
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">
                         {{$jp->jatuhTempo}}
                     </th>
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">
                         {{$jp->namaBank}}
                     </th>
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">
                         {{$jp->bentukPenempatan}}
                     </th>
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">
                         {{$jp->noSeri}}
                     </th>
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">
                         {{$jp->noRekening}}
                     </th>
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">
                         @if ($jp->filePasca)
                                     <a href="{{ asset('storage/' . $jp->filePasca) }}" target="_blank">
                                         <img src="{{ asset('icon/ikon-pdf.png') }}"
@@ -122,7 +122,7 @@
                                     <p>Tidak Ada</p>
                                 @endif
                     </th>
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">
                         <div class="btn-wrap flex flex-row gap-3">
                             <a href="{{route('jampas.edit', $jp->id)}}">
                                 <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-lg">Edit</button>

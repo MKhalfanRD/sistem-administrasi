@@ -11,8 +11,8 @@
         </a>
 
             <div class="mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead class="text-base text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                    <thead class="text-base text-gray-400 bg-gray-700">
                         <tr>
                             <th rowspan="2" class="p-4 text-center">No</th>
                             <th rowspan="2" class="px-6 py-3 text-center">Nama Perusahaan</th>
@@ -32,20 +32,20 @@
                             $counter = 0;
                         @endphp
                         @foreach ($produksi as $p)
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">
+                        <tr class="bg-gray-800 hover:bg-gray-600">
+                            <td class="text-center font-medium text-white whitespace-nowrap py-2">
                                 @php
                                     $counter++;
                                 @endphp
                                 {{$counter}}
                             </td>
-                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$p->namaPerusahaan}}</td>
-                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$p->komoditas}}</td>
-                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$p->volumeProduksi}}</td>
-                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$p->tonaseProduksi}}</td>
-                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white p-0">{{$p->bulan}}</td>
-                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$p->tahun}}</td>
-                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white p-1">
+                            <td class="text-center font-medium text-white whitespace-nowrap py-2">{{$p->namaPerusahaan}}</td>
+                            <td class="text-center font-medium text-white whitespace-nowrap py-2">{{$p->komoditas}}</td>
+                            <td class="text-center font-medium text-white whitespace-nowrap py-2">{{$p->volumeProduksi}}</td>
+                            <td class="text-center font-medium text-white whitespace-nowrap py-2">{{$p->tonaseProduksi}}</td>
+                            <td class="text-center font-medium text-white whitespace-nowrap p-0">{{$p->bulan}}</td>
+                            <td class="text-center font-medium text-white whitespace-nowrap py-2">{{$p->tahun}}</td>
+                            <td class="text-center font-medium text-white whitespace-nowrap p-1">
                                 @if ($p->buktiBayar)
                                     <a href="{{ asset('storage/' . $p->buktiBayar) }}" target="_blank">
                                         <img src="{{ asset('icon/ikon-foto.png') }}"
@@ -56,7 +56,7 @@
                                     <p>Tidak Ada</p>
                                 @endif
                             </td>
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">
                                 <div class="btn-wrap flex flex-row gap-3">
                                     <a href="{{route('produksi.edit', $p->id)}}">
                                         <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-lg">Edit</button>

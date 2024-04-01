@@ -11,8 +11,8 @@
         </a>
 
         <div class="mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead class="text-base text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                <thead class="text-base text-gray-400 bg-gray-700">
                     <tr>
                     <tr>
                         <th class="p-4" rowspan="2">No</th>
@@ -40,24 +40,24 @@
                         $counter = 0;
                     @endphp
                     @foreach ($sumberdaya as $s)
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">
+                    <tr class="bg-gray-800 hover:bg-gray-600">
+                        <td class="text-center font-medium text-white whitespace-nowrap py-2">
                             @php
                                 $counter++;
                             @endphp
                             {{$counter}}
                         </td>
-                        <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$s->namaPerusahaan}}</td>
-                        <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$s->komoditas}}</td>
-                        <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$s->volumeTereka}}</td>
-                        <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$s->tonaseTereka}}</td>
-                        <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$s->volumeTertunjuk}}</td>
-                        <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$s->tonaseTertunjuk}}</td>
-                        <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$s->volumeTerukur}}</td>
-                        <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$s->tonaseTerukur}}</td>
-                        <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$s->luas}}</td>
-                        <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$s->cp}}</td>
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <td class="text-center font-medium text-white whitespace-nowrap py-2">{{$s->namaPerusahaan}}</td>
+                        <td class="font-medium text-white whitespace-nowrap py-2">{{$s->komoditas}}</td>
+                        <td class="text-center font-medium text-white whitespace-nowrap py-2">{{$s->volumeTereka}}</td>
+                        <td class="text-center font-medium text-white whitespace-nowrap py-2">{{$s->tonaseTereka}}</td>
+                        <td class="text-center font-medium text-white whitespace-nowrap py-2">{{$s->volumeTertunjuk}}</td>
+                        <td class="text-center font-medium text-white whitespace-nowrap py-2">{{$s->tonaseTertunjuk}}</td>
+                        <td class="text-center font-medium text-white whitespace-nowrap py-2">{{$s->volumeTerukur}}</td>
+                        <td class="text-center font-medium text-white whitespace-nowrap py-2">{{$s->tonaseTerukur}}</td>
+                        <td class="text-center font-medium text-white whitespace-nowrap py-2">{{$s->luas}}</td>
+                        <td class="text-center font-medium text-white whitespace-nowrap py-2">{{$s->cp}}</td>
+                        <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">
                             <div class="btn-wrap flex flex-row gap-3">
                                 <a href="{{route('sumberdaya.edit', $s->id)}}">
                                     <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-lg">Edit</button>
@@ -65,7 +65,7 @@
                                 <form action="{{route('sumberdaya.destroy', $s->id)}}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="text-white hover:bg-gray-700 px-5 py-2.5 rounded-lg border border-gray-300">Delete</button>
+                                    <button class="text-white hover:bg-white px-5 py-2.5 rounded-lg border border-gray-300">Delete</button>
                                 </form>
                             </div>
                         </th>

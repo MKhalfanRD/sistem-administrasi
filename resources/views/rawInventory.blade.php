@@ -11,14 +11,14 @@
         </a>
 
             <div class="mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead class="text-base text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                    <thead class="text-base text-gray-700 bg-gray-50">
                         <tr>
                             <th class="text-center p-4">No</th>
                             <th class="text-center">Nama Perusahaan</th>
                             <th>
                                 <div class="text-center">Raw Inventory</div>
-                                <table class="flex justify-center text-gray-500 dark:text-gray-400">
+                                <table class="flex justify-center text-gray-500">
                                     <tr>
                                         <th class="px-8">Volume (m3)</th>
                                         <th class="px-8">Tonase</th>
@@ -29,14 +29,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <tr class="bg-white border-b hover:bg-gray-50">
                             <td class="text-center">1</td>
-                            <td class="font-medium text-center text-gray-900 whitespace-nowrap dark:text-white">PT. ABC</td>
-                            <td class="text-center space-x-32 flex-row font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="font-medium text-center text-gray-900 whitespace-nowrap">PT. ABC</td>
+                            <td class="text-center space-x-32 flex-row font-medium text-gray-900 whitespace-nowrap">
                                 <span class="nilaiVolume">100</span>
                                 <span class="nilaiTonase">100</span>
                             </td>
-                            <td class="px-6 font-medium text-center text-gray-900 whitespace-nowrap dark:text-white">Date</td>
+                            <td class="px-6 font-medium text-center text-gray-900 whitespace-nowrap">Date</td>
                         </tr>
                     </tbody>
                 </table>

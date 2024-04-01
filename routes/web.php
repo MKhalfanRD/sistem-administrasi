@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CadanganController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\JampasController;
@@ -10,7 +12,6 @@ use App\Http\Controllers\KTTController;
 use App\Http\Controllers\ProduksiController;
 use App\Http\Controllers\RawInventoriController;
 use App\Http\Controllers\SumberdayaController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\IUPController;
 
@@ -25,9 +26,20 @@ use App\Http\Controllers\IUPController;
 |
 */
 
-Route::get('/', [UserController::class, 'index']);
+Route::get('/', function () {
+    return view('auth.login');
+});
 
-Route::resource('user', UserController::class);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::resource('user', UserController::class);
 
 Route::resource('iup', IUPController::class);
 
@@ -96,4 +108,8 @@ Route::post('/p2', [IUPController::class, 'p2Store'])->name('p2.store');
 Route::get('/p2/{id}/edit', [IUPController::class, 'p2Edit'])->name('p2.edit');
 Route::put('/p2/{id}/edit', [IUPController::class, 'p2Update'])->name('p2.update');
 Route::delete('/p2/{id}', [IUPController::class, 'p2Destroy'])->name('p2.destroy');
+});
+
+require __DIR__.'/auth.php';
+
 

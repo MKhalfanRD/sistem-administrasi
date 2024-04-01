@@ -2,7 +2,7 @@
 @section('content')
     <div class="container mx-auto">
         <div class="mx-auto text-left">
-            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Table Operasi Produksi</h2>
+            <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">Table Operasi Produksi</h2>
         </div>
         <a href="{{ route('op.create') }}">
             <button type="submit"
@@ -17,7 +17,7 @@
         <form action="/search" method="GET" class="mb-3">
             <div class="input-group flex flex-row gap-2 justify-end">
                 <input type="search" name="search" placeholder="Cari..."
-                    class="block w-60 rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    class="block w-60 rounded-md border-0 px-3.5 py-2 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                 <button type="submit" class="block rounded-md bg-indigo-600 px-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Cari</button>
             </div>
         </form>
@@ -52,8 +52,8 @@
         @endif --}}
 
         <div class="mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead class="text-base text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-400">
+                <thead class="text-base bg-gray-700 text-gray-400">
                     <tr>
                         <th scope="col" class="p-4">
                             No
@@ -114,60 +114,60 @@
                     @endphp
                     @foreach ($op as $op)
                         <tr
-                            class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600 expandable-row cursor-pointer">
+                            class="bg-gray-800 hover:bg-gray-600">
                             <th class="px-6 py-4">
                                 @php
                                     $counter++;
                                 @endphp
                                 {{ $counter }}
                             </th>
-                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="px-6 py-4 font-medium whitespace-nowrap text-white">
                                 {{ $op->namaPerusahaan }}
                             </td>
-                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="px-6 py-4 font-medium whitespace-nowrap text-white">
                                 {{ $op->alamat }}
                             </td>
-                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="px-6 py-4 font-medium whitespace-nowrap text-white">
                                 {{ $op->npwp }}
                             </td>
-                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="px-6 py-4 font-medium whitespace-nowrap text-white">
                                 {{ $op->nib }}
                             </td>
-                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="px-6 py-4 font-medium whitespace-nowrap text-white">
                                 {{ $op->tanggalSK_op}}
                             </td>
-                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="px-6 py-4 font-medium whitespace-nowrap text-white">
                                 {{ $op->noSK_op}}
                             </td>
-                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="px-6 py-4 font-medium whitespace-nowrap text-white">
                                 {{ $op->masaBerlaku_op}}
                             </td>
-                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="px-6 py-4 font-medium whitespace-nowrap text-white">
                                 {{ $op->tanggalBerakhir_op}}
                             </td>
-                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="px-6 py-4 font-medium whitespace-nowrap text-white">
                                 {{ $op->kabupaten }}
                             </td>
-                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="px-6 py-4 font-medium whitespace-nowrap text-white">
                                 {{ $op->luasWilayah }}
                             </td>
-                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="px-6 py-4 font-medium whitespace-nowrap text-white">
                                 {{ $op->golongan_op }}
                             </td>
-                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="px-6 py-4 font-medium whitespace-nowrap text-white">
                                 {{ $op->komoditas_op }}
                             </td>
-                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="px-6 py-4 font-medium whitespace-nowrap text-white">
                                 {{ $op->lokasiIzin }}
                             </td>
-                            <td class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="text-center px-6 py-4 font-medium whitespace-nowrap text-white">
                                 @if ($op->statusIzin == 'Aktif')
                                     <span class="bg-green-300 px-3 py-2 text-green-700 rounded-md">Aktif</span>
                                 @else
                                     <span class="bg-red-300 px-2 py-2 text-red-700 rounded-md">Tidak Aktif</span>
                                 @endif
                             </td>
-                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="text-center font-medium whitespace-nowrap text-white">
                                 @if ($op->scanSK_op)
                                     <a href="{{ asset('storage/' . $op->scanSK_op) }}" target="_blank">
                                         <img src="{{ asset('icon/ikon-pdf.png') }}"
@@ -179,7 +179,7 @@
                                 @endif
                             </td>
                             <th scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                class="px-6 py-4 font-medium whitespace-nowrap text-white">
                                 <div class="btn-wrap flex flex-row gap-3">
                                     <a href="{{ route('op.edit', $op->id) }}">
                                         <button type="submit"
@@ -199,7 +199,7 @@
                                 <div class="details-content">
                                     <table class="table-auto w-full">
                                         <thead
-                                            class="text-base text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                            class="text-base bg-gray-700 text-gray-400">
                                             <tr class="text-center">
                                                 <th colspan="2" class="border-r-2 border-white">WIUP</th>
                                                 <th colspan="4" class="border-r-2 border-white">IUP Eksplorasi</th>
@@ -242,86 +242,86 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr class="bg-white dark:bg-gray-800  hover:bg-gray-50 dark:hover:bg-gray-600">
+                                            <tr class=" bg-gray-800   hover:bg-gray-600">
                                                 <div class="wiup">
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">
+                                                        class="text-center font-medium whitespace-nowrap text-white py-2">
                                                         {{ $iup->tanggalSK_wiup }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white border-r-2 border-white">
+                                                        class="text-center font-medium whitespace-nowrap text-white border-r-2 border-white">
                                                         {{ $iup->noSK_wiup }}
                                                     </td>
                                                 </div>
                                                 <div class="eksplorasi">
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium whitespace-nowrap text-white">
                                                         {{ $iup->tanggalSK_eksplor }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium whitespace-nowrap text-white">
                                                         {{ $iup->noSK_eksplor }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium whitespace-nowrap text-white">
                                                         {{ $iup->masaBerlaku_eksplor }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white border-r-2 border-white">
+                                                        class="text-center font-medium whitespace-nowrap text-white border-r-2 border-white">
                                                         {{ $iup->tanggalBerakhir_eksplor }}
                                                     </td>
                                                 </div>
                                                 <div class="operasiProduksi">
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium whitespace-nowrap text-white">
                                                         {{ $iup->tanggalSK_op }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium whitespace-nowrap text-white">
                                                         {{ $iup->noSK_op }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium whitespace-nowrap text-white">
                                                         {{ $iup->masaBerlaku_op }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white border-r-2 border-white">
+                                                        class="text-center font-medium whitespace-nowrap text-white border-r-2 border-white">
                                                         {{ $iup->tanggalBerakhir_op }}
                                                     </td>
                                                 </div>
                                                 <div class="perpanjangan1">
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium whitespace-nowrap text-white">
                                                         {{ $iup->tanggalSK_p1 }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium whitespace-nowrap text-white">
                                                         {{ $iup->noSK_p1 }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium whitespace-nowrap text-white">
                                                         {{ $iup->masaBerlaku_p1 }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white border-r-2 border-white">
+                                                        class="text-center font-medium whitespace-nowrap text-white border-r-2 border-white">
                                                         {{ $iup->tanggalBerakhir_p1 }}
                                                     </td>
                                                 </div>
                                                 <div class="perpanjangan2">
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium whitespace-nowrap text-white">
                                                         {{ $iup->tanggalSK_p2 }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium whitespace-nowrap text-white">
                                                         {{ $iup->noSK_p2 }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium whitespace-nowrap text-white">
                                                         {{ $iup->masaBerlaku_p2 }}
                                                     </td>
                                                     <td
-                                                        class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        class="text-center font-medium whitespace-nowrap text-white">
                                                         {{ $iup->tanggalBerakhir_p2 }}
                                                     </td>
                                                 </div>

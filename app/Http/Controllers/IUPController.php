@@ -1651,6 +1651,7 @@ class IUPController extends Controller
         // dd($jenisKegiatan);
 
         $iup = IUP::create($iupData);
+        dd($iup);
         return redirect()->route('p2.index');
     }
     public function p2Edit($id){

@@ -22,11 +22,14 @@ class UserController extends Controller
         session()->flashInput($request->input());
         $request->validate([
             'namaUser' => 'required',
-            'namaPerusahaan' => 'required',
+            'namaPerusahaan' => 'nullable',
             'email' => 'required|email',
             'password' => 'required',
             'logo' => 'nullable|mimes:jpg,jpeg,png',
         ]);
+
+        $password = bcrypt($request->input('password'));
+
         $logo = request()->file('logo');
         if($logo){
             $filepath = $logo->store('logo', 'public');
@@ -34,11 +37,11 @@ class UserController extends Controller
             $filepath = null;
         }
 
-            $userData = User::create([
+        $userData = User::create([
             'namaUser'=>$request->namaUser,
             'namaPerusahaan'=>$request->namaPerusahaan,
             'email'=>$request->email,
-            'password'=>$request->password,
+            'password'=>$password,
             'logo'=> $filepath,
         ]);
 

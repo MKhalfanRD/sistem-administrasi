@@ -11,8 +11,8 @@
         </a>
 
             <div class="w-fit mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table class="ext-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead class="text-base text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <table class="ext-sm text-left rtl:text-right text-gray-500">
+                    <thead class="text-base text-gray-700 bg-gray-50">
                         <tr>
                             <th rowspan="2" class="p-4 text-center">No</th>
                             <th rowspan="2" class="px-6 py-3 text-center">Nama Perusahaan</th>
@@ -31,19 +31,19 @@
                             $counter = 0;
                         @endphp
                         @foreach ($buktiBayar as $bb)
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">
+                        <tr class="bg-white border-b hover:bg-gray-50">
+                            <td class="text-center font-medium text-gray-900 whitespace-nowrap py-2">
                                 @php
                                     $counter++;
                                 @endphp
                                 {{$counter}}
                             </td>
-                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$bb->namaPerusahaan}}</td>
-                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$bb->volumebuktiBayar}}</td>
-                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$bb->tonasebuktiBayar}}</td>
-                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$bb->buktiBayar}}</td>
-                            <td class="text-center font-medium text-gray-900 whitespace-nowrap dark:text-white py-2">{{$bb->date}}</td>
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="text-center font-medium text-gray-900 whitespace-nowrap py-2">{{$bb->namaPerusahaan}}</td>
+                            <td class="text-center font-medium text-gray-900 whitespace-nowrap py-2">{{$bb->volumebuktiBayar}}</td>
+                            <td class="text-center font-medium text-gray-900 whitespace-nowrap py-2">{{$bb->tonasebuktiBayar}}</td>
+                            <td class="text-center font-medium text-gray-900 whitespace-nowrap py-2">{{$bb->buktiBayar}}</td>
+                            <td class="text-center font-medium text-gray-900 whitespace-nowrap py-2">{{$bb->date}}</td>
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                 <div class="btn-wrap flex flex-row gap-3">
                                     <a href="{{route('buktiBayar.edit', $bb->id)}}">
                                         <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-lg">Edit</button>

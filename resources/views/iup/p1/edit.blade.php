@@ -155,7 +155,7 @@
                         <select name="komoditas_wiup" id="komoditas_wiup" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                             @if (is_array($komoditas) || is_object($komoditas))
                                 @if ($komoditas->isEmpty())
-                                    <option value="">Belum Ada Komoditas</option>
+                                    <option value="">Belum ada komoditas</option>
                                 @else
                                     <option value="" disabled selected>Pilih</option>
                                     @foreach ($komoditas as $item)
@@ -232,7 +232,7 @@
                         <select name="komoditas_eksplor" id="komoditas_eksplor" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                             @if (is_array($komoditas) || is_object($komoditas))
                                 @if ($komoditas->isEmpty())
-                                    <option value="">Belum Ada Komoditas</option>
+                                    <option value="">Belum ada komoditas</option>
                                 @else
                                     <option value="" disabled selected>Pilih</option>
                                     @foreach ($komoditas as $item)
@@ -309,7 +309,7 @@
                         <select name="komoditas_op" id="komoditas_op" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                             @if (is_array($komoditas) || is_object($komoditas))
                                 @if ($komoditas->isEmpty())
-                                    <option value="">Belum Ada Komoditas</option>
+                                    <option value="">Belum ada komoditas</option>
                                 @else
                                     <option value="" disabled selected>Pilih</option>
                                     @foreach ($komoditas as $item)
@@ -386,7 +386,7 @@
                         <select name="komoditas_p1" id="komoditas_p1" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                             @if (is_array($komoditas) || is_object($komoditas))
                                 @if ($komoditas->isEmpty())
-                                    <option value="">Belum Ada Komoditas</option>
+                                    <option value="">Belum ada komoditas</option>
                                 @else
                                     <option value="" disabled selected>Pilih</option>
                                     @foreach ($komoditas as $item)
@@ -463,7 +463,7 @@
                         <select name="komoditas_p2" id="komoditas_p2" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                             @if (is_array($komoditas) || is_object($komoditas))
                                 @if ($komoditas->isEmpty())
-                                    <option value="">Belum Ada Komoditas</option>
+                                    <option value="">Belum ada komoditas</option>
                                 @else
                                     <option value="" disabled selected>Pilih</option>
                                     @foreach ($komoditas as $item)

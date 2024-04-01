@@ -12,8 +12,8 @@
             <div class="w-72 max-w-sm mx-auto rounded-md shadow-md overflow-hidden p-4 bg-gray-800">
                 <img src="{{asset('storage/'.$ud->logo)}}" alt="" class="object-cover w-24 h-24 rounded-full mx-auto">
                 <div class="p-4 text-center">
-                  <h3 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{{$ud->namaPerusahaan}}</h3>
-                  <span class="text-sm text-gray-500 dark:text-gray-400">{{$ud->email}}</span>
+                  <h3 class="mb-1 text-xl font-medium text-gray-100">{{$ud->namaPerusahaan}}</h3>
+                  <span class="text-sm text-white">{{$ud->email}}</span>
                 </div>
                 <div class="flex mt-2 space-x-3 lg:mt-6 font-medium text-sm justify-center">
                     <a href="{{route('user.edit', $ud->id)}}">
