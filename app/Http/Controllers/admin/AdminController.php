@@ -1,21 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
-use Storage;
 use App\Models\User;
+use Storage;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-
-class UserController extends Controller
+class AdminController extends Controller
 {
     public function index(){
-        $userData = auth()->user();
-        return view('user.index', compact(['userData']));
+        $userData = User::all();
+        // dd($userData);
+        return view('admin.user.index', compact(['userData']));
     }
 
     public function create(){
-        return view('user.create');
+        return view('admin.user.create');
     }
 
     public function store(Request $request){
@@ -45,12 +46,14 @@ class UserController extends Controller
             'logo'=> $filepath,
         ]);
 
-        return redirect()->route('user.index');
+        dd($userData);
+
+        return redirect()->route('admin.index');
     }
 
     public function edit($id){
         $userData = User::find($id);
-        return view('user.edit', compact(['userData']));
+        return view('admin.user.edit', compact(['userData']));
     }
 
     public function update(Request $request, $id){
@@ -86,8 +89,8 @@ class UserController extends Controller
             'password'=>$request->password,
             'logo'=> $filepath,
         ]);
-
-        return redirect()->route('user.index');
+        dd($userData);
+        return redirect()->route('admin.index');
     }
 
     public function destroy($id){
@@ -97,7 +100,6 @@ class UserController extends Controller
         }
         $user->delete();
 
-        return redirect()->route('user.index');
+        return redirect()->route('admin.index');
     }
-
 }

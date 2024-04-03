@@ -20,7 +20,7 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        return view('admin.auth.register');
     }
 
     /**
@@ -44,6 +44,6 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        return redirect()->route('login')->with('status', 'Registrasi berhasil! Silakan login.');
+        return redirect()->route('login')->with('status', 'Daftar berhasil! Silakan Masuk.');
     }
 }

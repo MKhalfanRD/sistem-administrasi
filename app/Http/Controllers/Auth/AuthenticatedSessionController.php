@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -17,15 +18,19 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
-        return view('auth.login');
+        return view('admin.auth.login');
     }
 
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(LoginRequest $request)
     {
         $request->authenticate();
+
+        $user = User::where('email', $request->email)->first();
+
+        session()->put('user', $user);
 
         $request->session()->regenerate();
 
@@ -33,7 +38,7 @@ class AuthenticatedSessionController extends Controller
         if($role == 'user'){
             return redirect()->intended(route('user.index'));
         } else {
-            return redirect()->intended(route('iup.index'));
+            return redirect()->route('admin.index');
         }
 
         // return redirect()->intended(RouteServiceProvider::HOME);
@@ -50,6 +55,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect()->route('login');
     }
 }
