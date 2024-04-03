@@ -54,7 +54,7 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-Route::middleware('admin')->group(function () {
+Route::middleware(['auth','admin'])->group(function () {
     Route::resource('admin', AdminController::class);
     Route::resource('admin/iup', AdminIUPController::class);
     Route::resource('admin/cadangan', AdminCadanganController::class);
@@ -106,16 +106,17 @@ Route::middleware('admin')->group(function () {
     Route::put('admin/p2/{id}/edit', [AdminIUPController::class, 'p2Update'])->name('admin.p2.update');
     Route::delete('admin/p2/{id}', [AdminIUPController::class, 'p2Destroy'])->name('admin.p2.destroy');
 });
-Route::middleware('user')->group(function () {
+
+
     Route::resource('user', UserController::class);
-    Route::resource('user/iup', UserIUPController::class);
-    Route::resource('user/jamrek', UserJamrekController::class);
-    Route::resource('user/jampas', UserJampasController::class);
-    Route::resource('user/sumberdaya', UserSumberdayaController::class);
-    Route::resource('user/cadangan', UserCadanganController::class);
-    Route::resource('user/produksi', UserProduksiController::class);
-    Route::resource('user/rawInventori', UserRawInventoryController::class);
-    Route::resource('user/ktt', UserKttController::class);
+    Route::get('/user/iup', [UserIUPController::class, 'index'])->name('iup.index');
+    Route::get('user/jamrek', [UserJamrekController::class, 'index'])->name('jamrek.index');
+    Route::get('user/jampas', [UserJampasController::class, 'index'])->name('jampas.index');
+    Route::get('user/sumberdaya', [UserSumberdayaController::class, 'index'])->name('sumberdaya.index');
+    Route::get('user/cadangan', [UserCadanganController::class, 'index'])->name('cadangan.index');
+    Route::get('user/produksi', [UserProduksiController::class, 'index'])->name('produksi.index');
+    Route::get('user/rawInventori', [UserRawInventoryController::class, 'index'])->name('rawInventori.index');
+    Route::get('user/ktt', [UserKttController::class, 'index'])->name('ktt.index');
 
     Route::get('user/export', [UserIUPController::class, 'export'])->name('user.iup.export');
 
@@ -128,7 +129,6 @@ Route::middleware('user')->group(function () {
     Route::get('user/p1', [UserIUPController::class, 'p1'])->name('user.p1.index');
 
     Route::get('user/p2', [UserIUPController::class, 'p2'])->name('user.p2.index');
-});
 
 
 require __DIR__.'/auth.php';

@@ -34,7 +34,7 @@ class UserIUPController extends Controller
 
         // return view('iup.index', compact('search', 'request'));
         // return view('iup.index', compact(['IUP', 'search', 'request']));
-        $iup = IUP::all();
+        $iup = auth()->user();
         return view('iup.index', compact(['iup']));
     }
 

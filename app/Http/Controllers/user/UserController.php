@@ -12,46 +12,12 @@ class UserController extends Controller
 {
     public function index(){
         $userData = auth()->user();
-        return view('user.index', compact(['userData']));
-    }
-
-    public function create(){
-        return view('user.create');
-    }
-
-    public function store(Request $request){
-        session()->flashInput($request->input());
-        $request->validate([
-            'namaUser' => 'required',
-            'namaPerusahaan' => 'nullable',
-            'email' => 'required|email',
-            'password' => 'required',
-            'logo' => 'nullable|mimes:jpg,jpeg,png',
-        ]);
-
-        $password = bcrypt($request->input('password'));
-
-        $logo = request()->file('logo');
-        if($logo){
-            $filepath = $logo->store('logo', 'public');
-        }else{
-            $filepath = null;
-        }
-
-        $userData = User::create([
-            'namaUser'=>$request->namaUser,
-            'namaPerusahaan'=>$request->namaPerusahaan,
-            'email'=>$request->email,
-            'password'=>$password,
-            'logo'=> $filepath,
-        ]);
-
-        return redirect()->route('user.index');
+        return view('users/user.index', compact(['userData']));
     }
 
     public function edit($id){
         $userData = User::find($id);
-        return view('user.edit', compact(['userData']));
+        return view('users/user.edit', compact(['userData']));
     }
 
     public function update(Request $request, $id){
