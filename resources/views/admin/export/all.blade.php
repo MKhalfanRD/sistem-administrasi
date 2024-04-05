@@ -23,27 +23,27 @@
                 Luas Wilayah
             </th>
             <th rowspan="2">
-                Komoditas
-            </th>
-            <th rowspan="2">
                 Lokasi Izin
             </th>
             <th rowspan="2">
                 Status Izin
             </th>
-            <th colspan="2">
+            <th rowspan="2">
+                Status Terakhir
+            </th>
+            <th colspan="4">
                 WIUP
             </th>
-            <th colspan="4">
+            <th colspan="6">
                 IUP Eksplorasi
             </th>
-            <th colspan="4">
+            <th colspan="6">
                 IUP Operasi Produksi
             </th>
-            <th colspan="4">
+            <th colspan="6">
                 Perpanjangan 1
             </th>
-            <th colspan="4">
+            <th colspan="6">
                 Perpanjangan 2
             </th>
         </tr>
@@ -51,30 +51,40 @@
             <div class="wiup">
                 <th>Tanggal SK</th>
                 <th>No SK</th>
+                <th>Golongan</th>
+                <th>Komoditas</th>
             </div>
             <div class="eksplorasi">
                 <th>Tanggal SK</th>
                 <th>No SK</th>
                 <th>Masa Berlaku</th>
                 <th>Tanggal Berakhir</th>
+                <th>Golongan</th>
+                <th>Komoditas</th>
             </div>
             <div class="op">
                 <th>Tanggal SK</th>
                 <th>No SK</th>
                 <th>Masa Berlaku</th>
                 <th>Tanggal Berakhir</th>
+                <th>Golongan</th>
+                <th>Komoditas</th>
             </div>
             <div class="p1">
                 <th>Tanggal SK</th>
                 <th>No SK</th>
                 <th>Masa Berlaku</th>
                 <th>Tanggal Berakhir</th>
+                <th>Golongan</th>
+                <th>Komoditas</th>
             </div>
             <div class="p2">
                 <th>Tanggal SK</th>
                 <th>No SK</th>
                 <th>Masa Berlaku</th>
                 <th>Tanggal Berakhir</th>
+                <th>Golongan</th>
+                <th>Komoditas</th>
             </div>
         </tr>
     </thead>
@@ -109,9 +119,6 @@
                 {{ $iup->luasWilayah }}
             </td>
             <td>
-                {{ $iup->komoditas }}
-            </td>
-            <td>
                 {{ $iup->lokasiIzin }}
             </td>
             <td>
@@ -122,10 +129,19 @@
                 @endif
             </td>
             <td>
+                {{ $iup->jenisKegiatan}}
+            </td>
+            <td>
                 {{ $iup->tanggalSK_wiup }}
             </td>
             <td>
                 {{ $iup->noSK_wiup }}
+            </td>
+            <td>
+                {{ $iup->golongan_wiup }}
+            </td>
+            <td>
+                {{ $iup->komoditas_wiup }}
             </td>
             <td>
                 {{$iup->tanggalSK_eksplor}}
@@ -140,6 +156,12 @@
                 {{$iup->tanggalBerakhir_eksplor}}
             </td>
             <td>
+                {{ $iup->golongan_eksplor }}
+            </td>
+            <td>
+                {{ $iup->komoditas_eksplor }}
+            </td>
+            <td>
                 {{$iup->tanggalSK_op}}
             </td>
             <td>
@@ -150,6 +172,12 @@
             </td>
             <td>
                 {{$iup->tanggalBerakhir_op}}
+            </td>
+            <td>
+                {{ $iup->golongan_op }}
+            </td>
+            <td>
+                {{ $iup->komoditas_op }}
             </td>
             <td>
                 {{$iup->tanggalSK_p1}}
@@ -164,6 +192,12 @@
                 {{$iup->tanggalBerakhir_p1}}
             </td>
             <td>
+                {{ $iup->golongan_p1 }}
+            </td>
+            <td>
+                {{ $iup->komoditas_p1 }}
+            </td>
+            <td>
                 {{$iup->tanggalSK_p2}}
             </td>
             <td>
@@ -174,6 +208,12 @@
             </td>
             <td>
                 {{$iup->tanggalBerakhir_p2}}
+            </td>
+            <td>
+                {{ $iup->golongan_p2 }}
+            </td>
+            <td>
+                {{ $iup->komoditas_p2 }}
             </td>
         </tr>
         @endforeach

@@ -45,14 +45,14 @@ class AdminJampasController extends Controller
         $filePasca = request()->file('filePasca');
         $filepathPasca = $filePasca ? $filePasca->store('filePasca', 'public') : null;
 
-        $jampasData = $request->all();
+        $jampasData = $request->except('filePasca', 'filePenempatan');
         $jampasData['filePenempatan'] = $filepathPenempatan;
         $jampasData['filePasca'] = $filepathPasca;
 
         $jampas = Jampas::create($jampasData);
         // dd($jampasData);
 
-        return redirect()->route('jampas.index');
+        return redirect()->route('admin.jampas.index');
     }
 
     public function edit($id){
@@ -92,7 +92,7 @@ class AdminJampasController extends Controller
             $filepathPenempatan = $jampas->filePenempatan;
         }
 
-        if ($request->hasFile('fileReklamasi')){
+        if ($request->hasFile('filePasca')){
             if($jampas->filePasca){
                 Storage::disk('public')->delete($jampas->filePasca);
             }
@@ -103,32 +103,25 @@ class AdminJampasController extends Controller
             $filepathPasca = $jampas->filePasca;
         }
 
-        $jampas->update([
-            'namaPerusahaan' => $request->namaPerusahaan,
-            'besaranDitetapkan' => $request->besaranDitetapkan,
-            'tanggal' => $request->tanggal,
-            'filePenempatan' => $filepathPenempatan,
-            'besaranDitempatkan' => $request->besaranDitempatkan,
-            'tanggalPenempatan' => $request->tanggalPenempatan,
-            'jatuhTempo' => $request->jatuhTempo,
-            'namaBank' => $request->namaBank,
-            'bentukPenempatan' => $request->bentukPenempatan,
-            'noSeri' => $request->noSeri,
-            'noRekening' => $request->noRekening,
-            'filePasca' => $filepathPasca,
-        ]);
+        $jampasData = $request->except('filePasca', 'filePenempatan');
+        $jampasData['filePasca'] = $filepathPasca;
+        $jampasData['filePenempatan'] = $filepathPenempatan;
+        $jampas->update($jampasData);
 
-        // dd($jampas);
+        dd($jampasData);
 
-        return redirect()->route('jampas.index');
+        return redirect()->route('admin.jampas.index');
     }
 
     public function destroy($id){
         $jampas = Jampas::find($id);
-        Storage::disk('public')->delete($jampas->filePenempatan);
-        Storage::disk('public')->delete($jampas->filePasca);
+        if (!is_null($jampas->filePenempatan)) {
+            Storage::disk('public')->delete($jampas->filePenempatan);
+        } else if (!is_null($jampas->fileReklamasi)) {
+            Storage::disk('public')->delete($jampas->fileReklamasi);
+        }
         $jampas->delete();
 
-        return redirect()->route('jampas.index');
+        return redirect()->route('admin.jampas.index');
     }
 }

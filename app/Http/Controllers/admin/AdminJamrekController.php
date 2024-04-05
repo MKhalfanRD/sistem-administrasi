@@ -45,9 +45,9 @@ class AdminJamrekController extends Controller
 
         $bentukPenempatan = $request->bentukPenempatan;
 
-        if($bentukPenempatan == 'Deposito'){
+        if($bentukPenempatan === 'Deposito'){
             $status = 'Aktif';
-        } elseif ($bentukPenempatan = 'Bank Garansi'){
+        } elseif ($bentukPenempatan === 'Bank Garansi'){
             $tanggalPenempatan = $request->tanggalPenempatan;
             $jatuhTempo = $request->jatuhTempo;
             $status = $tanggalPenempatan && $jatuhTempo ? (now()->gte($tanggalPenempatan) && now()->lte($jatuhTempo) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
@@ -59,7 +59,7 @@ class AdminJamrekController extends Controller
         $fileReklamasi = request()->file('fileReklamasi');
         $filepathReklamasi = $fileReklamasi ? $fileReklamasi->store('fileReklamasi', 'public') : null;
 
-        $jamrekData = $request->all();
+        $jamrekData = $request->except('fileReklamasi', 'filePenempatan');
         $jamrekData['status'] = $status;
         $jamrekData['filePenempatan'] = $filepathPenempatan;
         $jamrekData['fileReklamasi'] = $filepathReklamasi;
@@ -67,7 +67,7 @@ class AdminJamrekController extends Controller
         $jamrek = Jamrek::create($jamrekData);
         dd($jamrekData);
 
-        return redirect()->route('jamrek.index');
+        return redirect()->route('admin.jamrek.index');
     }
 
     public function edit($id){
@@ -100,16 +100,6 @@ class AdminJamrekController extends Controller
 
         $jamrek = Jamrek::find($id);
 
-        $bentukPenempatan = $jamrek->bentukPenempatan;
-
-        if($bentukPenempatan == 'Deposito'){
-            $status = 'Aktif';
-        } elseif ($bentukPenempatan = 'Bank Garansi'){
-            $tanggalPenempatan = $request->tanggalPenempatan;
-            $jatuhTempo = $request->jatuhTempo;
-            $status = $tanggalPenempatan && $jatuhTempo ? (now()->gte($tanggalPenempatan) && now()->lte($jatuhTempo) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
-        }
-
         if($request->hasFile('filePenempatan')){
             if($jamrek->filePenempatan){
                 Storage::disk('public')->delete($jamrek->filePenempatan);
@@ -131,14 +121,26 @@ class AdminJamrekController extends Controller
         else {
             $filepathReklamasi = $jamrek->fileReklamasi;
         }
-        $jamrekData = $request->all();
 
+        $bentukPenempatan = $request->bentukPenempatan;
+
+        $status = $bentukPenempatan === 'Deposito'? 'Aktif' : 'Tidak Aktif';
+
+        if ($bentukPenempatan === 'Bank Garansi'){
+            $tanggalPenempatan = $request->tanggalPenempatan;
+            $jatuhTempo = $request->jatuhTempo;
+            $status = $tanggalPenempatan && $jatuhTempo ? (now()->gte($tanggalPenempatan) && now()->lte($jatuhTempo) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
+        }
+
+        $jamrekData = $request->except('fileReklamasi', 'filePenempatan');
         $jamrekData['status'] = $status;
-        $jamrek->update($jamrekData);
+        $jamrekData['filePenempatan'] = $filepathPenempatan;
+        $jamrekData['fileReklamasi'] = $filepathReklamasi;
+        $jamrek = $jamrek->update($jamrekData);
 
         // dd($jamrek);
 
-        return redirect()->route('jamrek.index');
+        return redirect()->route('admin.jamrek.index');
     }
 
     public function destroy($id){
@@ -151,6 +153,6 @@ class AdminJamrekController extends Controller
 
         $jamrek->delete();
 
-        return redirect()->route('jamrek.index');
+        return redirect()->route('admin.jamrek.index');
     }
 }

@@ -6,7 +6,7 @@
             <p class="mt-2 text-lg leading-8 text-gray-600">Tambah Data Kabupaten</p>
         </div>
 
-        <form id="form" action="{{route('kabupaten.store')}}" method="POST" class="mx-auto mt-16 max-w-xl" enctype="multipart/form-data">
+        <form id="form" action="{{route('admin.kabupaten.store')}}" method="POST" class="mx-auto mt-16 max-w-xl" enctype="multipart/form-data">
             @csrf
             <div class="input-wrap-2">
                 <div class="kabupaten">
@@ -24,7 +24,7 @@
             </div>
             <div class="input-wrap-1">
                 <div class="flex flex-row mt-3 gap-3">
-                    <a href="{{route('kabupaten.index')}}">
+                    <a href="{{route('admin.kabupaten.index')}}">
                         <button type="button" class="bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 rounded-md">Kembali</button>
                     </a>
                     <button type="submit" class="block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Simpan</button>

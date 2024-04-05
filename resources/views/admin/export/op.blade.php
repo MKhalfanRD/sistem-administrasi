@@ -1,4 +1,3 @@
-<h2>IUP Tahap Operasi Produksi</h2>
 <table class="w-full text-sm text-left rtl:text-right text-gray-500">
     <thead class="text-base text-gray-700 bg-gray-50">
         <tr>
@@ -36,6 +35,9 @@
                 Luas Wilayah
             </th>
             <th scope="col" class="px-6 py-3 text-center">
+                Golongan
+            </th>
+            <th scope="col" class="px-6 py-3 text-center">
                 Komoditas
             </th>
             <th scope="col" class="px-6 py-3 text-center">
@@ -47,6 +49,10 @@
         </tr>
     </thead>
     <tbody>
+        @php
+            $counter = 0;
+        @endphp
+        @foreach ($op as $op)
         <tr>
             <th class="px-6 py-4">
                 @php
@@ -55,48 +61,52 @@
                 {{ $counter }}
             </th>
             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                {{ $iup->namaPerusahaan }}
+                {{ $op->namaPerusahaan }}
             </td>
             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                {{ $iup->alamat }}
+                {{ $op->alamat }}
             </td>
             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                {{ $iup->npwp }}
+                {{ $op->npwp }}
             </td>
             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                {{ $iup->nib }}
+                {{ $op->nib }}
             </td>
             <td class="text-center font-medium text-gray-900 whitespace-nowrap py-2">
-                {{ $iup->tanggalSK_op }}
+                {{ $op->tanggalSK_op }}
             </td>
             <td class="text-center font-medium text-gray-900 whitespace-nowrap border-r-2 border-white">
-                {{ $iup->noSK_op }}
+                {{ $op->noSK_op }}
             </td>
             <td class="text-center font-medium text-gray-900 whitespace-nowrap border-r-2 border-white">
-                {{ $iup->masaBerlaku_op }}
+                {{ $op->masaBerlaku_op }}
             </td>
             <td class="text-center font-medium text-gray-900 whitespace-nowrap border-r-2 border-white">
-                {{ $iup->tanggalBerakhir_op }}
+                {{ $op->tanggalBerakhir_op }}
             </td>
             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                {{ $iup->kabupaten }}
+                {{ $op->kabupaten }}
             </td>
             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                {{ $iup->luasWilayah }}
+                {{ $op->luasWilayah }}
             </td>
             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                {{ $iup->komoditas }}
+                {{ $op->golongan_op }}
             </td>
             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                {{ $iup->lokasiIzin }}
+                {{ $op->komoditas_op }}
+            </td>
+            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                {{ $op->lokasiIzin }}
             </td>
             <td class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                @if ($iup->statusIzin == 'Aktif')
+                @if ($op->statusIzin == 'Aktif')
                     <span class="bg-green-300 px-3 py-2 text-green-700 rounded-md">Aktif</span>
                 @else
                     <span class="bg-red-300 px-2 py-2 text-red-700 rounded-md">Tidak Aktif</span>
                 @endif
             </td>
         </tr>
+        @endforeach
     </tbody>
 </table>

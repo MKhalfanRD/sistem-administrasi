@@ -4,42 +4,38 @@
         <div class="mx-auto text-left">
             <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">Table Perpanjangan 2</h2>
         </div>
-        <a href="{{ route('p2.create') }}">
-            <button type="submit"
-                class="mt-5 mb-5 rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Tambah
-                Data</button>
-        </a>
-    <div class="button-wrap flex justify-between">
-        <a href="{{route('iup.export')}}">
-            <button class="block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Print</button>
-        </a>
 
-        <form action="/search" method="GET" class="mb-3">
-            <div class="input-group flex flex-row gap-2 justify-end">
-                <input type="search" name="search" placeholder="Cari..."
-                    class="block w-60 rounded-md border-0 px-3.5 py-2 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                <button type="submit" class="block rounded-md bg-indigo-600 px-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Cari</button>
-            </div>
-        </form>
-    </div>
+        <div class="button-wrap flex justify-between mt-3">
+            <a href="{{route('admin.p2.export')}}">
+                <button class="block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Print</button>
+            </a>
 
-    <div class="flex flex-row justify-end gap-3 mb-2">
-        <a href="{{route('iup.index')}}">
-            <button class="block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">All</button>
-        </a>
-        <a href="{{route('wiup.index')}}">
-            <button class="block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">WIUP</button>
-        </a>
-        <a href="{{route('eksplor.index')}}">
-            <button class="block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Eksplorasi</button>
-        </a>
-        <a href="{{route('op.index')}}">
-            <button class="block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Produksi</button>
-        </a>
-        <a href="{{route('p1.index')}}">
-            <button class="block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Perpanjangan 1</button>
-        </a>
-    </div>
+            <form action="{{ route('p2.search') }}" method="GET" class="mb-3">
+                <div class="input-group flex flex-row gap-2 justify-end">
+                    <input type="search" name="search" placeholder="Cari..."
+                        class="block w-60 rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    <button type="submit" class="block rounded-md bg-indigo-600 px-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Cari</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="flex flex-row justify-end gap-3 mb-2">
+            <a href="{{route('admin.iup.index')}}">
+                <button class="block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">All</button>
+            </a>
+            <a href="{{route('admin.wiup.index')}}">
+                <button class="block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">WIUP</button>
+            </a>
+            <a href="{{route('admin.eksplor.index')}}">
+                <button class="block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Eksplorasi</button>
+            </a>
+            <a href="{{route('admin.op.index')}}">
+                <button class="block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Produksi</button>
+            </a>
+            <a href="{{route('admin.p1.index')}}">
+                <button class="block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Perpanjangan 1</button>
+            </a>
+        </div>
 
         {{-- @if ($request->has('search'))
             @foreach ($results as $result)
@@ -99,9 +95,6 @@
                         </th>
                         <th scope="col" class="px-6 py-3 text-center">
                             scanSK
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-center">
-                            Aksi
                         </th>
                     </tr>
                 </thead>
@@ -172,7 +165,7 @@
                                     <p>Tidak Ada</p>
                                 @endif
                             </td>
-                            <th scope="row"
+                            {{-- <th scope="row"
                                 class="px-6 py-4 font-medium whitespace-nowrap text-white">
                                 <div class="btn-wrap flex flex-row gap-3">
                                     <a href="{{ route('p2.edit', $p2->id) }}">
@@ -186,7 +179,7 @@
                                             class="text-white hover:bg-gray-700 px-5 py-2.5 rounded-lg border border-gray-300">Delete</button>
                                     </form>
                                 </div>
-                            </th>
+                            </th> --}}
                         </tr>
                         {{-- <tr class="expandable-content hidden">
                             <td colspan="12">

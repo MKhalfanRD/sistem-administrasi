@@ -5,7 +5,7 @@
             <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Table Komoditas</h2>
         </div>
         <div class="flex justify-between mt-5 mb-5">
-            <a href="{{route('komoditas.create')}}">
+            <a href="{{route('admin.komoditas.create')}}">
                 <button type="submit" class=" rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Tambah Data</button>
             </a>
             @if(session('success'))
@@ -60,10 +60,10 @@
                         </th>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                             <div class="btn-wrap flex flex-row gap-3">
-                                <a href="{{route('komoditas.edit', $k->id)}}">
+                                <a href="{{route('admin.komoditas.edit', $k->id)}}">
                                     <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-lg">Edit</button>
                                 </a>
-                                <form action="{{route('komoditas.destroy', $k->id)}}" method="POST">
+                                <form action="{{route('admin.komoditas.destroy', $k->id)}}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button class="text-white hover:bg-gray-700 px-5 py-2.5 rounded-lg border border-gray-300">Delete</button>

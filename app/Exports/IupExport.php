@@ -16,7 +16,7 @@ class IupExport implements FromView, ShouldAutoSize
 {
     public function view(): View{
         $iup = IUP::all();
-        return view('export.all', ['iup' => $iup]);
+        return view('admin.export.all', ['iup' => $iup]);
     }
 
 

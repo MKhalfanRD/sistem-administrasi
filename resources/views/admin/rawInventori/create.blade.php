@@ -6,7 +6,7 @@
             <p class="mt-2 text-lg leading-8 text-gray-600">Tambah Data Raw Inventory</p>
         </div>
 
-        <form action="{{route('rawInventori.store')}}" method="POST" class="mx-auto mt-16 max-w-xs" enctype="multipart/form-data">
+        <form action="{{route('admin.rawInventory.store')}}" method="POST" class="mx-auto mt-16 max-w-xs" enctype="multipart/form-data">
             @csrf
             <div class="input-wrap">
                 <div class="namaPerusahaan">
@@ -73,7 +73,7 @@
                 </div>
             </div>
             <div class="flex flex-row gap-3">
-                <a href="{{route('rawInventori.index')}}">
+                <a href="{{route('admin.rawInventory.index')}}">
                     <button type="button" class="bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 rounded-md">Kembali</button>
                 </a>
                 <button type="submit" class=" block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Simpan</button>

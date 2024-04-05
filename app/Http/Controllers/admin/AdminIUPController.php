@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Exports\Eksplor;
+use App\Exports\OP;
+use App\Exports\P1;
+use App\Exports\P2;
+use App\Exports\Wiup;
 use App\Http\Controllers\Controller;
 use App\Exports\IupExport;
 use App\Models\Kabupaten;
@@ -38,21 +43,50 @@ class AdminIUPController extends Controller
         return view('admin/iup.index', compact(['iup']));
     }
 
-    public function export()
+    public function IupExport()
     {
-        return Excel::download(new IupExport, 'data_iup.xlsx');
+        return Excel::download(new IupExport(), 'data_iup.xlsx');
     }
 
-    public function search(Request $request)
+    public function WiupExport()
+    {
+        return Excel::download(new Wiup, 'data_wiup.xlsx');
+    }
+    public function EksplorExport()
+    {
+        return Excel::download(new Eksplor, 'data_eksplor.xlsx');
+    }
+    public function OpExport()
+    {
+        return Excel::download(new OP, 'data_op.xlsx');
+    }
+    public function P1Export()
+    {
+        return Excel::download(new P1, 'data_p1.xlsx');
+    }
+    public function P2Export()
+    {
+        return Excel::download(new P2, 'data_p2.xlsx');
+    }
+
+    public function IupSearch(Request $request)
     {
         $search = $request->search;
-        $iup = IUP::where(function($query) use ($search){
-            $query->where('namaPerusahaan', 'like', "%$search%")
-            ->orWhere('alamat', 'like', "%$search%")
-            ->orWhere('npwp', 'like', "%$search%")
-            ->orWhere('nib', 'like', "%$search%")
-            ->orWhere('tahapanKegiatan', 'like', "%$search%");
-        })->get();
+        $iup = IUP::query();
+
+        if ($search) {
+            $iup->where(function($query) use ($search){
+                $query->where('namaPerusahaan', 'like', "%$search%")
+                    ->orWhere('alamat', 'like', "%$search%")
+                    ->orWhere('npwp', 'like', "%$search%")
+                    ->orWhere('nib', 'like', "%$search%")
+                    ->orWhere('tahapanKegiatan', 'like', "%$search%");
+            });
+        } else {
+            return redirect()->route('admin.iup.index');
+        }
+
+        $iup = $iup->get();
 
         return view('admin.iup.index', compact('search', 'iup'));
 
@@ -72,355 +106,118 @@ class AdminIUPController extends Controller
         // return view('iup.index', compact('search', 'request'));
     }
 
+    public function WiupSearch(Request $request)
+    {
+        $search = $request->search;
+        $wiup = IUP::query()->where('tahapanKegiatan', 'WIUP');
+
+        if ($search) {
+            $wiup->where(function($query) use ($search){
+                $query->where('namaPerusahaan', 'like', "%$search%")
+                    ->orWhere('alamat', 'like', "%$search%")
+                    ->orWhere('npwp', 'like', "%$search%")
+                    ->orWhere('nib', 'like', "%$search%")
+                    ->orWhere('tahapanKegiatan', 'like', "%$search%");
+            });
+        } else {
+            return redirect()->route('admin.wiup.index');
+        }
+
+        $wiup = $wiup->get();
+
+        return view('admin.iup.wiup.index', compact('search', 'wiup'));
+    }
+
+    public function EksplorSearch(Request $request)
+    {
+        $search = $request->search;
+        $eksplor = IUP::query()->where('tahapanKegiatan', 'IUP Tahap Eksplorasi');
+
+        if ($search) {
+            $eksplor->where(function($query) use ($search){
+                $query->where('namaPerusahaan', 'like', "%$search%")
+                    ->orWhere('alamat', 'like', "%$search%")
+                    ->orWhere('npwp', 'like', "%$search%")
+                    ->orWhere('nib', 'like', "%$search%")
+                    ->orWhere('tahapanKegiatan', 'like', "%$search%");
+            });
+        } else {
+            return redirect()->route('admin.eksplor.index');
+        }
+
+        $eksplor = $eksplor->get();
+
+        return view('admin.iup.eksplor.index', compact('search', 'eksplor'));
+    }
+    public function OpSearch(Request $request)
+    {
+        $search = $request->search;
+        $op = IUP::query()->where('tahapanKegiatan', 'IUP Tahap Operasi Produksi');
+
+        if ($search) {
+            $op->where(function($query) use ($search){
+                $query->where('namaPerusahaan', 'like', "%$search%")
+                    ->orWhere('alamat', 'like', "%$search%")
+                    ->orWhere('npwp', 'like', "%$search%")
+                    ->orWhere('nib', 'like', "%$search%")
+                    ->orWhere('tahapanKegiatan', 'like', "%$search%");
+            });
+        } else {
+            return redirect()->route('admin.op.index');
+        }
+
+        $op = $op->get();
+
+        return view('admin.iup.op.index', compact('search', 'op'));
+    }
+    public function P1Search(Request $request)
+    {
+        $search = $request->search;
+        $p1 = IUP::query()->where('tahapanKegiatan', 'Perpanjangan 1 IUP Tahap Operasi Produksi');
+
+        if ($search) {
+            $p1->where(function($query) use ($search){
+                $query->where('namaPerusahaan', 'like', "%$search%")
+                    ->orWhere('alamat', 'like', "%$search%")
+                    ->orWhere('npwp', 'like', "%$search%")
+                    ->orWhere('nib', 'like', "%$search%")
+                    ->orWhere('tahapanKegiatan', 'like', "%$search%");
+            });
+        } else {
+            return redirect()->route('admin.p1.index');
+        }
+
+        $p1 = $p1->get();
+
+        return view('admin.iup.p1.index', compact('search', 'p1'));
+    }
+    public function P2Search(Request $request)
+    {
+        $search = $request->search;
+        $p2 = IUP::query()->where('tahapanKegiatan', 'Perpanjangan 2 IUP Tahap Operasi Produksi');
+
+        if ($search) {
+            $p2->where(function($query) use ($search){
+                $query->where('namaPerusahaan', 'like', "%$search%")
+                    ->orWhere('alamat', 'like', "%$search%")
+                    ->orWhere('npwp', 'like', "%$search%")
+                    ->orWhere('nib', 'like', "%$search%")
+                    ->orWhere('tahapanKegiatan', 'like', "%$search%");
+            });
+        } else {
+            return redirect()->route('admin.p2.index');
+        }
+
+        $p2 = $p2->get();
+
+        return view('admin.iup.p2.index', compact('search', 'p2'));
+    }
+
     public function wiup(){
         $iup = IUP::all();
         $wiup = IUP::where('tahapanKegiatan', 'WIUP')->get();
 
         return view('admin.iup/wiup.index', compact(['iup','wiup']));
-    }
-
-    public function wiupCreate(){
-        $tahapanKegiatan = [
-            'WIUP' => 'WIUP',
-            'IUP Tahap Eksplorasi' => 'IUP Tahap Eksplorasi',
-            'IUP Tahap Operasi Produksi' => 'IUP Tahap Operasi Produksi',
-            'Perpanjangan 1 IUP Tahap Operasi Produksi' => 'Perpanjangan 1 IUP Tahap Operasi Produksi',
-            'Perpanjangan 2 IUP Tahap Operasi Produksi' => 'Perpanjangan 2 IUP Tahap Operasi Produksi',
-        ];
-
-        $golongan_wiup = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_eksplor = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_op = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_p1 = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_p2 = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-
-        $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
-        $kabupaten = Kabupaten::whereNotNull('kabupaten')->pluck('kabupaten', 'id');
-        $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
-
-        return view('admin.iup/wiup.create', compact('tahapanKegiatan', 'perusahaanUser', 'kabupaten', 'komoditas', 'golongan_wiup', 'golongan_eksplor', 'golongan_op', 'golongan_p1', 'golongan_p2'));
-    }
-
-    public function wiupStore(Request $request){
-        session()->flashInput($request->input());
-        $request->validate([
-            'namaPerusahaan' => 'required',
-            'alamat' => 'required',
-            'npwp' => 'required',
-            'nib' => 'required',
-            'kabupaten' => 'required',
-            'noSK_wiup' => 'nullable',
-            'noSK_eksplor' => 'nullable',
-            'noSK_op' => 'nullable',
-            'noSK_p1' => 'nullable',
-            'noSK_p2' => 'nullable',
-            'masaBerlaku_eksplor' => 'nullable',
-            'masaBerlaku_op' => 'nullable',
-            'masaBerlaku_p1' => 'nullable',
-            'masaBerlaku_p2' => 'nullable',
-            'tanggalSK_wiup' => 'nullable',
-            'tanggalSK_eksplor' => 'nullable',
-            'tanggalSK_op' => 'nullable',
-            'tanggalSK_p1' => 'nullable',
-            'tanggalSK_p2' => 'nullable',
-            'tanggalBerakhir_eksplor' => 'nullable',
-            'tanggalBerakhir_op' => 'nullable',
-            'tanggalBerakhir_p1' => 'nullable',
-            'tanggalBerakhir_p2' => 'nullable',
-            'luasWilayah' => 'nullable|numeric',
-            'tahapanKegiatan' => 'nullable',
-            'golongan_wiup' => 'nullable',
-            'golongan_eksplor' => 'nullable',
-            'golongan_op' => 'nullable',
-            'golongan_p1' => 'nullable',
-            'golongan_p2' => 'nullable',
-            'komoditas_wiup' => 'nullable',
-            'komoditas_eksplor' => 'nullable',
-            'komoditas_op' => 'nullable',
-            'komoditas_p1' => 'nullable',
-            'komoditas_p2' => 'nullable',
-            'lokasiIzin' => 'required',
-            'scanSK_wiup' => 'nullable|file|mimes:pdf',
-            'scanSK_eksplor' => 'nullable|file|mimes:pdf',
-            'scanSK_op' => 'nullable|file|mimes:pdf',
-            'scanSK_p1' => 'nullable|file|mimes:pdf',
-            'scanSK_p2' => 'nullable|file|mimes:pdf',
-        ]);
-
-        $tanggalSK = $request->tanggalSK;
-        $tanggalBerakhir = $request->tanggalBerakhir;
-
-        $scanSK_wiup = request()->file('scanSK_wiup');
-        $filepath_wiup = $scanSK_wiup ? $scanSK_wiup->store('scanSK_wiup', 'public') : null;
-
-        $scanSK_eksplor = request()->file('scanSK_eksplor');
-        $filepath_eksplor = $scanSK_eksplor ? $scanSK_eksplor->store('scanSK_eksplor', 'public') : null;
-
-        $scanSK_op = request()->file('scanSK_op');
-        $filepath_op = $scanSK_op ? $scanSK_op->store('scanSK_op', 'public') : null;
-
-        $scanSK_p1 = request()->file('scanSK_p1');
-        $filepath_p1 = $scanSK_p1 ? $scanSK_p1->store('scanSK_p1', 'public') : null;
-
-        $scanSK_p2 = request()->file('scanSK_p2');
-        $filepath_p2 = $scanSK_p2 ? $scanSK_p2->store('scanSK_p2', 'public') : null;
-
-        $jenisKegiatan = '';
-        $tahapanKegiatan = $request->tahapanKegiatan;
-        switch ($tahapanKegiatan) {
-            case 'WIUP':
-                $tanggalSK = $request->tanggalSK_wiup;
-                $noSK = $request->noSK_wiup;
-                $jenisKegiatan = 'wiup';
-                break;
-            case 'IUP Tahap Eksplorasi':
-                $tanggalSK = $request->tanggalSK_eksplor;
-                $tanggalBerakhir = $request->tanggalBerakhir_eksplor;
-                $jenisKegiatan = 'eksplor';
-                break;
-            case 'IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_op;
-                $tanggalBerakhir = $request->tanggalBerakhir_op;
-                $jenisKegiatan = 'op';
-                break;
-            case 'Perpanjangan 1 IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_p1;
-                $tanggalBerakhir = $request->tanggalBerakhir_p1;
-                $jenisKegiatan = 'p1';
-                break;
-            case 'Perpanjangan 2 IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_p2;
-                $tanggalBerakhir = $request->tanggalBerakhir_p2;
-                $jenisKegiatan = 'p2';
-                break;
-            default:
-                $tanggalSK = null;
-                $tanggalBerakhir = null;
-                break;
-        }
-
-        $statusIzin = $tahapanKegiatan === 'WIUP' && $tanggalSK && now()->gte($tanggalSK) ? 'Aktif' : 'Tidak Aktif';
-
-        if ($tahapanKegiatan !== 'WIUP') {
-            $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
-        }
-
-        $iupData = $request->except('fromModal', 'scanSK_wiup', 'scanSK_eksplor', 'scanSK_op', 'scanSK_p1', 'scanSK_p2');
-        $iupData['statusIzin'] = $statusIzin;
-        $iupData['scanSK_wiup'] = $filepath_wiup;
-        $iupData['scanSK_eksplor'] = $filepath_eksplor;
-        $iupData['scanSK_op'] = $filepath_op;
-        $iupData['scanSK_p1'] = $filepath_p1;
-        $iupData['scanSK_p2'] = $filepath_p2;
-        $iupData['jenisKegiatan'] = $jenisKegiatan;
-        // dd($jenisKegiatan);
-
-        $iup = IUP::create($iupData);
-        dd($iup);
-        return redirect()->route('admin.wiup.index');
-    }
-    public function wiupEdit($id){
-        $wiup = IUP::find($id);
-        $tahapanKegiatan = [
-            'WIUP' => 'WIUP',
-            'IUP Tahap Eksplorasi' => 'IUP Tahap Eksplorasi',
-            'IUP Tahap Operasi Produksi' => 'IUP Tahap Operasi Produksi',
-            'Perpanjangan 1 IUP Tahap Operasi Produksi' => 'Perpanjangan 1 IUP Tahap Operasi Produksi',
-            'Perpanjangan 2 IUP Tahap Operasi Produksi' => 'Perpanjangan 2 IUP Tahap Operasi Produksi',
-        ];
-
-        $golongan_wiup = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_eksplor = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_op = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_p1 = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_p2 = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-
-        $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
-        $kabupaten = Kabupaten::whereNotNull('kabupaten')->pluck('kabupaten', 'id');
-        $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
-
-        $IUP = IUP::find($id);
-        $golonganSelectedWiup = $IUP->golongan_wiup;
-        $golonganSelectedEksplor = $IUP->golongan_eksplor;
-        $golonganSelectedOp = $IUP->golongan_op;
-        $golonganSelectedP1 = $IUP->golongan_p1;
-        $golonganSelectedP2 = $IUP->golongan_p2;
-
-        // $data = IUP::find($id);
-        return view('admin.iup/wiup.edit', compact(['IUP', 'wiup', 'tahapanKegiatan', 'perusahaanUser', 'kabupaten', 'komoditas', 'golongan_wiup', 'golongan_eksplor', 'golongan_op', 'golongan_p1', 'golongan_p2', 'golonganSelectedWiup', 'golonganSelectedEksplor', 'golonganSelectedOp', 'golonganSelectedP1', 'golonganSelectedP2']));
-    }
-
-    public function wiupUpdate(Request $request, $id){
-        $request->validate([
-            'namaPerusahaan' => 'required',
-            'alamat' => 'required',
-            'npwp' => 'required',
-            'nib' => 'required',
-            'kabupaten' => 'required',
-            'noSK_wiup' => 'nullable',
-            'noSK_eksplor' => 'nullable',
-            'noSK_op' => 'nullable',
-            'noSK_p1' => 'nullable',
-            'noSK_p2' => 'nullable',
-            'masaBerlaku_eksplor' => 'nullable',
-            'masaBerlaku_op' => 'nullable',
-            'masaBerlaku_p1' => 'nullable',
-            'masaBerlaku_p2' => 'nullable',
-            'tanggalSK_wiup' => 'nullable',
-            'tanggalSK_eksplor' => 'nullable',
-            'tanggalSK_op' => 'nullable',
-            'tanggalSK_p1' => 'nullable',
-            'tanggalSK_p2' => 'nullable',
-            'tanggalBerakhir_eksplor' => 'nullable',
-            'tanggalBerakhir_op' => 'nullable',
-            'tanggalBerakhir_p1' => 'nullable',
-            'tanggalBerakhir_p2' => 'nullable',
-            'luasWilayah' => 'nullable|numeric',
-            'tahapanKegiatan' => 'nullable',
-            'golongan_wiup' => 'nullable',
-            'golongan_eksplor' => 'nullable',
-            'golongan_op' => 'nullable',
-            'golongan_p1' => 'nullable',
-            'golongan_p2' => 'nullable',
-            'komoditas_wiup' => 'nullable',
-            'komoditas_eksplor' => 'nullable',
-            'komoditas_op' => 'nullable',
-            'komoditas_p1' => 'nullable',
-            'komoditas_p2' => 'nullable',
-            'lokasiIzin' => 'required',
-            'scanSK_wiup' => 'nullable|file|mimes:pdf',
-            'scanSK_eksplor' => 'nullable|file|mimes:pdf',
-            'scanSK_op' => 'nullable|file|mimes:pdf',
-            'scanSK_p1' => 'nullable|file|mimes:pdf',
-            'scanSK_p2' => 'nullable|file|mimes:pdf',
-        ]);
-
-        $iup = IUP::find($id);
-
-        $tahapanKegiatan = $iup->tahapanKegiatan;
-        switch ($tahapanKegiatan) {
-            case 'WIUP':
-                $tanggalSK = $request->tanggalSK_wiup;
-                $noSK = $request->noSK_wiup;
-                $jenisKegiatan = 'wiup';
-                $statusIzin = now()->gte($tanggalSK) ? 'Aktif' : 'Tidak Aktif';
-
-                break;
-            case 'IUP Tahap Eksplorasi':
-                $tanggalSK = $request->tanggalSK_eksplor;
-                $tanggalBerakhir = $request->tanggalBerakhir_eksplor;
-                $jenisKegiatan = 'eksplor';
-                $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
-                break;
-            case 'IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_op;
-                $tanggalBerakhir = $request->tanggalBerakhir_op;
-                $jenisKegiatan = 'op';
-                $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
-                break;
-            case 'Perpanjangan 1 IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_p1;
-                $tanggalBerakhir = $request->tanggalBerakhir_p1;
-                $jenisKegiatan = 'p1';
-                $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
-                break;
-            case 'Perpanjangan 2 IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_p2;
-                $tanggalBerakhir = $request->tanggalBerakhir_p2;
-                $jenisKegiatan = 'p2';
-                $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
-                break;
-            default:
-                $tanggalSK = null;
-                $tanggalBerakhir = null;
-                break;
-        }
-
-        if ($request->hasFile('scanSK_wiup')) {
-            $scanSK_wiup = $request->file('scanSK_wiup');
-            $filepath_wiup = $scanSK_wiup->store('scanSK_wiup', 'public');
-            $iup->scanSK_wiup = $filepath_wiup;
-        }
-        if ($request->hasFile('scanSK_eksplor')) {
-            $scanSK_eksplor = $request->file('scanSK_eksplor');
-            $filepath_eksplor = $scanSK_eksplor->store('scanSK_eksplor', 'public');
-            $iup->scanSK_eksplor = $filepath_eksplor;
-        }
-        if ($request->hasFile('scanSK_op')) {
-            $scanSK_op = $request->file('scanSK_op');
-            $filepath_op = $scanSK_op->store('scanSK_op', 'public');
-            $iup->scanSK_op = $filepath_op;
-        }
-        if ($request->hasFile('scanSK_p1')) {
-            $scanSK_p1 = $request->file('scanSK_p1');
-            $filepath_p1 = $scanSK_p1->store('scanSK_p1', 'public');
-            $iup->scanSK_p1 = $filepath_p1;
-        }
-        if ($request->hasFile('scanSK_p2')) {
-            $scanSK_p2 = $request->file('scanSK_p2');
-            $filepath_p2 = $scanSK_p2->store('scanSK_p2', 'public');
-            $iup->scanSK_p2 = $filepath_p2;
-        }
-
-        $iupData = $request->except('fromModal', 'scanSK_wiup', 'scanSK_eksplor', 'scanSK_op', 'scanSK_p1', 'scanSK_p2');
-        $iupData['statusIzin'] = $statusIzin;
-        $iupData['jenisKegiatan'] = $jenisKegiatan;
-
-        $iup->update($iupData);
-        dd($iup);
-        return redirect()->route('admin.wiup.index');
-    }
-
-    public function wiupDestroy($id){
-        $IUP = IUP::find($id);
-
-        if (!is_null($IUP->scanSK)) {
-            Storage::disk('public')->delete($IUP->scanSK);
-        }
-
-        $IUP->delete();
-
-        return redirect()->route('admin.wiup.index');
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -433,348 +230,6 @@ class AdminIUPController extends Controller
         return view('admin.iup/eksplor.index', compact(['iup','eksplor']));
     }
 
-    public function eksplorCreate(){
-        $tahapanKegiatan = [
-            'WIUP' => 'WIUP',
-            'IUP Tahap Eksplorasi' => 'IUP Tahap Eksplorasi',
-            'IUP Tahap Operasi Produksi' => 'IUP Tahap Operasi Produksi',
-            'Perpanjangan 1 IUP Tahap Operasi Produksi' => 'Perpanjangan 1 IUP Tahap Operasi Produksi',
-            'Perpanjangan 2 IUP Tahap Operasi Produksi' => 'Perpanjangan 2 IUP Tahap Operasi Produksi',
-        ];
-
-        $golongan_wiup = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_eksplor = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_op = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_p1 = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_p2 = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-
-        $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
-        $kabupaten = Kabupaten::whereNotNull('kabupaten')->pluck('kabupaten', 'id');
-        $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
-
-        return view('admin.iup/eksplor.create', compact('tahapanKegiatan', 'perusahaanUser', 'kabupaten', 'komoditas', 'golongan_wiup', 'golongan_eksplor', 'golongan_op', 'golongan_p1', 'golongan_p2'));
-    }
-
-    public function eksplorStore(Request $request){
-        session()->flashInput($request->input());
-        $request->validate([
-            'namaPerusahaan' => 'required',
-            'alamat' => 'required',
-            'npwp' => 'required',
-            'nib' => 'required',
-            'kabupaten' => 'required',
-            'noSK_wiup' => 'nullable',
-            'noSK_eksplor' => 'nullable',
-            'noSK_op' => 'nullable',
-            'noSK_p1' => 'nullable',
-            'noSK_p2' => 'nullable',
-            'masaBerlaku_eksplor' => 'nullable',
-            'masaBerlaku_op' => 'nullable',
-            'masaBerlaku_p1' => 'nullable',
-            'masaBerlaku_p2' => 'nullable',
-            'tanggalSK_wiup' => 'nullable',
-            'tanggalSK_eksplor' => 'nullable',
-            'tanggalSK_op' => 'nullable',
-            'tanggalSK_p1' => 'nullable',
-            'tanggalSK_p2' => 'nullable',
-            'tanggalBerakhir_eksplor' => 'nullable',
-            'tanggalBerakhir_op' => 'nullable',
-            'tanggalBerakhir_p1' => 'nullable',
-            'tanggalBerakhir_p2' => 'nullable',
-            'luasWilayah' => 'nullable|numeric',
-            'tahapanKegiatan' => 'nullable',
-            'golongan_wiup' => 'nullable',
-            'golongan_eksplor' => 'nullable',
-            'golongan_op' => 'nullable',
-            'golongan_p1' => 'nullable',
-            'golongan_p2' => 'nullable',
-            'komoditas_wiup' => 'nullable',
-            'komoditas_eksplor' => 'nullable',
-            'komoditas_op' => 'nullable',
-            'komoditas_p1' => 'nullable',
-            'komoditas_p2' => 'nullable',
-            'lokasiIzin' => 'required',
-            'scanSK_wiup' => 'nullable|file|mimes:pdf',
-            'scanSK_eksplor' => 'nullable|file|mimes:pdf',
-            'scanSK_op' => 'nullable|file|mimes:pdf',
-            'scanSK_p1' => 'nullable|file|mimes:pdf',
-            'scanSK_p2' => 'nullable|file|mimes:pdf',
-        ]);
-
-        $tanggalSK = $request->tanggalSK;
-        $tanggalBerakhir = $request->tanggalBerakhir;
-
-        $scanSK_wiup = request()->file('scanSK_wiup');
-        $filepath_wiup = $scanSK_wiup ? $scanSK_wiup->store('scanSK_wiup', 'public') : null;
-
-        $scanSK_eksplor = request()->file('scanSK_eksplor');
-        $filepath_eksplor = $scanSK_eksplor ? $scanSK_eksplor->store('scanSK_eksplor', 'public') : null;
-
-        $scanSK_op = request()->file('scanSK_op');
-        $filepath_op = $scanSK_op ? $scanSK_op->store('scanSK_op', 'public') : null;
-
-        $scanSK_p1 = request()->file('scanSK_p1');
-        $filepath_p1 = $scanSK_p1 ? $scanSK_p1->store('scanSK_p1', 'public') : null;
-
-        $scanSK_p2 = request()->file('scanSK_p2');
-        $filepath_p2 = $scanSK_p2 ? $scanSK_p2->store('scanSK_p2', 'public') : null;
-
-        $jenisKegiatan = '';
-        $tahapanKegiatan = $request->tahapanKegiatan;
-        switch ($tahapanKegiatan) {
-            case 'WIUP':
-                $tanggalSK = $request->tanggalSK_wiup;
-                $noSK = $request->noSK_wiup;
-                $jenisKegiatan = 'wiup';
-                break;
-            case 'IUP Tahap Eksplorasi':
-                $tanggalSK = $request->tanggalSK_eksplor;
-                $tanggalBerakhir = $request->tanggalBerakhir_eksplor;
-                $jenisKegiatan = 'eksplor';
-                break;
-            case 'IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_op;
-                $tanggalBerakhir = $request->tanggalBerakhir_op;
-                $jenisKegiatan = 'op';
-                break;
-            case 'Perpanjangan 1 IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_p1;
-                $tanggalBerakhir = $request->tanggalBerakhir_p1;
-                $jenisKegiatan = 'p1';
-                break;
-            case 'Perpanjangan 2 IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_p2;
-                $tanggalBerakhir = $request->tanggalBerakhir_p2;
-                $jenisKegiatan = 'p2';
-                break;
-            default:
-                $tanggalSK = null;
-                $tanggalBerakhir = null;
-                break;
-        }
-
-        $statusIzin = $tahapanKegiatan === 'WIUP' && $tanggalSK && now()->gte($tanggalSK) ? 'Aktif' : 'Tidak Aktif';
-
-        if ($tahapanKegiatan !== 'WIUP') {
-            $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
-        }
-
-        $iupData = $request->except('fromModal', 'scanSK_wiup', 'scanSK_eksplor', 'scanSK_op', 'scanSK_p1', 'scanSK_p2');
-        $iupData['statusIzin'] = $statusIzin;
-        $iupData['scanSK_wiup'] = $filepath_wiup;
-        $iupData['scanSK_eksplor'] = $filepath_eksplor;
-        $iupData['scanSK_op'] = $filepath_op;
-        $iupData['scanSK_p1'] = $filepath_p1;
-        $iupData['scanSK_p2'] = $filepath_p2;
-        $iupData['jenisKegiatan'] = $jenisKegiatan;
-        // dd($jenisKegiatan);
-
-        $iup = IUP::create($iupData);
-        return redirect()->route('admin.eksplor.index');
-    }
-    public function eksplorEdit($id){
-        $eksplor = IUP::find($id);
-        $tahapanKegiatan = [
-            'WIUP' => 'WIUP',
-            'IUP Tahap Eksplorasi' => 'IUP Tahap Eksplorasi',
-            'IUP Tahap Operasi Produksi' => 'IUP Tahap Operasi Produksi',
-            'Perpanjangan 1 IUP Tahap Operasi Produksi' => 'Perpanjangan 1 IUP Tahap Operasi Produksi',
-            'Perpanjangan 2 IUP Tahap Operasi Produksi' => 'Perpanjangan 2 IUP Tahap Operasi Produksi',
-        ];
-
-        $golongan_wiup = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_eksplor = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_op = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_p1 = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_p2 = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-
-        $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
-        $kabupaten = Kabupaten::whereNotNull('kabupaten')->pluck('kabupaten', 'id');
-        $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
-
-        $IUP = IUP::find($id);
-        $golonganSelectedWiup = $IUP->golongan_wiup;
-        $golonganSelectedEksplor = $IUP->golongan_eksplor;
-        $golonganSelectedOp = $IUP->golongan_op;
-        $golonganSelectedP1 = $IUP->golongan_p1;
-        $golonganSelectedP2 = $IUP->golongan_p2;
-
-        // $data = IUP::find($id);
-        return view('admin.iup/eksplor.edit', compact(['IUP', 'eksplor', 'tahapanKegiatan', 'perusahaanUser', 'kabupaten', 'komoditas', 'golongan_wiup', 'golongan_eksplor', 'golongan_op', 'golongan_p1', 'golongan_p2', 'golonganSelectedWiup', 'golonganSelectedEksplor', 'golonganSelectedOp', 'golonganSelectedP1', 'golonganSelectedP2']));
-    }
-
-    public function eksplorUpdate(Request $request, $id){
-        $request->validate([
-            'namaPerusahaan' => 'required',
-            'alamat' => 'required',
-            'npwp' => 'required',
-            'nib' => 'required',
-            'kabupaten' => 'required',
-            'noSK_wiup' => 'nullable',
-            'noSK_eksplor' => 'nullable',
-            'noSK_op' => 'nullable',
-            'noSK_p1' => 'nullable',
-            'noSK_p2' => 'nullable',
-            'masaBerlaku_eksplor' => 'nullable',
-            'masaBerlaku_op' => 'nullable',
-            'masaBerlaku_p1' => 'nullable',
-            'masaBerlaku_p2' => 'nullable',
-            'tanggalSK_wiup' => 'nullable',
-            'tanggalSK_eksplor' => 'nullable',
-            'tanggalSK_op' => 'nullable',
-            'tanggalSK_p1' => 'nullable',
-            'tanggalSK_p2' => 'nullable',
-            'tanggalBerakhir_eksplor' => 'nullable',
-            'tanggalBerakhir_op' => 'nullable',
-            'tanggalBerakhir_p1' => 'nullable',
-            'tanggalBerakhir_p2' => 'nullable',
-            'luasWilayah' => 'nullable|numeric',
-            'tahapanKegiatan' => 'nullable',
-            'golongan_wiup' => 'nullable',
-            'golongan_eksplor' => 'nullable',
-            'golongan_op' => 'nullable',
-            'golongan_p1' => 'nullable',
-            'golongan_p2' => 'nullable',
-            'komoditas_wiup' => 'nullable',
-            'komoditas_eksplor' => 'nullable',
-            'komoditas_op' => 'nullable',
-            'komoditas_p1' => 'nullable',
-            'komoditas_p2' => 'nullable',
-            'lokasiIzin' => 'required',
-            'scanSK_wiup' => 'nullable|file|mimes:pdf',
-            'scanSK_eksplor' => 'nullable|file|mimes:pdf',
-            'scanSK_op' => 'nullable|file|mimes:pdf',
-            'scanSK_p1' => 'nullable|file|mimes:pdf',
-            'scanSK_p2' => 'nullable|file|mimes:pdf',
-        ]);
-
-        $iup = IUP::find($id);
-
-        $tahapanKegiatan = $iup->tahapanKegiatan;
-        switch ($tahapanKegiatan) {
-            case 'WIUP':
-                $tanggalSK = $request->tanggalSK_wiup;
-                $noSK = $request->noSK_wiup;
-                $jenisKegiatan = 'wiup';
-                $statusIzin = now()->gte($tanggalSK) ? 'Aktif' : 'Tidak Aktif';
-
-                break;
-            case 'IUP Tahap Eksplorasi':
-                $tanggalSK = $request->tanggalSK_eksplor;
-                $tanggalBerakhir = $request->tanggalBerakhir_eksplor;
-                $jenisKegiatan = 'eksplor';
-                $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
-                break;
-            case 'IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_op;
-                $tanggalBerakhir = $request->tanggalBerakhir_op;
-                $jenisKegiatan = 'op';
-                $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
-                break;
-            case 'Perpanjangan 1 IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_p1;
-                $tanggalBerakhir = $request->tanggalBerakhir_p1;
-                $jenisKegiatan = 'p1';
-                $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
-                break;
-            case 'Perpanjangan 2 IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_p2;
-                $tanggalBerakhir = $request->tanggalBerakhir_p2;
-                $jenisKegiatan = 'p2';
-                $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
-                break;
-            default:
-                $tanggalSK = null;
-                $tanggalBerakhir = null;
-                break;
-        }
-
-        if ($request->hasFile('scanSK_wiup')) {
-            $scanSK_wiup = $request->file('scanSK_wiup');
-            $filepath_wiup = $scanSK_wiup->store('scanSK_wiup', 'public');
-            $iup->scanSK_wiup = $filepath_wiup;
-        }
-        if ($request->hasFile('scanSK_eksplor')) {
-            $scanSK_eksplor = $request->file('scanSK_eksplor');
-            $filepath_eksplor = $scanSK_eksplor->store('scanSK_eksplor', 'public');
-            $iup->scanSK_eksplor = $filepath_eksplor;
-        }
-        if ($request->hasFile('scanSK_op')) {
-            $scanSK_op = $request->file('scanSK_op');
-            $filepath_op = $scanSK_op->store('scanSK_op', 'public');
-            $iup->scanSK_op = $filepath_op;
-        }
-        if ($request->hasFile('scanSK_p1')) {
-            $scanSK_p1 = $request->file('scanSK_p1');
-            $filepath_p1 = $scanSK_p1->store('scanSK_p1', 'public');
-            $iup->scanSK_p1 = $filepath_p1;
-        }
-        if ($request->hasFile('scanSK_p2')) {
-            $scanSK_p2 = $request->file('scanSK_p2');
-            $filepath_p2 = $scanSK_p2->store('scanSK_p2', 'public');
-            $iup->scanSK_p2 = $filepath_p2;
-        }
-
-        $iupData = $request->except('fromModal', 'scanSK_wiup', 'scanSK_eksplor', 'scanSK_op', 'scanSK_p1', 'scanSK_p2');
-        $iupData['statusIzin'] = $statusIzin;
-        $iupData['jenisKegiatan'] = $jenisKegiatan;
-
-        $iup->update($iupData);
-        return redirect()->route('admin.eksplor.index');
-    }
-
-    public function eksplorDestroy($id){
-        $IUP = IUP::find($id);
-
-        if (!is_null($IUP->scanSK)) {
-            Storage::disk('public')->delete($IUP->scanSK);
-        }
-
-        $IUP->delete();
-
-        return redirect()->route('admin.eksplor.index');
-    }
-
     ///////////////////////////////////////////////////////////////////
     //////////////////////op///////////////////////////////////
     ///////////////////////////////////////////////////////////////////
@@ -783,348 +238,6 @@ class AdminIUPController extends Controller
         $op = IUP::where('tahapanKegiatan', 'IUP Tahap Operasi Produksi')->get();
 
         return view('admin.iup/op.index', compact(['iup','op']));
-    }
-
-    public function opCreate(){
-        $tahapanKegiatan = [
-            'WIUP' => 'WIUP',
-            'IUP Tahap Eksplorasi' => 'IUP Tahap Eksplorasi',
-            'IUP Tahap Operasi Produksi' => 'IUP Tahap Operasi Produksi',
-            'Perpanjangan 1 IUP Tahap Operasi Produksi' => 'Perpanjangan 1 IUP Tahap Operasi Produksi',
-            'Perpanjangan 2 IUP Tahap Operasi Produksi' => 'Perpanjangan 2 IUP Tahap Operasi Produksi',
-        ];
-
-        $golongan_wiup = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_eksplor = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_op = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_p1 = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_p2 = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-
-        $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
-        $kabupaten = Kabupaten::whereNotNull('kabupaten')->pluck('kabupaten', 'id');
-        $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
-
-        return view('admin.iup/op.create', compact('tahapanKegiatan', 'perusahaanUser', 'kabupaten', 'komoditas', 'golongan_wiup', 'golongan_eksplor', 'golongan_op', 'golongan_p1', 'golongan_p2'));
-    }
-
-    public function opStore(Request $request){
-        session()->flashInput($request->input());
-        $request->validate([
-            'namaPerusahaan' => 'required',
-            'alamat' => 'required',
-            'npwp' => 'required',
-            'nib' => 'required',
-            'kabupaten' => 'required',
-            'noSK_wiup' => 'nullable',
-            'noSK_eksplor' => 'nullable',
-            'noSK_op' => 'nullable',
-            'noSK_p1' => 'nullable',
-            'noSK_p2' => 'nullable',
-            'masaBerlaku_eksplor' => 'nullable',
-            'masaBerlaku_op' => 'nullable',
-            'masaBerlaku_p1' => 'nullable',
-            'masaBerlaku_p2' => 'nullable',
-            'tanggalSK_wiup' => 'nullable',
-            'tanggalSK_eksplor' => 'nullable',
-            'tanggalSK_op' => 'nullable',
-            'tanggalSK_p1' => 'nullable',
-            'tanggalSK_p2' => 'nullable',
-            'tanggalBerakhir_eksplor' => 'nullable',
-            'tanggalBerakhir_op' => 'nullable',
-            'tanggalBerakhir_p1' => 'nullable',
-            'tanggalBerakhir_p2' => 'nullable',
-            'luasWilayah' => 'nullable|numeric',
-            'tahapanKegiatan' => 'nullable',
-            'golongan_wiup' => 'nullable',
-            'golongan_eksplor' => 'nullable',
-            'golongan_op' => 'nullable',
-            'golongan_p1' => 'nullable',
-            'golongan_p2' => 'nullable',
-            'komoditas_wiup' => 'nullable',
-            'komoditas_eksplor' => 'nullable',
-            'komoditas_op' => 'nullable',
-            'komoditas_p1' => 'nullable',
-            'komoditas_p2' => 'nullable',
-            'lokasiIzin' => 'required',
-            'scanSK_wiup' => 'nullable|file|mimes:pdf',
-            'scanSK_eksplor' => 'nullable|file|mimes:pdf',
-            'scanSK_op' => 'nullable|file|mimes:pdf',
-            'scanSK_p1' => 'nullable|file|mimes:pdf',
-            'scanSK_p2' => 'nullable|file|mimes:pdf',
-        ]);
-
-        $tanggalSK = $request->tanggalSK;
-        $tanggalBerakhir = $request->tanggalBerakhir;
-
-        $scanSK_wiup = request()->file('scanSK_wiup');
-        $filepath_wiup = $scanSK_wiup ? $scanSK_wiup->store('scanSK_wiup', 'public') : null;
-
-        $scanSK_eksplor = request()->file('scanSK_eksplor');
-        $filepath_eksplor = $scanSK_eksplor ? $scanSK_eksplor->store('scanSK_eksplor', 'public') : null;
-
-        $scanSK_op = request()->file('scanSK_op');
-        $filepath_op = $scanSK_op ? $scanSK_op->store('scanSK_op', 'public') : null;
-
-        $scanSK_p1 = request()->file('scanSK_p1');
-        $filepath_p1 = $scanSK_p1 ? $scanSK_p1->store('scanSK_p1', 'public') : null;
-
-        $scanSK_p2 = request()->file('scanSK_p2');
-        $filepath_p2 = $scanSK_p2 ? $scanSK_p2->store('scanSK_p2', 'public') : null;
-
-        $jenisKegiatan = '';
-        $tahapanKegiatan = $request->tahapanKegiatan;
-        switch ($tahapanKegiatan) {
-            case 'WIUP':
-                $tanggalSK = $request->tanggalSK_wiup;
-                $noSK = $request->noSK_wiup;
-                $jenisKegiatan = 'wiup';
-                break;
-            case 'IUP Tahap Eksplorasi':
-                $tanggalSK = $request->tanggalSK_eksplor;
-                $tanggalBerakhir = $request->tanggalBerakhir_eksplor;
-                $jenisKegiatan = 'eksplor';
-                break;
-            case 'IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_op;
-                $tanggalBerakhir = $request->tanggalBerakhir_op;
-                $jenisKegiatan = 'op';
-                break;
-            case 'Perpanjangan 1 IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_p1;
-                $tanggalBerakhir = $request->tanggalBerakhir_p1;
-                $jenisKegiatan = 'p1';
-                break;
-            case 'Perpanjangan 2 IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_p2;
-                $tanggalBerakhir = $request->tanggalBerakhir_p2;
-                $jenisKegiatan = 'p2';
-                break;
-            default:
-                $tanggalSK = null;
-                $tanggalBerakhir = null;
-                break;
-        }
-
-        $statusIzin = $tahapanKegiatan === 'WIUP' && $tanggalSK && now()->gte($tanggalSK) ? 'Aktif' : 'Tidak Aktif';
-
-        if ($tahapanKegiatan !== 'WIUP') {
-            $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
-        }
-
-        $iupData = $request->except('fromModal', 'scanSK_wiup', 'scanSK_eksplor', 'scanSK_op', 'scanSK_p1', 'scanSK_p2');
-        $iupData['statusIzin'] = $statusIzin;
-        $iupData['scanSK_wiup'] = $filepath_wiup;
-        $iupData['scanSK_eksplor'] = $filepath_eksplor;
-        $iupData['scanSK_op'] = $filepath_op;
-        $iupData['scanSK_p1'] = $filepath_p1;
-        $iupData['scanSK_p2'] = $filepath_p2;
-        $iupData['jenisKegiatan'] = $jenisKegiatan;
-        // dd($jenisKegiatan);
-
-        $iup = IUP::create($iupData);
-        return redirect()->route('admin.op.index');
-    }
-    public function opEdit($id){
-        $op = IUP::find($id);
-        $tahapanKegiatan = [
-            'WIUP' => 'WIUP',
-            'IUP Tahap Eksplorasi' => 'IUP Tahap Eksplorasi',
-            'IUP Tahap Operasi Produksi' => 'IUP Tahap Operasi Produksi',
-            'Perpanjangan 1 IUP Tahap Operasi Produksi' => 'Perpanjangan 1 IUP Tahap Operasi Produksi',
-            'Perpanjangan 2 IUP Tahap Operasi Produksi' => 'Perpanjangan 2 IUP Tahap Operasi Produksi',
-        ];
-
-        $golongan_wiup = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_eksplor = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_op = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_p1 = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_p2 = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-
-        $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
-        $kabupaten = Kabupaten::whereNotNull('kabupaten')->pluck('kabupaten', 'id');
-        $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
-
-        $IUP = IUP::find($id);
-        $golonganSelectedWiup = $IUP->golongan_wiup;
-        $golonganSelectedEksplor = $IUP->golongan_eksplor;
-        $golonganSelectedOp = $IUP->golongan_op;
-        $golonganSelectedP1 = $IUP->golongan_p1;
-        $golonganSelectedP2 = $IUP->golongan_p2;
-
-        // $data = IUP::find($id);
-        return view('admin.iup/op.edit', compact(['IUP', 'op', 'tahapanKegiatan', 'perusahaanUser', 'kabupaten', 'komoditas', 'golongan_wiup', 'golongan_eksplor', 'golongan_op', 'golongan_p1', 'golongan_p2', 'golonganSelectedWiup', 'golonganSelectedEksplor', 'golonganSelectedOp', 'golonganSelectedP1', 'golonganSelectedP2']));
-    }
-
-    public function opUpdate(Request $request, $id){
-        $request->validate([
-            'namaPerusahaan' => 'required',
-            'alamat' => 'required',
-            'npwp' => 'required',
-            'nib' => 'required',
-            'kabupaten' => 'required',
-            'noSK_wiup' => 'nullable',
-            'noSK_eksplor' => 'nullable',
-            'noSK_op' => 'nullable',
-            'noSK_p1' => 'nullable',
-            'noSK_p2' => 'nullable',
-            'masaBerlaku_eksplor' => 'nullable',
-            'masaBerlaku_op' => 'nullable',
-            'masaBerlaku_p1' => 'nullable',
-            'masaBerlaku_p2' => 'nullable',
-            'tanggalSK_wiup' => 'nullable',
-            'tanggalSK_eksplor' => 'nullable',
-            'tanggalSK_op' => 'nullable',
-            'tanggalSK_p1' => 'nullable',
-            'tanggalSK_p2' => 'nullable',
-            'tanggalBerakhir_eksplor' => 'nullable',
-            'tanggalBerakhir_op' => 'nullable',
-            'tanggalBerakhir_p1' => 'nullable',
-            'tanggalBerakhir_p2' => 'nullable',
-            'luasWilayah' => 'nullable|numeric',
-            'tahapanKegiatan' => 'nullable',
-            'golongan_wiup' => 'nullable',
-            'golongan_eksplor' => 'nullable',
-            'golongan_op' => 'nullable',
-            'golongan_p1' => 'nullable',
-            'golongan_p2' => 'nullable',
-            'komoditas_wiup' => 'nullable',
-            'komoditas_eksplor' => 'nullable',
-            'komoditas_op' => 'nullable',
-            'komoditas_p1' => 'nullable',
-            'komoditas_p2' => 'nullable',
-            'lokasiIzin' => 'required',
-            'scanSK_wiup' => 'nullable|file|mimes:pdf',
-            'scanSK_eksplor' => 'nullable|file|mimes:pdf',
-            'scanSK_op' => 'nullable|file|mimes:pdf',
-            'scanSK_p1' => 'nullable|file|mimes:pdf',
-            'scanSK_p2' => 'nullable|file|mimes:pdf',
-        ]);
-
-        $iup = IUP::find($id);
-
-        $tahapanKegiatan = $iup->tahapanKegiatan;
-        switch ($tahapanKegiatan) {
-            case 'WIUP':
-                $tanggalSK = $request->tanggalSK_wiup;
-                $noSK = $request->noSK_wiup;
-                $jenisKegiatan = 'wiup';
-                $statusIzin = now()->gte($tanggalSK) ? 'Aktif' : 'Tidak Aktif';
-
-                break;
-            case 'IUP Tahap Eksplorasi':
-                $tanggalSK = $request->tanggalSK_eksplor;
-                $tanggalBerakhir = $request->tanggalBerakhir_eksplor;
-                $jenisKegiatan = 'eksplor';
-                $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
-                break;
-            case 'IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_op;
-                $tanggalBerakhir = $request->tanggalBerakhir_op;
-                $jenisKegiatan = 'op';
-                $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
-                break;
-            case 'Perpanjangan 1 IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_p1;
-                $tanggalBerakhir = $request->tanggalBerakhir_p1;
-                $jenisKegiatan = 'p1';
-                $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
-                break;
-            case 'Perpanjangan 2 IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_p2;
-                $tanggalBerakhir = $request->tanggalBerakhir_p2;
-                $jenisKegiatan = 'p2';
-                $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
-                break;
-            default:
-                $tanggalSK = null;
-                $tanggalBerakhir = null;
-                break;
-        }
-
-        if ($request->hasFile('scanSK_wiup')) {
-            $scanSK_wiup = $request->file('scanSK_wiup');
-            $filepath_wiup = $scanSK_wiup->store('scanSK_wiup', 'public');
-            $iup->scanSK_wiup = $filepath_wiup;
-        }
-        if ($request->hasFile('scanSK_eksplor')) {
-            $scanSK_eksplor = $request->file('scanSK_eksplor');
-            $filepath_eksplor = $scanSK_eksplor->store('scanSK_eksplor', 'public');
-            $iup->scanSK_eksplor = $filepath_eksplor;
-        }
-        if ($request->hasFile('scanSK_op')) {
-            $scanSK_op = $request->file('scanSK_op');
-            $filepath_op = $scanSK_op->store('scanSK_op', 'public');
-            $iup->scanSK_op = $filepath_op;
-        }
-        if ($request->hasFile('scanSK_p1')) {
-            $scanSK_p1 = $request->file('scanSK_p1');
-            $filepath_p1 = $scanSK_p1->store('scanSK_p1', 'public');
-            $iup->scanSK_p1 = $filepath_p1;
-        }
-        if ($request->hasFile('scanSK_p2')) {
-            $scanSK_p2 = $request->file('scanSK_p2');
-            $filepath_p2 = $scanSK_p2->store('scanSK_p2', 'public');
-            $iup->scanSK_p2 = $filepath_p2;
-        }
-
-        $iupData = $request->except('fromModal', 'scanSK_wiup', 'scanSK_eksplor', 'scanSK_op', 'scanSK_p1', 'scanSK_p2');
-        $iupData['statusIzin'] = $statusIzin;
-        $iupData['jenisKegiatan'] = $jenisKegiatan;
-
-        $iup->update($iupData);
-        return redirect()->route('admin.op.index');
-    }
-
-    public function opDestroy($id){
-        $IUP = IUP::find($id);
-
-        if (!is_null($IUP->scanSK)) {
-            Storage::disk('public')->delete($IUP->scanSK);
-        }
-
-        $IUP->delete();
-
-        return redirect()->route('admin.op.index');
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -1137,351 +250,6 @@ class AdminIUPController extends Controller
         return view('admin.iup/p1.index', compact(['iup','p1']));
     }
 
-    public function p1Create(){
-        $tahapanKegiatan = [
-            'WIUP' => 'WIUP',
-            'IUP Tahap Eksplorasi' => 'IUP Tahap Eksplorasi',
-            'IUP Tahap Operasi Produksi' => 'IUP Tahap Operasi Produksi',
-            'Perpanjangan 1 IUP Tahap Operasi Produksi' => 'Perpanjangan 1 IUP Tahap Operasi Produksi',
-            'Perpanjangan 2 IUP Tahap Operasi Produksi' => 'Perpanjangan 2 IUP Tahap Operasi Produksi',
-        ];
-
-        $golongan_wiup = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_eksplor = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_op = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_p1 = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_p2 = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-
-        $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
-        $kabupaten = Kabupaten::whereNotNull('kabupaten')->pluck('kabupaten', 'id');
-        $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
-
-        return view('admin.iup/p1.create', compact('tahapanKegiatan', 'perusahaanUser', 'kabupaten', 'komoditas', 'golongan_wiup', 'golongan_eksplor', 'golongan_op', 'golongan_p1', 'golongan_p2'));
-    }
-
-    public function p1Store(Request $request){
-        session()->flashInput($request->input());
-        $request->validate([
-            'namaPerusahaan' => 'required',
-            'alamat' => 'required',
-            'npwp' => 'required',
-            'nib' => 'required',
-            'kabupaten' => 'required',
-            'noSK_wiup' => 'nullable',
-            'noSK_eksplor' => 'nullable',
-            'noSK_op' => 'nullable',
-            'noSK_p1' => 'nullable',
-            'noSK_p2' => 'nullable',
-            'masaBerlaku_eksplor' => 'nullable',
-            'masaBerlaku_op' => 'nullable',
-            'masaBerlaku_p1' => 'nullable',
-            'masaBerlaku_p2' => 'nullable',
-            'tanggalSK_wiup' => 'nullable',
-            'tanggalSK_eksplor' => 'nullable',
-            'tanggalSK_op' => 'nullable',
-            'tanggalSK_p1' => 'nullable',
-            'tanggalSK_p2' => 'nullable',
-            'tanggalBerakhir_eksplor' => 'nullable',
-            'tanggalBerakhir_op' => 'nullable',
-            'tanggalBerakhir_p1' => 'nullable',
-            'tanggalBerakhir_p2' => 'nullable',
-            'luasWilayah' => 'nullable|numeric',
-            'tahapanKegiatan' => 'nullable',
-            'golongan_wiup' => 'nullable',
-            'golongan_eksplor' => 'nullable',
-            'golongan_op' => 'nullable',
-            'golongan_p1' => 'nullable',
-            'golongan_p2' => 'nullable',
-            'komoditas_wiup' => 'nullable',
-            'komoditas_eksplor' => 'nullable',
-            'komoditas_op' => 'nullable',
-            'komoditas_p1' => 'nullable',
-            'komoditas_p2' => 'nullable',
-            'lokasiIzin' => 'required',
-            'scanSK_wiup' => 'nullable|file|mimes:pdf',
-            'scanSK_eksplor' => 'nullable|file|mimes:pdf',
-            'scanSK_op' => 'nullable|file|mimes:pdf',
-            'scanSK_p1' => 'nullable|file|mimes:pdf',
-            'scanSK_p2' => 'nullable|file|mimes:pdf',
-        ]);
-
-        $tanggalSK = $request->tanggalSK;
-        $tanggalBerakhir = $request->tanggalBerakhir;
-
-        $scanSK_wiup = request()->file('scanSK_wiup');
-        $filepath_wiup = $scanSK_wiup ? $scanSK_wiup->store('scanSK_wiup', 'public') : null;
-
-        $scanSK_eksplor = request()->file('scanSK_eksplor');
-        $filepath_eksplor = $scanSK_eksplor ? $scanSK_eksplor->store('scanSK_eksplor', 'public') : null;
-
-        $scanSK_op = request()->file('scanSK_op');
-        $filepath_op = $scanSK_op ? $scanSK_op->store('scanSK_op', 'public') : null;
-
-        $scanSK_p1 = request()->file('scanSK_p1');
-        $filepath_p1 = $scanSK_p1 ? $scanSK_p1->store('scanSK_p1', 'public') : null;
-
-        $scanSK_p2 = request()->file('scanSK_p2');
-        $filepath_p2 = $scanSK_p2 ? $scanSK_p2->store('scanSK_p2', 'public') : null;
-
-        $jenisKegiatan = '';
-        $tahapanKegiatan = $request->tahapanKegiatan;
-        switch ($tahapanKegiatan) {
-            case 'WIUP':
-                $tanggalSK = $request->tanggalSK_wiup;
-                $noSK = $request->noSK_wiup;
-                $jenisKegiatan = 'wiup';
-                break;
-            case 'IUP Tahap Eksplorasi':
-                $tanggalSK = $request->tanggalSK_eksplor;
-                $tanggalBerakhir = $request->tanggalBerakhir_eksplor;
-                $jenisKegiatan = 'eksplor';
-                break;
-            case 'IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_op;
-                $tanggalBerakhir = $request->tanggalBerakhir_op;
-                $jenisKegiatan = 'op';
-                break;
-            case 'Perpanjangan 1 IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_p1;
-                $tanggalBerakhir = $request->tanggalBerakhir_p1;
-                $jenisKegiatan = 'p1';
-                break;
-            case 'Perpanjangan 2 IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_p2;
-                $tanggalBerakhir = $request->tanggalBerakhir_p2;
-                $jenisKegiatan = 'p2';
-                break;
-            default:
-                $tanggalSK = null;
-                $tanggalBerakhir = null;
-                break;
-        }
-
-        $statusIzin = $tahapanKegiatan === 'WIUP' && $tanggalSK && now()->gte($tanggalSK) ? 'Aktif' : 'Tidak Aktif';
-
-        if ($tahapanKegiatan !== 'WIUP') {
-            $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
-        }
-
-        $iupData = $request->except('fromModal', 'scanSK_wiup', 'scanSK_eksplor', 'scanSK_op', 'scanSK_p1', 'scanSK_p2');
-        $iupData['statusIzin'] = $statusIzin;
-        $iupData['scanSK_wiup'] = $filepath_wiup;
-        $iupData['scanSK_eksplor'] = $filepath_eksplor;
-        $iupData['scanSK_op'] = $filepath_op;
-        $iupData['scanSK_p1'] = $filepath_p1;
-        $iupData['scanSK_p2'] = $filepath_p2;
-        $iupData['jenisKegiatan'] = $jenisKegiatan;
-        // dd($jenisKegiatan);
-
-        $iup = IUP::create($iupData);
-        dd($iup);
-        return redirect()->route('admin.p1.index');
-    }
-    public function p1Edit($id){
-        $IUP = IUP::find($id);
-        $p1 = IUP::find($id);
-        $tahapanKegiatan = [
-            'WIUP' => 'WIUP',
-            'IUP Tahap Eksplorasi' => 'IUP Tahap Eksplorasi',
-            'IUP Tahap Operasi Produksi' => 'IUP Tahap Operasi Produksi',
-            'Perpanjangan 1 IUP Tahap Operasi Produksi' => 'Perpanjangan 1 IUP Tahap Operasi Produksi',
-            'Perpanjangan 2 IUP Tahap Operasi Produksi' => 'Perpanjangan 2 IUP Tahap Operasi Produksi',
-        ];
-
-        $golongan_wiup = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_eksplor = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_op = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_p1 = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_p2 = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-
-        $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
-        $kabupaten = Kabupaten::whereNotNull('kabupaten')->pluck('kabupaten', 'id');
-        $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
-
-        $IUP = IUP::find($id);
-        $golonganSelectedWiup = $IUP->golongan_wiup;
-        $golonganSelectedEksplor = $IUP->golongan_eksplor;
-        $golonganSelectedOp = $IUP->golongan_op;
-        $golonganSelectedP1 = $IUP->golongan_p1;
-        $golonganSelectedP2 = $IUP->golongan_p2;
-
-        // $data = IUP::find($id);
-        return view('admin.iup/p1.edit', compact(['IUP', 'p1', 'tahapanKegiatan', 'perusahaanUser', 'kabupaten', 'komoditas', 'golongan_wiup', 'golongan_eksplor', 'golongan_op', 'golongan_p1', 'golongan_p2', 'golonganSelectedWiup', 'golonganSelectedEksplor', 'golonganSelectedOp', 'golonganSelectedP1', 'golonganSelectedP2']));
-    }
-
-    public function p1Update(Request $request, $id){
-        $request->validate([
-            'namaPerusahaan' => 'required',
-            'alamat' => 'required',
-            'npwp' => 'required',
-            'nib' => 'required',
-            'kabupaten' => 'required',
-            'noSK_wiup' => 'nullable',
-            'noSK_eksplor' => 'nullable',
-            'noSK_op' => 'nullable',
-            'noSK_p1' => 'nullable',
-            'noSK_p2' => 'nullable',
-            'masaBerlaku_eksplor' => 'nullable',
-            'masaBerlaku_op' => 'nullable',
-            'masaBerlaku_p1' => 'nullable',
-            'masaBerlaku_p2' => 'nullable',
-            'tanggalSK_wiup' => 'nullable',
-            'tanggalSK_eksplor' => 'nullable',
-            'tanggalSK_op' => 'nullable',
-            'tanggalSK_p1' => 'nullable',
-            'tanggalSK_p2' => 'nullable',
-            'tanggalBerakhir_eksplor' => 'nullable',
-            'tanggalBerakhir_op' => 'nullable',
-            'tanggalBerakhir_p1' => 'nullable',
-            'tanggalBerakhir_p2' => 'nullable',
-            'luasWilayah' => 'nullable|numeric',
-            'tahapanKegiatan' => 'nullable',
-            'golongan_wiup' => 'nullable',
-            'golongan_eksplor' => 'nullable',
-            'golongan_op' => 'nullable',
-            'golongan_p1' => 'nullable',
-            'golongan_p2' => 'nullable',
-            'komoditas_wiup' => 'nullable',
-            'komoditas_eksplor' => 'nullable',
-            'komoditas_op' => 'nullable',
-            'komoditas_p1' => 'nullable',
-            'komoditas_p2' => 'nullable',
-            'lokasiIzin' => 'required',
-            'scanSK_wiup' => 'nullable|file|mimes:pdf',
-            'scanSK_eksplor' => 'nullable|file|mimes:pdf',
-            'scanSK_op' => 'nullable|file|mimes:pdf',
-            'scanSK_p1' => 'nullable|file|mimes:pdf',
-            'scanSK_p2' => 'nullable|file|mimes:pdf',
-        ]);
-
-        $iup = IUP::find($id);
-
-        $tahapanKegiatan = $iup->tahapanKegiatan;
-        switch ($tahapanKegiatan) {
-            case 'WIUP':
-                $tanggalSK = $request->tanggalSK_wiup;
-                $noSK = $request->noSK_wiup;
-                $jenisKegiatan = 'wiup';
-                $statusIzin = now()->gte($tanggalSK) ? 'Aktif' : 'Tidak Aktif';
-
-                break;
-            case 'IUP Tahap Eksplorasi':
-                $tanggalSK = $request->tanggalSK_eksplor;
-                $tanggalBerakhir = $request->tanggalBerakhir_eksplor;
-                $jenisKegiatan = 'eksplor';
-                $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
-                break;
-            case 'IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_op;
-                $tanggalBerakhir = $request->tanggalBerakhir_op;
-                $jenisKegiatan = 'op';
-                $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
-                break;
-            case 'Perpanjangan 1 IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_p1;
-                $tanggalBerakhir = $request->tanggalBerakhir_p1;
-                $jenisKegiatan = 'p1';
-                $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
-                break;
-            case 'Perpanjangan 2 IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_p2;
-                $tanggalBerakhir = $request->tanggalBerakhir_p2;
-                $jenisKegiatan = 'p2';
-                $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
-                break;
-            default:
-                $tanggalSK = null;
-                $tanggalBerakhir = null;
-                break;
-        }
-
-        if ($request->hasFile('scanSK_wiup')) {
-            $scanSK_wiup = $request->file('scanSK_wiup');
-            $filepath_wiup = $scanSK_wiup->store('scanSK_wiup', 'public');
-            $iup->scanSK_wiup = $filepath_wiup;
-        }
-        if ($request->hasFile('scanSK_eksplor')) {
-            $scanSK_eksplor = $request->file('scanSK_eksplor');
-            $filepath_eksplor = $scanSK_eksplor->store('scanSK_eksplor', 'public');
-            $iup->scanSK_eksplor = $filepath_eksplor;
-        }
-        if ($request->hasFile('scanSK_op')) {
-            $scanSK_op = $request->file('scanSK_op');
-            $filepath_op = $scanSK_op->store('scanSK_op', 'public');
-            $iup->scanSK_op = $filepath_op;
-        }
-        if ($request->hasFile('scanSK_p1')) {
-            $scanSK_p1 = $request->file('scanSK_p1');
-            $filepath_p1 = $scanSK_p1->store('scanSK_p1', 'public');
-            $iup->scanSK_p1 = $filepath_p1;
-        }
-        if ($request->hasFile('scanSK_p2')) {
-            $scanSK_p2 = $request->file('scanSK_p2');
-            $filepath_p2 = $scanSK_p2->store('scanSK_p2', 'public');
-            $iup->scanSK_p2 = $filepath_p2;
-        }
-
-        $iupData = $request->except('fromModal', 'scanSK_wiup', 'scanSK_eksplor', 'scanSK_op', 'scanSK_p1', 'scanSK_p2');
-        $iupData['statusIzin'] = $statusIzin;
-        $iupData['jenisKegiatan'] = $jenisKegiatan;
-
-        $iup->update($iupData);
-        dd($iup);
-        return redirect()->route('admin.p1.index');
-    }
-
-    public function p1Destroy($id){
-        $IUP = IUP::find($id);
-
-        if (!is_null($IUP->scanSK)) {
-            Storage::disk('public')->delete($IUP->scanSK);
-        }
-
-        $IUP->delete();
-
-        return redirect()->route('admin.p1.index');
-    }
-
     ///////////////////////////////////////////////////////////////////
     //////////////////////p2///////////////////////////////////
     ///////////////////////////////////////////////////////////////////
@@ -1490,350 +258,6 @@ class AdminIUPController extends Controller
         $p2 = IUP::where('tahapanKegiatan', 'Perpanjangan 2 IUP Tahap Operasi Produksi')->get();
 
         return view('admin.iup/p2.index', compact(['iup','p2']));
-    }
-
-    public function p2Create(){
-        $tahapanKegiatan = [
-            'WIUP' => 'WIUP',
-            'IUP Tahap Eksplorasi' => 'IUP Tahap Eksplorasi',
-            'IUP Tahap Operasi Produksi' => 'IUP Tahap Operasi Produksi',
-            'Perpanjangan 1 IUP Tahap Operasi Produksi' => 'Perpanjangan 1 IUP Tahap Operasi Produksi',
-            'Perpanjangan 2 IUP Tahap Operasi Produksi' => 'Perpanjangan 2 IUP Tahap Operasi Produksi',
-        ];
-
-        $golongan_wiup = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_eksplor = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_op = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_p1 = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_p2 = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-
-        $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
-        $kabupaten = Kabupaten::whereNotNull('kabupaten')->pluck('kabupaten', 'id');
-        $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
-
-        return view('admin.iup/p2.create', compact('tahapanKegiatan', 'perusahaanUser', 'kabupaten', 'komoditas', 'golongan_wiup', 'golongan_eksplor', 'golongan_op', 'golongan_p1', 'golongan_p2'));
-    }
-
-    public function p2Store(Request $request){
-        session()->flashInput($request->input());
-        $request->validate([
-            'namaPerusahaan' => 'required',
-            'alamat' => 'required',
-            'npwp' => 'required',
-            'nib' => 'required',
-            'kabupaten' => 'required',
-            'noSK_wiup' => 'nullable',
-            'noSK_eksplor' => 'nullable',
-            'noSK_op' => 'nullable',
-            'noSK_p1' => 'nullable',
-            'noSK_p2' => 'nullable',
-            'masaBerlaku_eksplor' => 'nullable',
-            'masaBerlaku_op' => 'nullable',
-            'masaBerlaku_p1' => 'nullable',
-            'masaBerlaku_p2' => 'nullable',
-            'tanggalSK_wiup' => 'nullable',
-            'tanggalSK_eksplor' => 'nullable',
-            'tanggalSK_op' => 'nullable',
-            'tanggalSK_p1' => 'nullable',
-            'tanggalSK_p2' => 'nullable',
-            'tanggalBerakhir_eksplor' => 'nullable',
-            'tanggalBerakhir_op' => 'nullable',
-            'tanggalBerakhir_p1' => 'nullable',
-            'tanggalBerakhir_p2' => 'nullable',
-            'luasWilayah' => 'nullable|numeric',
-            'tahapanKegiatan' => 'nullable',
-            'golongan_wiup' => 'nullable',
-            'golongan_eksplor' => 'nullable',
-            'golongan_op' => 'nullable',
-            'golongan_p1' => 'nullable',
-            'golongan_p2' => 'nullable',
-            'komoditas_wiup' => 'nullable',
-            'komoditas_eksplor' => 'nullable',
-            'komoditas_op' => 'nullable',
-            'komoditas_p1' => 'nullable',
-            'komoditas_p2' => 'nullable',
-            'lokasiIzin' => 'required',
-            'scanSK_wiup' => 'nullable|file|mimes:pdf',
-            'scanSK_eksplor' => 'nullable|file|mimes:pdf',
-            'scanSK_op' => 'nullable|file|mimes:pdf',
-            'scanSK_p1' => 'nullable|file|mimes:pdf',
-            'scanSK_p2' => 'nullable|file|mimes:pdf',
-        ]);
-
-        $tanggalSK = $request->tanggalSK;
-        $tanggalBerakhir = $request->tanggalBerakhir;
-
-        $scanSK_wiup = request()->file('scanSK_wiup');
-        $filepath_wiup = $scanSK_wiup ? $scanSK_wiup->store('scanSK_wiup', 'public') : null;
-
-        $scanSK_eksplor = request()->file('scanSK_eksplor');
-        $filepath_eksplor = $scanSK_eksplor ? $scanSK_eksplor->store('scanSK_eksplor', 'public') : null;
-
-        $scanSK_op = request()->file('scanSK_op');
-        $filepath_op = $scanSK_op ? $scanSK_op->store('scanSK_op', 'public') : null;
-
-        $scanSK_p1 = request()->file('scanSK_p1');
-        $filepath_p1 = $scanSK_p1 ? $scanSK_p1->store('scanSK_p1', 'public') : null;
-
-        $scanSK_p2 = request()->file('scanSK_p2');
-        $filepath_p2 = $scanSK_p2 ? $scanSK_p2->store('scanSK_p2', 'public') : null;
-
-        $jenisKegiatan = '';
-        $tahapanKegiatan = $request->tahapanKegiatan;
-        switch ($tahapanKegiatan) {
-            case 'WIUP':
-                $tanggalSK = $request->tanggalSK_wiup;
-                $noSK = $request->noSK_wiup;
-                $jenisKegiatan = 'wiup';
-                break;
-            case 'IUP Tahap Eksplorasi':
-                $tanggalSK = $request->tanggalSK_eksplor;
-                $tanggalBerakhir = $request->tanggalBerakhir_eksplor;
-                $jenisKegiatan = 'eksplor';
-                break;
-            case 'IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_op;
-                $tanggalBerakhir = $request->tanggalBerakhir_op;
-                $jenisKegiatan = 'op';
-                break;
-            case 'Perpanjangan 1 IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_p1;
-                $tanggalBerakhir = $request->tanggalBerakhir_p1;
-                $jenisKegiatan = 'p1';
-                break;
-            case 'Perpanjangan 2 IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_p2;
-                $tanggalBerakhir = $request->tanggalBerakhir_p2;
-                $jenisKegiatan = 'p2';
-                break;
-            default:
-                $tanggalSK = null;
-                $tanggalBerakhir = null;
-                break;
-        }
-
-        $statusIzin = $tahapanKegiatan === 'WIUP' && $tanggalSK && now()->gte($tanggalSK) ? 'Aktif' : 'Tidak Aktif';
-
-        if ($tahapanKegiatan !== 'WIUP') {
-            $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
-        }
-
-        $iupData = $request->except('fromModal', 'scanSK_wiup', 'scanSK_eksplor', 'scanSK_op', 'scanSK_p1', 'scanSK_p2');
-        $iupData['statusIzin'] = $statusIzin;
-        $iupData['scanSK_wiup'] = $filepath_wiup;
-        $iupData['scanSK_eksplor'] = $filepath_eksplor;
-        $iupData['scanSK_op'] = $filepath_op;
-        $iupData['scanSK_p1'] = $filepath_p1;
-        $iupData['scanSK_p2'] = $filepath_p2;
-        $iupData['jenisKegiatan'] = $jenisKegiatan;
-        // dd($jenisKegiatan);
-
-        $iup = IUP::create($iupData);
-        dd($iup);
-        return redirect()->route('admin.p2.index');
-    }
-    public function p2Edit($id){
-        $IUP = IUP::find($id);
-        $p2 = IUP::find($id);
-        $tahapanKegiatan = [
-            'WIUP' => 'WIUP',
-            'IUP Tahap Eksplorasi' => 'IUP Tahap Eksplorasi',
-            'IUP Tahap Operasi Produksi' => 'IUP Tahap Operasi Produksi',
-            'Perpanjangan 1 IUP Tahap Operasi Produksi' => 'Perpanjangan 1 IUP Tahap Operasi Produksi',
-            'Perpanjangan 2 IUP Tahap Operasi Produksi' => 'Perpanjangan 2 IUP Tahap Operasi Produksi',
-        ];
-
-        $golongan_wiup = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_eksplor = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_op = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_p1 = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-        $golongan_p2 = [
-            'Batuan' => 'Batuan',
-            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
-            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
-        ];
-
-        $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
-        $kabupaten = Kabupaten::whereNotNull('kabupaten')->pluck('kabupaten', 'id');
-        $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
-
-        $IUP = IUP::find($id);
-        $golonganSelectedWiup = $IUP->golongan_wiup;
-        $golonganSelectedEksplor = $IUP->golongan_eksplor;
-        $golonganSelectedOp = $IUP->golongan_op;
-        $golonganSelectedP1 = $IUP->golongan_p1;
-        $golonganSelectedP2 = $IUP->golongan_p2;
-
-        // $data = IUP::find($id);
-        return view('admin.iup/p2.edit', compact(['IUP', 'p2', 'tahapanKegiatan', 'perusahaanUser', 'kabupaten', 'komoditas', 'golongan_wiup', 'golongan_eksplor', 'golongan_op', 'golongan_p1', 'golongan_p2', 'golonganSelectedWiup', 'golonganSelectedEksplor', 'golonganSelectedOp', 'golonganSelectedP1', 'golonganSelectedP2']));
-    }
-
-    public function p2Update(Request $request, $id){
-        $request->validate([
-            'namaPerusahaan' => 'required',
-            'alamat' => 'required',
-            'npwp' => 'required',
-            'nib' => 'required',
-            'kabupaten' => 'required',
-            'noSK_wiup' => 'nullable',
-            'noSK_eksplor' => 'nullable',
-            'noSK_op' => 'nullable',
-            'noSK_p1' => 'nullable',
-            'noSK_p2' => 'nullable',
-            'masaBerlaku_eksplor' => 'nullable',
-            'masaBerlaku_op' => 'nullable',
-            'masaBerlaku_p1' => 'nullable',
-            'masaBerlaku_p2' => 'nullable',
-            'tanggalSK_wiup' => 'nullable',
-            'tanggalSK_eksplor' => 'nullable',
-            'tanggalSK_op' => 'nullable',
-            'tanggalSK_p1' => 'nullable',
-            'tanggalSK_p2' => 'nullable',
-            'tanggalBerakhir_eksplor' => 'nullable',
-            'tanggalBerakhir_op' => 'nullable',
-            'tanggalBerakhir_p1' => 'nullable',
-            'tanggalBerakhir_p2' => 'nullable',
-            'luasWilayah' => 'nullable|numeric',
-            'tahapanKegiatan' => 'nullable',
-            'golongan_wiup' => 'nullable',
-            'golongan_eksplor' => 'nullable',
-            'golongan_op' => 'nullable',
-            'golongan_p1' => 'nullable',
-            'golongan_p2' => 'nullable',
-            'komoditas_wiup' => 'nullable',
-            'komoditas_eksplor' => 'nullable',
-            'komoditas_op' => 'nullable',
-            'komoditas_p1' => 'nullable',
-            'komoditas_p2' => 'nullable',
-            'lokasiIzin' => 'required',
-            'scanSK_wiup' => 'nullable|file|mimes:pdf',
-            'scanSK_eksplor' => 'nullable|file|mimes:pdf',
-            'scanSK_op' => 'nullable|file|mimes:pdf',
-            'scanSK_p1' => 'nullable|file|mimes:pdf',
-            'scanSK_p2' => 'nullable|file|mimes:pdf',
-        ]);
-
-        $iup = IUP::find($id);
-
-        $tahapanKegiatan = $iup->tahapanKegiatan;
-        switch ($tahapanKegiatan) {
-            case 'WIUP':
-                $tanggalSK = $request->tanggalSK_wiup;
-                $noSK = $request->noSK_wiup;
-                $jenisKegiatan = 'wiup';
-                $statusIzin = now()->gte($tanggalSK) ? 'Aktif' : 'Tidak Aktif';
-
-                break;
-            case 'IUP Tahap Eksplorasi':
-                $tanggalSK = $request->tanggalSK_eksplor;
-                $tanggalBerakhir = $request->tanggalBerakhir_eksplor;
-                $jenisKegiatan = 'eksplor';
-                $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
-                break;
-            case 'IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_op;
-                $tanggalBerakhir = $request->tanggalBerakhir_op;
-                $jenisKegiatan = 'op';
-                $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
-                break;
-            case 'Perpanjangan 1 IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_p1;
-                $tanggalBerakhir = $request->tanggalBerakhir_p1;
-                $jenisKegiatan = 'p1';
-                $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
-                break;
-            case 'Perpanjangan 2 IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_p2;
-                $tanggalBerakhir = $request->tanggalBerakhir_p2;
-                $jenisKegiatan = 'p2';
-                $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
-                break;
-            default:
-                $tanggalSK = null;
-                $tanggalBerakhir = null;
-                break;
-        }
-
-        if ($request->hasFile('scanSK_wiup')) {
-            $scanSK_wiup = $request->file('scanSK_wiup');
-            $filepath_wiup = $scanSK_wiup->store('scanSK_wiup', 'public');
-            $iup->scanSK_wiup = $filepath_wiup;
-        }
-        if ($request->hasFile('scanSK_eksplor')) {
-            $scanSK_eksplor = $request->file('scanSK_eksplor');
-            $filepath_eksplor = $scanSK_eksplor->store('scanSK_eksplor', 'public');
-            $iup->scanSK_eksplor = $filepath_eksplor;
-        }
-        if ($request->hasFile('scanSK_op')) {
-            $scanSK_op = $request->file('scanSK_op');
-            $filepath_op = $scanSK_op->store('scanSK_op', 'public');
-            $iup->scanSK_op = $filepath_op;
-        }
-        if ($request->hasFile('scanSK_p1')) {
-            $scanSK_p1 = $request->file('scanSK_p1');
-            $filepath_p1 = $scanSK_p1->store('scanSK_p1', 'public');
-            $iup->scanSK_p1 = $filepath_p1;
-        }
-        if ($request->hasFile('scanSK_p2')) {
-            $scanSK_p2 = $request->file('scanSK_p2');
-            $filepath_p2 = $scanSK_p2->store('scanSK_p2', 'public');
-            $iup->scanSK_p2 = $filepath_p2;
-        }
-
-        $iupData = $request->except('fromModal', 'scanSK_wiup', 'scanSK_eksplor', 'scanSK_op', 'scanSK_p1', 'scanSK_p2');
-        $iupData['statusIzin'] = $statusIzin;
-        $iupData['jenisKegiatan'] = $jenisKegiatan;
-
-        $iup->update($iupData);
-        return redirect()->route('admin.p2.index');
-    }
-
-    public function p2Destroy($id){
-        $IUP = IUP::find($id);
-
-        if (!is_null($IUP->scanSK)) {
-            Storage::disk('public')->delete($IUP->scanSK);
-        }
-
-        $IUP->delete();
-
-        return redirect()->route('admin.p2.index');
     }
 
     /**
@@ -2123,44 +547,8 @@ class AdminIUPController extends Controller
 
         $iup = IUP::find($id);
 
-        $tahapanKegiatan = $iup->tahapanKegiatan;
-        switch ($tahapanKegiatan) {
-            case 'WIUP':
-                $tanggalSK = $request->tanggalSK_wiup;
-                $noSK = $request->noSK_wiup;
-                $jenisKegiatan = 'wiup';
-                $statusIzin = now()->gte($tanggalSK) ? 'Aktif' : 'Tidak Aktif';
-
-                break;
-            case 'IUP Tahap Eksplorasi':
-                $tanggalSK = $request->tanggalSK_eksplor;
-                $tanggalBerakhir = $request->tanggalBerakhir_eksplor;
-                $jenisKegiatan = 'eksplor';
-                $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
-                break;
-            case 'IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_op;
-                $tanggalBerakhir = $request->tanggalBerakhir_op;
-                $jenisKegiatan = 'op';
-                $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
-                break;
-            case 'Perpanjangan 1 IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_p1;
-                $tanggalBerakhir = $request->tanggalBerakhir_p1;
-                $jenisKegiatan = 'p1';
-                $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
-                break;
-            case 'Perpanjangan 2 IUP Tahap Operasi Produksi':
-                $tanggalSK = $request->tanggalSK_p2;
-                $tanggalBerakhir = $request->tanggalBerakhir_p2;
-                $jenisKegiatan = 'p2';
-                $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
-                break;
-            default:
-                $tanggalSK = null;
-                $tanggalBerakhir = null;
-                break;
-        }
+        $tanggalSK = $request->tanggalSK;
+        $tanggalBerakhir = $request->tanggalBerakhir;
 
         if ($request->hasFile('scanSK_wiup')) {
             $scanSK_wiup = $request->file('scanSK_wiup');
@@ -2188,11 +576,56 @@ class AdminIUPController extends Controller
             $iup->scanSK_p2 = $filepath_p2;
         }
 
+        $jenisKegiatan = '';
+        $tahapanKegiatan = $request->tahapanKegiatan;
+        switch ($tahapanKegiatan) {
+            case 'WIUP':
+                $tanggalSK = $request->tanggalSK_wiup;
+                $noSK = $request->noSK_wiup;
+                $jenisKegiatan = 'wiup';
+                // $statusIzin = now()->gte($tanggalSK) ? 'Aktif' : 'Tidak Aktif';
+
+                break;
+            case 'IUP Tahap Eksplorasi':
+                $tanggalSK = $request->tanggalSK_eksplor;
+                $tanggalBerakhir = $request->tanggalBerakhir_eksplor;
+                $jenisKegiatan = 'eksplor';
+                // $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
+                break;
+            case 'IUP Tahap Operasi Produksi':
+                $tanggalSK = $request->tanggalSK_op;
+                $tanggalBerakhir = $request->tanggalBerakhir_op;
+                $jenisKegiatan = 'op';
+                // $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
+                break;
+            case 'Perpanjangan 1 IUP Tahap Operasi Produksi':
+                $tanggalSK = $request->tanggalSK_p1;
+                $tanggalBerakhir = $request->tanggalBerakhir_p1;
+                $jenisKegiatan = 'p1';
+                // $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
+                break;
+            case 'Perpanjangan 2 IUP Tahap Operasi Produksi':
+                $tanggalSK = $request->tanggalSK_p2;
+                $tanggalBerakhir = $request->tanggalBerakhir_p2;
+                $jenisKegiatan = 'p2';
+                // $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
+                break;
+            default:
+                $tanggalSK = null;
+                $tanggalBerakhir = null;
+                break;
+        }
+
         // $statusIzin = $tahapanKegiatan === 'WIUP' && $tanggalSK && now()->gte($tanggalSK) ? 'Aktif' : 'Tidak Aktif';
 
         // if ($tahapanKegiatan !== 'WIUP') {
         //     $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
         // }
+        $statusIzin = $tahapanKegiatan === 'WIUP' && $tanggalSK && now()->gte($tanggalSK) ? 'Aktif' : 'Tidak Aktif';
+
+        if ($tahapanKegiatan !== 'WIUP') {
+            $statusIzin = $tanggalSK && $tanggalBerakhir ? (now()->gte($tanggalSK) && now()->lte($tanggalBerakhir) ? 'Aktif' : 'Tidak Aktif') : 'Tidak Aktif';
+        }
 
         $iupData = $request->except('fromModal', 'scanSK_wiup', 'scanSK_eksplor', 'scanSK_op', 'scanSK_p1', 'scanSK_p2');
         $iupData['statusIzin'] = $statusIzin;
@@ -2228,7 +661,7 @@ class AdminIUPController extends Controller
         // $iup->save();
         // $iup->statusIzin;
 
-        // dd($iup);
+        dd($iup);
         return redirect()->route('admin.iup.index')->with('status', 'Data berhasil diperbarui.');
     }
     /**

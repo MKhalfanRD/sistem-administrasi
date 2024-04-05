@@ -55,21 +55,32 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth','admin'])->group(function () {
-    Route::resource('admin', AdminController::class);
-    Route::resource('admin/iup', AdminIUPController::class);
-    Route::resource('admin/cadangan', AdminCadanganController::class);
-    Route::resource('admin/jampas', AdminJampasController::class);
-    Route::resource('admin/jamrek', AdminJamrekController::class);
-    Route::resource('admin/kabupaten', AdminKabupatenController::class);
-    Route::resource('admin/komoditas', AdminKomoditasController::class);
-    Route::resource('admin/ktt', AdminKttController::class);
-    Route::resource('admin/produksi', AdminProduksiController::class);
-    Route::resource('admin/rawInventory', AdminRawInventoryController::class);
-    Route::resource('admin/sumberdaya', AdminSumberdayaController::class);
+    // Route::resource('admin', AdminController::class);
+    // Route::resource('admin/iup', AdminIUPController::class);
+    // Route::get('admin/data-iup', [AdminIUPController::class, 'index'])->name('admin.iup');
+    // Route::resource('admin/cadangan', AdminCadanganController::class);
+    // Route::resource('admin/jampas', AdminJampasController::class);
+    // Route::resource('admin/jamrek', AdminJamrekController::class);
+    // Route::resource('admin/kabupaten', AdminKabupatenController::class);
+    // Route::resource('admin/komoditas', AdminKomoditasController::class);
+    // Route::resource('admin/ktt', AdminKttController::class);
+    // Route::resource('admin/produksi', AdminProduksiController::class);
+    // Route::resource('admin/rawInventory', AdminRawInventoryController::class);
+    // Route::resource('admin/sumberdaya', AdminSumberdayaController::class);
 
-    Route::get('admin/search', [AdminIUPController::class, 'search']);
+    Route::get('/admin/iup/search', [AdminIUPController::class, 'IupSearch'])->name('iup.search');
+    Route::get('/admin/wiup/search', [AdminIUPController::class, 'WIupSearch'])->name('wiup.search');
+    Route::get('/admin/eksplor/search', [AdminIUPController::class, 'EksplorSearch'])->name('eksplor.search');
+    Route::get('/admin/op/search', [AdminIUPController::class, 'OpSearch'])->name('op.search');
+    Route::get('/admin/p1/search', [AdminIUPController::class, 'P1Search'])->name('p1.search');
+    Route::get('/admin/p2/search', [AdminIUPController::class, 'p2Search'])->name('p2.search');
 
-    Route::get('admin/export', [AdminIUPController::class, 'export'])->name('admin.iup.export');
+    Route::get('admin/export-iup', [AdminIUPController::class, 'IupExport'])->name('admin.iup.export');
+    Route::get('admin/export-wiup', [AdminIUPController::class, 'WiupExport'])->name('admin.wiup.export');
+    Route::get('admin/export-eksplor', [AdminIUPController::class, 'EksplorExport'])->name('admin.eksplor.export');
+    Route::get('admin/export-op', [AdminIUPController::class, 'OpExport'])->name('admin.op.export');
+    Route::get('admin/export-p1', [AdminIUPController::class, 'P1Export'])->name('admin.p1.export');
+    Route::get('admin/export-p2', [AdminIUPController::class, 'P2Export'])->name('admin.p2.export');
 
     Route::get('admin/wiup', [AdminIUPController::class, 'wiup'])->name('admin.wiup.index');
     Route::get('admin/wiup/create', [AdminIUPController::class, 'wiupCreate'])->name('admin.wiup.create');
@@ -105,6 +116,83 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('admin/p2/{id}/edit', [AdminIUPController::class, 'p2Edit'])->name('admin.p2.edit');
     Route::put('admin/p2/{id}/edit', [AdminIUPController::class, 'p2Update'])->name('admin.p2.update');
     Route::delete('admin/p2/{id}', [AdminIUPController::class, 'p2Destroy'])->name('admin.p2.destroy');
+
+    Route::get('admin', [AdminController::class, 'index'])->name('admin.index');
+    Route::post('admin', [AdminController::class, 'store'])->name('admin.store');
+    Route::get('admin/create', [AdminController::class, 'create'])->name('admin.create');
+    Route::put('admin/{admin}', [AdminController::class, 'update'])->name('admin.update');
+    Route::get('admin/{admin}/edit', [AdminController::class, 'edit'])->name('admin.edit');
+    Route::delete('admin/{admin}', [AdminController::class, 'destroy'])->name('admin.destroy');
+
+    Route::get('admin/iup', [AdminIUPController::class, 'index'])->name('admin.iup.index');
+    Route::post('admin/iup', [AdminIUPController::class, 'store'])->name('admin.iup.store');
+    Route::get('admin/iup/create', [AdminIUPController::class, 'create'])->name('admin.iup.create');
+    Route::put('admin/iup/{iup}', [AdminIUPController::class, 'update'])->name('admin.iup.update');
+    Route::get('admin/iup/{iup}/edit', [AdminIUPController::class, 'edit'])->name('admin.iup.edit');
+    Route::delete('admin/iup/{iup}', [AdminIUPController::class, 'destroy'])->name('admin.iup.destroy');
+
+    Route::get('admin/cadangan', [AdminCadanganController::class, 'index'])->name('admin.cadangan.index');
+    Route::post('admin/cadangan', [AdminCadanganController::class, 'store'])->name('admin.cadangan.store');
+    Route::get('admin/cadangan/create', [AdminCadanganController::class, 'create'])->name('admin.cadangan.create');
+    Route::put('admin/cadangan/{cadangan}', [AdminCadanganController::class, 'update'])->name('admin.cadangan.update');
+    Route::get('admin/cadangan/{cadangan}/edit', [AdminCadanganController::class, 'edit'])->name('admin.cadangan.edit');
+    Route::delete('admin/cadangan/{cadangan}', [AdminCadanganController::class, 'destroy'])->name('admin.cadangan.destroy');
+
+    Route::get('admin/jampas', [AdminJampasController::class, 'index'])->name('admin.jampas.index');
+    Route::post('admin/jampas', [AdminJampasController::class, 'store'])->name('admin.jampas.store');
+    Route::get('admin/jampas/create', [AdminJampasController::class, 'create'])->name('admin.jampas.create');
+    Route::put('admin/jampas/{jampas}', [AdminJampasController::class, 'update'])->name('admin.jampas.update');
+    Route::get('admin/jampas/{jampas}/edit', [AdminJampasController::class, 'edit'])->name('admin.jampas.edit');
+    Route::delete('admin/jampas/{jampas}', [AdminJampasController::class, 'destroy'])->name('admin.jampas.destroy');
+
+    Route::get('admin/jamrek', [AdminJamrekController::class, 'index'])->name('admin.jamrek.index');
+    Route::post('admin/jamrek', [AdminJamrekController::class, 'store'])->name('admin.jamrek.store');
+    Route::get('admin/jamrek/create', [AdminJamrekController::class, 'create'])->name('admin.jamrek.create');
+    Route::put('admin/jamrek/{jamrek}', [AdminJamrekController::class, 'update'])->name('admin.jamrek.update');
+    Route::get('admin/jamrek/{jamrek}/edit', [AdminJamrekController::class, 'edit'])->name('admin.jamrek.edit');
+    Route::delete('admin/jamrek/{jamrek}', [AdminJamrekController::class, 'destroy'])->name('admin.jamrek.destroy');
+
+    Route::get('admin/kabupaten', [AdminKabupatenController::class, 'index'])->name('admin.kabupaten.index');
+    Route::post('admin/kabupaten', [AdminKabupatenController::class, 'store'])->name('admin.kabupaten.store');
+    Route::get('admin/kabupaten/create', [AdminKabupatenController::class, 'create'])->name('admin.kabupaten.create');
+    Route::put('admin/kabupaten/{kabupaten}', [AdminKabupatenController::class, 'update'])->name('admin.kabupaten.update');
+    Route::get('admin/kabupaten/{kabupaten}/edit', [AdminKabupatenController::class, 'edit'])->name('admin.kabupaten.edit');
+    Route::delete('admin/kabupaten/{kabupaten}', [AdminKabupatenController::class, 'destroy'])->name('admin.kabupaten.destroy');
+
+    Route::get('admin/komoditas', [AdminKomoditasController::class, 'index'])->name('admin.komoditas.index');
+    Route::post('admin/komoditas', [AdminKomoditasController::class, 'store'])->name('admin.komoditas.store');
+    Route::get('admin/komoditas/create', [AdminKomoditasController::class, 'create'])->name('admin.komoditas.create');
+    Route::put('admin/komoditas/{komoditas}', [AdminKomoditasController::class, 'update'])->name('admin.komoditas.update');
+    Route::get('admin/komoditas/{komoditas}/edit', [AdminKomoditasController::class, 'edit'])->name('admin.komoditas.edit');
+    Route::delete('admin/komoditas/{komoditas}', [AdminKomoditasController::class, 'destroy'])->name('admin.komoditas.destroy');
+
+    Route::get('admin/ktt', [AdminKttController::class, 'index'])->name('admin.ktt.index');
+    Route::post('admin/ktt', [AdminKttController::class, 'store'])->name('admin.ktt.store');
+    Route::get('admin/ktt/create', [AdminKttController::class, 'create'])->name('admin.ktt.create');
+    Route::put('admin/ktt/{ktt}', [AdminKttController::class, 'update'])->name('admin.ktt.update');
+    Route::get('admin/ktt/{ktt}/edit', [AdminKttController::class, 'edit'])->name('admin.ktt.edit');
+    Route::delete('admin/ktt/{ktt}', [AdminKttController::class, 'destroy'])->name('admin.ktt.destroy');
+
+    Route::get('admin/produksi', [AdminProduksiController::class, 'index'])->name('admin.produksi.index');
+    Route::post('admin/produksi', [AdminProduksiController::class, 'store'])->name('admin.produksi.store');
+    Route::get('admin/produksi/create', [AdminProduksiController::class, 'create'])->name('admin.produksi.create');
+    Route::put('admin/produksi/{produksi}', [AdminProduksiController::class, 'update'])->name('admin.produksi.update');
+    Route::get('admin/produksi/{produksi}/edit', [AdminProduksiController::class, 'edit'])->name('admin.produksi.edit');
+    Route::delete('admin/produksi/{produksi}', [AdminProduksiController::class, 'destroy'])->name('admin.produksi.destroy');
+
+    Route::get('admin/rawInventory', [AdminRawInventoryController::class, 'index'])->name('admin.rawInventory.index');
+    Route::post('admin/rawInventory', [AdminRawInventoryController::class, 'store'])->name('admin.rawInventory.store');
+    Route::get('admin/rawInventory/create', [AdminRawInventoryController::class, 'create'])->name('admin.rawInventory.create');
+    Route::put('admin/rawInventory/{rawInventory}', [AdminRawInventoryController::class, 'update'])->name('admin.rawInventory.update');
+    Route::get('admin/rawInventory/{rawInventory}/edit', [AdminRawInventoryController::class, 'edit'])->name('admin.rawInventory.edit');
+    Route::delete('admin/rawInventory/{rawInventory}', [AdminRawInventoryController::class, 'destroy'])->name('admin.rawInventory.destroy');
+
+    Route::get('admin/sumberdaya', [AdminSumberdayaController::class, 'index'])->name('admin.sumberdaya.index');
+    Route::post('admin/sumberdaya', [AdminSumberdayaController::class, 'store'])->name('admin.sumberdaya.store');
+    Route::get('admin/sumberdaya/create', [AdminSumberdayaController::class, 'create'])->name('admin.sumberdaya.create');
+    Route::put('admin/sumberdaya/{sumberdaya}', [AdminSumberdayaController::class, 'update'])->name('admin.sumberdaya.update');
+    Route::get('admin/sumberdaya/{sumberdaya}/edit', [AdminSumberdayaController::class, 'edit'])->name('admin.sumberdaya.edit');
+    Route::delete('admin/sumberdaya/{sumberdaya}', [AdminSumberdayaController::class, 'destroy'])->name('admin.sumberdaya.destroy');
 });
 
 
