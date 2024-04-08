@@ -57,14 +57,14 @@ class UserController extends Controller
         return redirect()->route('user.index');
     }
 
-    public function destroy($id){
-        $user = User::find($id);
-        if (!is_null($user->logo)) {
-            Storage::disk('public')->delete($user->logo);
-        }
-        $user->delete();
+    // public function destroy($id){
+    //     $user = User::find($id);
+    //     if (!is_null($user->logo)) {
+    //         Storage::disk('public')->delete($user->logo);
+    //     }
+    //     $user->delete();
 
-        return redirect()->route('user.index');
-    }
+    //     return redirect()->route('user.index');
+    // }
 
 }

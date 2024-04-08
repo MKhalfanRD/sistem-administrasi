@@ -65,7 +65,7 @@
                                 <form action="{{route('admin.sumberdaya.destroy', $s->id)}}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="text-white hover:bg-white px-5 py-2.5 rounded-lg border border-gray-300">Delete</button>
+                                    <button class="text-white hover:bg-gray-700 px-5 py-2.5 rounded-lg border border-gray-300">Delete</button>
                                 </form>
                             </div>
                         </th>

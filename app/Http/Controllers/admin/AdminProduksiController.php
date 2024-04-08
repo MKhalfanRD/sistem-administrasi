@@ -57,8 +57,8 @@ class AdminProduksiController extends Controller
 
         $produksiData['buktiBayar'] = $filepath;
         $produksi = Produksi::create($produksiData);
-        dd($produksi);
-        return redirect()->route('produksi.index');
+        // dd($produksi);
+        return redirect()->route('admin.produksi.index');
     }
 
     public function edit($id){
@@ -105,8 +105,8 @@ class AdminProduksiController extends Controller
         }
 
         $produksi->update($produksiData);
-        dd($produksi);
-        return redirect()->route('produksi.index');
+        // dd($produksi);
+        return redirect()->route('admin.produksi.index');
     }
 
     public function destroy($id){
@@ -114,6 +114,6 @@ class AdminProduksiController extends Controller
 
         $produksi->delete();
 
-        return redirect()->route('produksi.index');
+        return redirect()->route('admin.produksi.index');
     }
 }

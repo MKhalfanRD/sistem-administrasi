@@ -55,4 +55,9 @@ class User extends Authenticatable
     {
         return $this->role === 'admin';
     }
+
+    public function iups()
+    {
+      return $this->hasMany(IUP::class);
+    }
 }

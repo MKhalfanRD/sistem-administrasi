@@ -10,8 +10,8 @@
                 Data</button>
         </a>
 
-            <div class="mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+            <div class="w-fit mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table class="text-sm text-left rtl:text-right text-gray-500">
                     <thead class="text-base text-gray-400 bg-gray-700">
                         <tr>
                             <th rowspan="2" class="p-4 text-center">No</th>

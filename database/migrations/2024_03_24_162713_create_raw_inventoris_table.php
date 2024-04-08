@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('raw_inventoris', function (Blueprint $table) {
             $table->id();
             $table->string('namaPerusahaan');
-            $table->string('volumerawInventori')->nullable();
+            $table->string('volumeRawInventori')->nullable();
             $table->string('tonaseRawInventori')->nullable();
             $table->string('bulan');
             $table->integer('tahun');

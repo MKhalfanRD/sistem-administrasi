@@ -4,23 +4,6 @@
         <div class="mx-auto text-left">
             <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Table KTT</h2>
         </div>
-        <div class="flex justify-between mt-5 mb-5">
-            <a href="{{route('ktt.create')}}">
-                <button type="submit" class=" rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Tambah Data</button>
-            </a>
-            @if(session('success'))
-                <div id="alert" class="rounded-md bg-green-600 px-3.5 py-2.5 text-right text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                    {{session('success')}}
-                </div>
-                <script>
-                    @if(session('delay'))
-                    window.setTimeout(function(){
-                        $('#alert').fadeOut('slow');
-                    }, {{session('delay')}});
-                    @endif
-                </script>
-            @endif
-        </div>
 
         <div class="w-fit mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="text-sm text-left rtl:text-right text-gray-500">
@@ -46,9 +29,6 @@
                         </th>
                         <th scope="col" class="px-6 py-3">
                             File Upload
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-center">
-                            Aksi
                         </th>
                     </tr>
                 </thead>
@@ -96,18 +76,6 @@
                         @else
                             <p>Tidak Ada</p>
                         @endif
-                        </th>
-                        <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">
-                            <div class="btn-wrap flex flex-row gap-3">
-                                <a href="{{route('ktt.edit', $ktt->id)}}">
-                                    <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-lg">Edit</button>
-                                </a>
-                                <form action="{{route('ktt.destroy', $ktt->id)}}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="text-white hover:bg-gray-700 px-5 py-2.5 rounded-lg border border-gray-300">Delete</button>
-                                </form>
-                            </div>
                         </th>
                     </tr>
                     @endforeach

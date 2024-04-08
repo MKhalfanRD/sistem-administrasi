@@ -65,7 +65,7 @@ class AdminSumberdayaController extends Controller
 
         $sdmData = $request->all();
         $sumberdaya = Sumberdaya::create($sdmData);
-        return redirect()->route('sumberdaya.index');
+        return redirect()->route('admin.sumberdaya.index');
     }
 
     public function edit($id){
@@ -124,7 +124,7 @@ class AdminSumberdayaController extends Controller
         $sdmData = $request->all();
         $sumberdaya->update($sdmData);
 
-        return redirect()->route('sumberdaya.index');
+        return redirect()->route('admin.sumberdaya.index');
     }
 
     public function destroy($id){
@@ -132,6 +132,6 @@ class AdminSumberdayaController extends Controller
 
         $sumberdaya->delete();
 
-        return redirect()->route('sumberdaya.index');
+        return redirect()->route('admin.sumberdaya.index');
     }
 }

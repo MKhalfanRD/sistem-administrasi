@@ -15,11 +15,6 @@
                     <a href="{{route('user.edit', $userData->id)}}">
                         <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-lg">Edit</button>
                     </a>
-                    <form action="{{route('user.destroy', $userData->id)}}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button class="text-white hover:bg-gray-700 px-5 py-2.5 rounded-lg border border-gray-300">Delete</button>
-                    </form>
                 </div>
             </div>
         </div>

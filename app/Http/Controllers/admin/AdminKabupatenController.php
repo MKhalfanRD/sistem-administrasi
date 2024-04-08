@@ -29,7 +29,7 @@ class AdminKabupatenController extends Controller
             ]);
         }
 
-        return redirect()->route('kabupaten.index')
+        return redirect()->route('admin.kabupaten.index')
         ->with('success', 'Data berhasil disimpan')
         ->with('delay', 1500);
     }
@@ -51,12 +51,12 @@ class AdminKabupatenController extends Controller
             'kabupaten' => $request->kabupaten,
         ]);
 
-        return redirect()->route('kabupaten.index');
+        return redirect()->route('admin.kabupaten.index');
     }
 
     public function destroy($id){
         $kabupaten = Kabupaten::destroy($id);
 
-        return redirect()->route('kabupaten.index');
+        return redirect()->route('admin.kabupaten.index');
     }
 }

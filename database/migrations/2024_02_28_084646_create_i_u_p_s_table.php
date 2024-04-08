@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('i_u_p_s', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('namaPerusahaan');
             $table->text('alamat');
             $table->integer('npwp');

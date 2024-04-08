@@ -4,39 +4,21 @@
         <div class="mx-auto text-left">
             <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Table Izin Usaha Pertambangan</h2>
         </div>
-        <a href="{{ route('iup.create') }}">
-            <button type="submit"
-                class="mt-5 mb-5 rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Tambah
-                Data</button>
-        </a>
-    <div class="button-wrap flex justify-between">
-        <a href="{{route('iup.export')}}">
-            <button class="block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Print</button>
-        </a>
-
-        <form action="/search" method="GET" class="mb-3">
-            <div class="input-group flex flex-row gap-2 justify-end">
-                <input type="search" name="search" placeholder="Cari..."
-                    class="block w-60 rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                <button type="submit" class="block rounded-md bg-indigo-600 px-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Cari</button>
-            </div>
-        </form>
-    </div>
 
     <div class="flex flex-row justify-end gap-3 mb-2">
-        <a href="{{route('wiup.index')}}">
+        <a href="{{route('user.wiup.index')}}">
             <button class="block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">WIUP</button>
         </a>
-        <a href="{{route('eksplor.index')}}">
+        <a href="{{route('user.eksplor.index')}}">
             <button class="block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Eksplorasi</button>
         </a>
-        <a href="{{route('op.index')}}">
+        <a href="{{route('user.op.index')}}">
             <button class="block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Produksi</button>
         </a>
-        <a href="{{route('p1.index')}}">
+        <a href="{{route('user.p1.index')}}">
             <button class="block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Perpanjangan 1</button>
         </a>
-        <a href="{{route('p2.index')}}">
+        <a href="{{route('user.p2.index')}}">
             <button class="block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Perpanjangan 2</button>
         </a>
     </div>
@@ -82,14 +64,12 @@
                         <th scope="col" class="px-6 py-3 text-center">
                             Status Izin
                         </th>
-                        <th scope="col" class="px-6 py-3 text-center">
-                            Aksi
-                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     @php
                         $counter = 0;
+                        // dd(gettype($iup));
                     @endphp
                     @foreach ($iup as $iup)
                         <tr
@@ -128,20 +108,6 @@
                                     <span class="bg-red-300 px-2 py-2 text-red-700 rounded-md">Tidak Aktif</span>
                                 @endif
                             </td>
-                            <th scope="row" class="flex justify-center px-6 py-4 font-medium  whitespace-nowrap text-white">
-                                <div class="btn-wrap flex flex-row gap-3">
-                                    <a href="{{ route('iup.edit', $iup->id) }}">
-                                        <button type="submit"
-                                            class="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-lg">Edit</button>
-                                    </a>
-                                    <form action="{{ route('iup.destroy', $iup->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button
-                                            class="text-white hover:bg-gray-700 px-5 py-2.5 rounded-lg border border-gray-300">Delete</button>
-                                    </form>
-                                </div>
-                            </th>
                         </tr>
                         <tr class="expandable-content hidden">
                             <td colspan="12">

@@ -39,7 +39,7 @@ class AdminKomoditasController extends Controller
         ]);
 
         // dd($komoditas);
-        return redirect()->route('komoditas.index')
+        return redirect()->route('admin.komoditas.index')
         ->with('success', 'Data berhasil disimpan')
         ->with('delay', 1500);
     }
@@ -108,13 +108,13 @@ class AdminKomoditasController extends Controller
 
         $komoditas->save();
 
-        return redirect()->route('komoditas.index');
+        return redirect()->route('admin.komoditas.index');
     }
 
     public function destroy($id){
         $komoditas = Komoditas::find($id);
         $komoditas->delete();
 
-        return redirect()->route('komoditas.index');
+        return redirect()->route('admin.komoditas.index');
     }
 }

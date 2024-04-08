@@ -71,14 +71,14 @@ class AdminRawInventoryController extends Controller
         $rawInventoriData = $request->all();
         $rawInventori = rawInventori::create($rawInventoriData);
         dd($rawInventori);
-        return redirect()->route('rawInventori.index');
+        return redirect()->route('admin.rawInventory.index');
     }
 
     public function update(Request $request, $id){
         $request->validate([
             'namaPerusahaan' => 'required',
-            'volumeRawInventori' => 'required',
-            'tonaseRawInventori' => 'required',
+            'volumeRawInventori' => 'nullable',
+            'tonaseRawInventori' => 'nullable',
             'bulan' => 'required',
             'tahun' => 'required',
         ]);
@@ -87,7 +87,8 @@ class AdminRawInventoryController extends Controller
         $rawInvetoriData = $request->all();
         $rawInvetori->update($rawInvetoriData);
 
-        return redirect()->route('rawInventori.index');
+        dd($rawInvetori);
+        return redirect()->route('admin.rawInventory.index');
     }
 
     public function destroy($id){
@@ -95,6 +96,6 @@ class AdminRawInventoryController extends Controller
 
         $rawInvetori->delete();
 
-        return redirect()->route('rawInventori.index');
+        return redirect()->route('admin.rawInventory.index');
     }
 }

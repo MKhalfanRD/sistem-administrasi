@@ -196,21 +196,32 @@ Route::middleware(['auth','admin'])->group(function () {
 });
 
 
-    Route::resource('user', UserController::class);
-    Route::get('/user/iup', [UserIUPController::class, 'index'])->name('iup.index');
-    Route::get('user/jamrek', [UserJamrekController::class, 'index'])->name('jamrek.index');
-    Route::get('user/jampas', [UserJampasController::class, 'index'])->name('jampas.index');
-    Route::get('user/sumberdaya', [UserSumberdayaController::class, 'index'])->name('sumberdaya.index');
-    Route::get('user/cadangan', [UserCadanganController::class, 'index'])->name('cadangan.index');
-    Route::get('user/produksi', [UserProduksiController::class, 'index'])->name('produksi.index');
-    Route::get('user/rawInventori', [UserRawInventoryController::class, 'index'])->name('rawInventori.index');
-    Route::get('user/ktt', [UserKttController::class, 'index'])->name('ktt.index');
+    Route::get('user', [UserController::class, 'index'])->name('user.index');
+    Route::post('user', [UserController::class, 'store'])->name('user.store');
+    Route::get('user/create', [UserController::class, 'create'])->name('user.create');
+    Route::put('user/{user}', [UserController::class, 'update'])->name('user.update');
+    Route::get('user/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
+    Route::delete('user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
 
-    Route::get('user/export', [UserIUPController::class, 'export'])->name('user.iup.export');
+    Route::get('user/iup', [UserIUPController::class, 'index'])->name('user.iup.index');
+
+    Route::get('user/jamrek', [UserJamrekController::class, 'index'])->name('user.jamrek.index');
+
+    Route::get('user/jampas', [UserJampasController::class, 'index'])->name('user.jampas.index');
+
+    Route::get('user/sumberdaya', [UserSumberdayaController::class, 'index'])->name('user.sumberdaya.index');
+
+    Route::get('user/cadangan', [UserCadanganController::class, 'index'])->name('user.cadangan.index');
+
+    Route::get('user/produksi', [UserProduksiController::class, 'index'])->name('user.produksi.index');
+
+    Route::get('user/rawInventori', [UserRawInventoryController::class, 'index'])->name('user.rawInventori.index');
+
+    Route::get('user/ktt', [UserKttController::class, 'index'])->name('user.ktt.index');
 
     Route::get('user/wiup', [UserIUPController::class, 'wiup'])->name('user.wiup.index');
 
-    Route::get('user/eksplor', [AdminIUPController::class, 'eksplor'])->name('user.eksplor.index');
+    Route::get('user/eksplor', [UserIUPController::class, 'eksplor'])->name('user.eksplor.index');
 
     Route::get('user/op', [UserIUPController::class, 'op'])->name('user.op.index');
 

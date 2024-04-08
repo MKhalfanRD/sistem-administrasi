@@ -56,6 +56,11 @@ class IUP extends Model
         'scanSK_p2',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     // protected $dispatchesEvents = [
     //     'saved' => IUPStatusUpdateListener::class
     // ];
