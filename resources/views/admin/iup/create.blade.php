@@ -17,8 +17,8 @@
                                 <option value="">Belum Ada Perusahaan</option>
                             @else
                                 <option value="" disabled selected>Pilih</option>
-                            @foreach ($users as $user)
-                                <option value="{{$user->id}}">{{$user->$namaPerusahaan}}</option>
+                            @foreach ($perusahaanUser as $namaPerusahaan)
+                                <option value="{{$namaPerusahaan}}">{{$namaPerusahaan}}</option>
                             @endforeach
                             @endif
                         </select>

@@ -69,7 +69,8 @@
                 <tbody>
                     @php
                         $counter = 0;
-                        // dd(gettype($iup));
+                        // dd($user);
+                        //  dd(gettype($iup->namaPerusahaan));
                     @endphp
                     @foreach ($iup as $iup)
                         <tr

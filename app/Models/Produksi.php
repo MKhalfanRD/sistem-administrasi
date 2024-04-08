@@ -18,4 +18,9 @@ class Produksi extends Model
         'volumeProduksi',
         'tonaseProduksi',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

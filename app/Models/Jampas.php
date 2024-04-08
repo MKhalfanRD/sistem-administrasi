@@ -23,4 +23,9 @@ class Jampas extends Model
         'noRekening',
         'filePasca'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

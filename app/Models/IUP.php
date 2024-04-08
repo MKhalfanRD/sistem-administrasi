@@ -61,32 +61,4 @@ class IUP extends Model
         return $this->belongsTo(User::class);
     }
 
-    // protected $dispatchesEvents = [
-    //     'saved' => IUPStatusUpdateListener::class
-    // ];
-
-//     public function getStatusIzinAttribute()
-// {
-//     $tahapanKegiatan = $this->tahapanKegiatan;
-//     $tanggalSK = $this->getAttribute("tanggalSK_" . strtolower(str_replace(' ', '_', $tahapanKegiatan)));
-//     $tanggalBerakhir = $this->getAttribute("tanggalBerakhir_" . strtolower(str_replace(' ', '_', $tahapanKegiatan)));
-
-//     $isActive = $tanggalSK && now()->gte($tanggalSK);
-
-//     if ($tahapanKegiatan === 'WIUP') {
-//       return $isActive ? 'Aktif' : 'Tidak Aktif';
-//     } else {
-//       return $isActive && $tanggalBerakhir ? 'Aktif' : 'Tidak Aktif';
-//     }
-// }
-
-// public function setStatusIzinAttribute($value)
-// {
-//   // Simpan nilai statusIzin yang diinputkan
-//   $this->attributes['statusIzin'] = $value;
-
-//   // Hitung ulang statusIzin berdasarkan nilai terbaru
-//   $this->statusIzin = $this->getStatusIzinAttribute();
-// }
-
 }

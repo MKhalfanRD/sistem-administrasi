@@ -58,6 +58,15 @@ class User extends Authenticatable
 
     public function iups()
     {
-      return $this->hasMany(IUP::class);
+      return $this->hasMany(IUP::class, 'user_id');
+    }
+
+    public function jamrek()
+    {
+        return $this->hasOne(Jamrek::class, 'user_id');
+    }
+    public function jampas()
+    {
+        return $this->hasOne(Jamrek::class, 'user_id');
     }
 }

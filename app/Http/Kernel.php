@@ -70,5 +70,6 @@ class Kernel extends HttpKernel
         'auth' => \App\Http\Middleware\Authenticate::class,
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
         'user' => \App\Http\Middleware\UserMiddleware::class,
+        'filter.iup' => \App\Http\Middleware\FilterIup::class,
     ];
 }

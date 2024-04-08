@@ -313,6 +313,7 @@ class AdminIUPController extends Controller
     {
         session()->flashInput($request->input());
         $request->validate([
+            'user_id' => 'nullable',
             'namaPerusahaan' => 'required',
             'alamat' => 'required',
             'npwp' => 'required',
@@ -422,6 +423,7 @@ class AdminIUPController extends Controller
         $iupData['scanSK_p1'] = $filepath_p1;
         $iupData['scanSK_p2'] = $filepath_p2;
         $iupData['jenisKegiatan'] = $jenisKegiatan;
+        
         // dd($jenisKegiatan);
 
         $iup = IUP::create($iupData);

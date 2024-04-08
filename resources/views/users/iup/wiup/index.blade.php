@@ -84,6 +84,7 @@
                 <tbody>
                     @php
                         $counter = 0;
+                        // dd($wiup);
                     @endphp
                     @foreach ($wiup as $wiup)
                         <tr

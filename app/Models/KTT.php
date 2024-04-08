@@ -18,4 +18,9 @@ class KTT extends Model
         'tahun',
         'fileUpload',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

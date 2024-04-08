@@ -19,4 +19,9 @@ class Cadangan extends Model
         'luas',
         'cp',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

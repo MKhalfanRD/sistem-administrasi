@@ -12,7 +12,13 @@ class UserJamrekController extends Controller
 {
     public function index()
     {
-        $jamrek = Jamrek::all();
+        $user = auth()->user();
+        // dd($user = auth()->user());
+        $jamrek = Jamrek::where('id', auth()->user()->id)->get();
+        // $jamrek = $user->jamrek;
+        // $jamrek = Jamrek::all();
+        // dd($user);
+        // dd($user);
         return view('users.jamrek.index', compact(['jamrek']));
     }
 }

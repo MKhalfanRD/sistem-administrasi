@@ -56,6 +56,7 @@
             <tbody>
                 @php
                     $counter = 0;
+                    // dd($user);
                 @endphp
                 @foreach ($jamrek as $jr)
                 {{-- @if (isset($filepath))

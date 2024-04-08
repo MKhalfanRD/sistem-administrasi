@@ -10,6 +10,7 @@ class Jamrek extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'namaPerusahaan',
         'besaranDitetapkan',
         'tanggal',
@@ -24,4 +25,9 @@ class Jamrek extends Model
         'status',
         'fileReklamasi'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

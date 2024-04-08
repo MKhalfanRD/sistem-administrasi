@@ -16,4 +16,9 @@ class rawInventori extends Model
         'bulan',
         'tahun',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
