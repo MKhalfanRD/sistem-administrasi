@@ -109,6 +109,9 @@ class AdminKttController extends Controller
     $kttData['statusKTT'] = $statusKTT;
     $kttData['fileUpload'] = $filepath;
 
+    $user = User::where('namaPerusahaan', $request->namaPerusahaan)->first();
+    $kttData['user_id'] = $user->id;
+
     $ktt = KTT::create($kttData);
     dd($ktt);
 
@@ -165,6 +168,12 @@ class AdminKttController extends Controller
 
         $kttData['statusKTT'] = $statusKTT;
         $kttData['fileUpload'] = $filepath;
+
+        $user = User::where('namaPerusahaan', $request->namaPerusahaan)->first();
+
+        if ($user) {
+            $kttData['user_id'] = $user->id;
+        }
 
         $ktt->update($kttData);
         dd($ktt);

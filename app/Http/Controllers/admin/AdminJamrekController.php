@@ -64,6 +64,9 @@ class AdminJamrekController extends Controller
         $jamrekData['filePenempatan'] = $filepathPenempatan;
         $jamrekData['fileReklamasi'] = $filepathReklamasi;
 
+        $user = User::where('namaPerusahaan', $request->namaPerusahaan)->first();
+        $jamrekData['user_id'] = $user->id;
+
         $jamrek = Jamrek::create($jamrekData);
         dd($jamrekData);
 
@@ -136,6 +139,13 @@ class AdminJamrekController extends Controller
         $jamrekData['status'] = $status;
         $jamrekData['filePenempatan'] = $filepathPenempatan;
         $jamrekData['fileReklamasi'] = $filepathReklamasi;
+
+        $user = User::where('namaPerusahaan', $request->namaPerusahaan)->first();
+
+        if ($user) {
+            $jamrekData['user_id'] = $user->id;
+        }
+
         $jamrek = $jamrek->update($jamrekData);
 
         // dd($jamrek);

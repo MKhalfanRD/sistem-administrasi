@@ -49,6 +49,9 @@ class AdminJampasController extends Controller
         $jampasData['filePenempatan'] = $filepathPenempatan;
         $jampasData['filePasca'] = $filepathPasca;
 
+        $user = User::where('namaPerusahaan', $request->namaPerusahaan)->first();
+        $jampasData['user_id'] = $user->id;
+
         $jampas = Jampas::create($jampasData);
         // dd($jampasData);
 
@@ -106,6 +109,13 @@ class AdminJampasController extends Controller
         $jampasData = $request->except('filePasca', 'filePenempatan');
         $jampasData['filePasca'] = $filepathPasca;
         $jampasData['filePenempatan'] = $filepathPenempatan;
+
+        $user = User::where('namaPerusahaan', $request->namaPerusahaan)->first();
+
+        if ($user) {
+            $jampasData['user_id'] = $user->id;
+        }
+
         $jampas->update($jampasData);
 
         dd($jampasData);

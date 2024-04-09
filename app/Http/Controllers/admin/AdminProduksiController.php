@@ -56,6 +56,10 @@ class AdminProduksiController extends Controller
         $produksiData = $request->all();
 
         $produksiData['buktiBayar'] = $filepath;
+
+        $user = User::where('namaPerusahaan', $request->namaPerusahaan)->first();
+        $produksiData['user_id'] = $user->id;
+
         $produksi = Produksi::create($produksiData);
         // dd($produksi);
         return redirect()->route('admin.produksi.index');
@@ -102,6 +106,12 @@ class AdminProduksiController extends Controller
             $buktiBayar = $request->file('buktiBayar');
             $filepath = $buktiBayar->store('buktiBayar', 'public');
             $produksi->buktiBayar = $filepath;
+        }
+
+        $user = User::where('namaPerusahaan', $request->namaPerusahaan)->first();
+
+        if ($user) {
+            $produksiData['user_id'] = $user->id;
         }
 
         $produksi->update($produksiData);

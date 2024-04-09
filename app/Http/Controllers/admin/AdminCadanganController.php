@@ -57,7 +57,12 @@ class AdminCadanganController extends Controller
                 break;
         }
 
+
         $cadanganData = $request->all();
+
+        $user = User::where('namaPerusahaan', $request->namaPerusahaan)->first();
+        $cadanganData['user_id'] = $user->id;
+
         $cadangan = Cadangan::create($cadanganData);
         // dd($cadangan);
         return redirect()->route('admin.cadangan.index');
@@ -109,6 +114,13 @@ class AdminCadanganController extends Controller
 
 
         $cadanganData = $request->all();
+
+        $user = User::where('namaPerusahaan', $request->namaPerusahaan)->first();
+
+        if ($user) {
+            $cadanganData['user_id'] = $user->id;
+        }
+
         $cadangan->update($cadanganData);
 
         return redirect()->route('admin.cadangan.index');

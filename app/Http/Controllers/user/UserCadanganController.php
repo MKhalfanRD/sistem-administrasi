@@ -11,7 +11,8 @@ use Illuminate\Http\Request;
 class UserCadanganController extends Controller
 {
     public function index(){
-        $cadangan = Cadangan::all();
+        $user = auth()->user();
+        $cadangan = Cadangan::where('user_id', auth()->user()->id)->get();
         return view('users.cadangan.index', compact(['cadangan']));
     }
 

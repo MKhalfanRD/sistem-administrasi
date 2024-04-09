@@ -14,7 +14,7 @@ class UserJamrekController extends Controller
     {
         $user = auth()->user();
         // dd($user = auth()->user());
-        $jamrek = Jamrek::where('id', auth()->user()->id)->get();
+        $jamrek = Jamrek::where('user_id', auth()->user()->id)->get();
         // $jamrek = $user->jamrek;
         // $jamrek = Jamrek::all();
         // dd($user);

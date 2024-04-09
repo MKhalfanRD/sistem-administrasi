@@ -10,6 +10,7 @@ class Cadangan extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'namaPerusahaan',
         'komoditas',
         'volumeTerkira',

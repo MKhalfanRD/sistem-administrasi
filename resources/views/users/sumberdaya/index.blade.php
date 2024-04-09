@@ -1,7 +1,7 @@
 @extends('layout.index')
 @section('content')
     <div class="container mx-auto">
-        <div class="mx-auto text-left">
+        <div class="mx-auto text-left mb-6">
             <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Table Sumberdaya</h2>
         </div>
 
@@ -11,21 +11,21 @@
                     <tr>
                     <tr>
                         <th class="p-4" rowspan="2">No</th>
-                        <th rowspan="2" class="px-6 py-3 text-center">Nama Perusahaan</th>
-                        <th rowspan="2" class="px-6 py-3 text-center">Komoditas</th>
-                        <th colspan="2" class="px-6 py-3 text-center">Tereka</th>
-                        <th colspan="2" class="px-6 py-3 text-center">Tertunjuk</th>
-                        <th colspan="2" class="px-6 py-3 text-center">Terukur</th>
-                        <th rowspan="2" class="px-6 py-3 text-center">Luas</th>
-                        <th rowspan="2" class="px-6 py-3 text-center">CP</th>
+                        <th rowspan="2" class="px-6 py-1 text-center">Nama Perusahaan</th>
+                        <th rowspan="2" class="px-6 py-1 text-center">Komoditas</th>
+                        <th colspan="2" class="px-6 py-1 text-center">Tereka</th>
+                        <th colspan="2" class="px-6 py-1 text-center">Tertunjuk</th>
+                        <th colspan="2" class="px-6 py-1 text-center">Terukur</th>
+                        <th rowspan="2" class="px-6 py-1 text-center">Luas</th>
+                        <th rowspan="2" class="px-6 py-1 text-center">CP</th>
                     </tr>
                     <tr>
-                        <th class="px-6 py-3 text-center">Volume (m3)</th>
-                        <th class="px-6 py-3 text-center">Tonase</th>
-                        <th class="px-6 py-3 text-center">Volume (m3)</th>
-                        <th class="px-6 py-3 text-center">Tonase</th>
-                        <th class="px-6 py-3 text-center">Volume (m3)</th>
-                        <th class="px-6 py-3 text-center">Tonase</th>
+                        <th class="px-6 py-1 text-center">Volume (m3)</th>
+                        <th class="px-6 py-1 text-center">Tonase</th>
+                        <th class="px-6 py-1 text-center">Volume (m3)</th>
+                        <th class="px-6 py-1 text-center">Tonase</th>
+                        <th class="px-6 py-1 text-center">Volume (m3)</th>
+                        <th class="px-6 py-1 text-center">Tonase</th>
                     </tr>
                     </tr>
                 </thead>

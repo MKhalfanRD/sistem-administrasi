@@ -56,17 +56,43 @@ class User extends Authenticatable
         return $this->role === 'admin';
     }
 
+    public function cadangan ()
+    {
+        return $this->hasOne(Cadangan::class, 'user_id');
+    }
+
     public function iups()
     {
       return $this->hasMany(IUP::class, 'user_id');
+    }
+
+    public function jampas()
+    {
+        return $this->hasOne(Jamrek::class, 'user_id');
     }
 
     public function jamrek()
     {
         return $this->hasOne(Jamrek::class, 'user_id');
     }
-    public function jampas()
+
+    public function ktt()
     {
-        return $this->hasOne(Jamrek::class, 'user_id');
+        return $this->hasOne(KTT::class, 'user_id');
+    }
+
+    public function produksi()
+    {
+        return $this->hasOne(Produksi::class, 'user_id');
+    }
+
+    public function rawInventori()
+    {
+        return $this->hasOne(rawInventori::class, 'user_id');
+    }
+
+    public function sumberdaya()
+    {
+        return $this->hasOne(Sumberdaya::class, 'user_id');
     }
 }

@@ -10,6 +10,7 @@ class rawInventori extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'namaPerusahaan',
         'volumeRawInventori',
         'tonaseRawInventori',

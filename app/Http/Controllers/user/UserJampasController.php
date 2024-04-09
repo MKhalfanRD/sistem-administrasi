@@ -13,7 +13,9 @@ class UserJampasController extends Controller
     public function index()
     {
         $user= auth()->user();
-        $jampas = Jampas::where('id', auth()->user()->id)->get();
+        $jampas = Jampas::where('user_id', auth()->user()->id)->get();
+        // dd($user->jampas);
+        // $jampas = $user->jampas;
         return view('users.jampas.index', compact(['jampas']));
     }
 }

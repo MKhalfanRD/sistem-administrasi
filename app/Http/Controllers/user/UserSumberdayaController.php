@@ -11,7 +11,8 @@ use Illuminate\Http\Request;
 class UserSumberdayaController extends Controller
 {
     public function index(){
-        $sumberdaya = Sumberdaya::all();
+        $user = auth()->user();
+        $sumberdaya = Sumberdaya::where('user_id', auth()->user()->id)->get();
         return view('users.sumberdaya.index', compact(['sumberdaya']));
     }
 }

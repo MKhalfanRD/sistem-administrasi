@@ -64,6 +64,10 @@ class AdminSumberdayaController extends Controller
         }
 
         $sdmData = $request->all();
+
+        $user = User::where('namaPerusahaan', $request->namaPerusahaan)->first();
+        $sdmData['user_id'] = $user->id;
+
         $sumberdaya = Sumberdaya::create($sdmData);
         return redirect()->route('admin.sumberdaya.index');
     }
@@ -122,6 +126,13 @@ class AdminSumberdayaController extends Controller
         }
 
         $sdmData = $request->all();
+
+        $user = User::where('namaPerusahaan', $request->namaPerusahaan)->first();
+
+        if ($user) {
+            $sdmData['user_id'] = $user->id;
+        }
+
         $sumberdaya->update($sdmData);
 
         return redirect()->route('admin.sumberdaya.index');

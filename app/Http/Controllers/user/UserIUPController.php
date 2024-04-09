@@ -13,7 +13,9 @@ class UserIUPController extends Controller
         $user = auth()->user();
         // dd($user = auth()->user());
         // dd($user->iup);
-        $iup = $user->iup;
+        // $iup = IUP::where('id', auth()->user()->id)->get();
+        $iup = IUP::where('user_id', auth()->user()->id)->get();
+        // dd($iup);
         return view('users.iup.index', compact('iup'));
     }
 

@@ -12,7 +12,8 @@ use Illuminate\Http\Request;
 class UserProduksiController extends Controller
 {
     public function index(){
-        $produksi = Produksi::all();
+        $user = auth()->user();
+        $produksi = Produksi::where('user_id', auth()->user()->id)->get();
 
         return view('users.produksi.index', compact(['produksi']));
     }

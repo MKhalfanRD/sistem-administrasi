@@ -10,6 +10,7 @@ class Sumberdaya extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'namaPerusahaan',
         'komoditas',
         'volumeTereka',

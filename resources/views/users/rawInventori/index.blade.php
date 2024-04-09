@@ -1,7 +1,7 @@
 @extends('layout.index')
 @section('content')
     <div class="container mx-auto">
-        <div class="mx-auto text-left">
+        <div class="mx-auto text-left mb-6">
             <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Table Raw Inventory</h2>
         </div>
 
@@ -10,9 +10,9 @@
                     <thead class="text-base text-gray-400 bg-gray-700">
                         <tr>
                             <th rowspan="2" class="p-4 text-center">No</th>
-                            <th rowspan="2" class="px-6 py-3 text-center">Nama Perusahaan</th>
-                            <th colspan="2" class="px-6 py-3 text-center">Stok Raw</th>
-                            <th rowspan="2" colspan="2" class="px-6 py-3 text-center">Date</th>
+                            <th rowspan="2" class="px-6 py-1 text-center">Nama Perusahaan</th>
+                            <th colspan="2" class="px-6 py-1 text-center">Stok Raw</th>
+                            <th rowspan="2" colspan="2" class="px-6 py-1 text-center">Date</th>
                         </tr>
                         <tr>
                             <th class="px-6 text-center">Volume (m3)</th>

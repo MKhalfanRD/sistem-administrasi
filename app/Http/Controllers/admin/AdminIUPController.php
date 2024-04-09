@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Exports\IupExport;
 use App\Models\Kabupaten;
 use App\Models\Komoditas;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Storage;
 use App\Models\IUP;
@@ -423,7 +424,9 @@ class AdminIUPController extends Controller
         $iupData['scanSK_p1'] = $filepath_p1;
         $iupData['scanSK_p2'] = $filepath_p2;
         $iupData['jenisKegiatan'] = $jenisKegiatan;
-        
+
+        $user = User::where('namaPerusahaan', $request->namaPerusahaan)->first();
+        $iupData['user_id'] = $user->id;
         // dd($jenisKegiatan);
 
         $iup = IUP::create($iupData);
@@ -657,6 +660,12 @@ class AdminIUPController extends Controller
         // $iupData['scanSK_op'] = $filepath_op;
         // $iupData['scanSK_p1'] = $filepath_p1;
         // $iupData['scanSK_p2'] = $filepath_p2;
+
+        $user = User::where('namaPerusahaan', $request->namaPerusahaan)->first();
+
+        if ($user) {
+            $iupData['user_id'] = $user->id;
+        }
 
         $iup->update($iupData);
 

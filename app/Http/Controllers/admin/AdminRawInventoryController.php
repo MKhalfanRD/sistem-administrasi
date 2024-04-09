@@ -68,7 +68,12 @@ class AdminRawInventoryController extends Controller
             'tahun' => 'required',
         ]);
 
+
         $rawInventoriData = $request->all();
+
+        $user = User::where('namaPerusahaan', $request->namaPerusahaan)->first();
+        $rawInventoriData['user_id'] = $user->id;
+
         $rawInventori = rawInventori::create($rawInventoriData);
         dd($rawInventori);
         return redirect()->route('admin.rawInventory.index');
@@ -85,6 +90,13 @@ class AdminRawInventoryController extends Controller
 
         $rawInvetori = rawInventori::find($id);
         $rawInvetoriData = $request->all();
+
+        $user = User::where('namaPerusahaan', $request->namaPerusahaan)->first();
+
+        if ($user) {
+            $rawInvetoriData['user_id'] = $user->id;
+        }
+
         $rawInvetori->update($rawInvetoriData);
 
         dd($rawInvetori);

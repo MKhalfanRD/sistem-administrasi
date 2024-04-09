@@ -10,6 +10,7 @@ class KTT extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'namaPerusahaan',
         'namaKtt',
         'statusKTT',

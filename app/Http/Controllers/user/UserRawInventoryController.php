@@ -11,7 +11,8 @@ use Illuminate\Http\Request;
 class UserRawInventoryController extends Controller
 {
     public function index(){
-        $rawInventori = rawInventori::all();
+        $user = auth()->user();
+        $rawInventori = rawInventori::where('user_id', auth()->user()->id)->get();
 
         return view('users.rawInventori.index', compact(['rawInventori']));
     }

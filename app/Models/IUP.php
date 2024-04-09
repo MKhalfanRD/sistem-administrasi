@@ -11,6 +11,7 @@ class IUP extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'user_id',
         'namaPerusahaan',
         'alamat',
         'npwp',
