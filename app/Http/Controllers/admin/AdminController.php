@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Models\User;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -46,7 +46,7 @@ class AdminController extends Controller
             'logo'=> $filepath,
         ]);
 
-        dd($userData);
+        // dd($userData);
 
         return redirect()->route('admin.index');
     }
@@ -89,7 +89,7 @@ class AdminController extends Controller
             'password'=>$request->password,
             'logo'=> $filepath,
         ]);
-        dd($userData);
+        // dd($userData);
         return redirect()->route('admin.index');
     }
 

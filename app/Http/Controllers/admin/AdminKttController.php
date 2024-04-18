@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\KTT;
 use App\Models\User;
 use Carbon\Carbon;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class AdminKttController extends Controller
@@ -99,14 +99,14 @@ class AdminKttController extends Controller
     $tanggalSekarang = Carbon::now();
 
     // Menentukan statusKTT berdasarkan perbandingan tanggalInput dengan tanggalSekarang
-    if ($tanggalInput->year < $tanggalSekarang->year || ($tanggalInput->year == $tanggalSekarang->year && $tanggalInput->month <= $tanggalSekarang->month)) {
-        $statusKTT = 'Aktif';
-    } else {
-        $statusKTT = 'Tidak Aktif';
-    }
+    // if ($tanggalInput->year < $tanggalSekarang->year || ($tanggalInput->year == $tanggalSekarang->year && $tanggalInput->month <= $tanggalSekarang->month)) {
+    //     $statusKTT = 'Aktif';
+    // } else {
+    //     $statusKTT = 'Tidak Aktif';
+    // }
 
     $kttData = $request->except('fileUpload');
-    $kttData['statusKTT'] = $statusKTT;
+    // $kttData['statusKTT'] = $statusKTT;
     $kttData['fileUpload'] = $filepath;
 
     $user = User::where('namaPerusahaan', $request->namaPerusahaan)->first();
@@ -116,7 +116,7 @@ class AdminKttController extends Controller
     dd($ktt);
 
     // Redirect with success message
-    return redirect()->route('ktt.index')->with('success', 'KTT berhasil dibuat.');
+    return redirect()->route('admin.ktt.index')->with('success', 'KTT berhasil dibuat.');
 }
 
 
@@ -158,15 +158,15 @@ class AdminKttController extends Controller
         $tanggalSekarang = Carbon::now();
 
         // Menentukan statusKTT berdasarkan perbandingan tanggalInput dengan tanggalSekarang
-        if ($tanggalInput->year < $tanggalSekarang->year || ($tanggalInput->year == $tanggalSekarang->year && $tanggalInput->month <= $tanggalSekarang->month)) {
-            $statusKTT = 'Aktif';
-        } else {
-            $statusKTT = 'Tidak Aktif';
-        }
+        // if ($tanggalInput->year < $tanggalSekarang->year || ($tanggalInput->year == $tanggalSekarang->year && $tanggalInput->month <= $tanggalSekarang->month)) {
+        //     $statusKTT = 'Aktif';
+        // } else {
+        //     $statusKTT = 'Tidak Aktif';
+        // }
 
         $kttData = $request->except('fileUpload');
 
-        $kttData['statusKTT'] = $statusKTT;
+        // $kttData['statusKTT'] = $statusKTT;
         $kttData['fileUpload'] = $filepath;
 
         $user = User::where('namaPerusahaan', $request->namaPerusahaan)->first();
@@ -178,7 +178,7 @@ class AdminKttController extends Controller
         $ktt->update($kttData);
         dd($ktt);
 
-        return redirect()->route('ktt.index');
+        return redirect()->route('admin.ktt.index');
     }
 
     public function destroy($id){
@@ -188,6 +188,8 @@ class AdminKttController extends Controller
             Storage::disk('public')->delete($ktt->fileUpload);
         }
 
-        return redirect()->route('ktt.index');
+        $ktt->delete();
+
+        return redirect()->route('admin.ktt.index');
     }
 }

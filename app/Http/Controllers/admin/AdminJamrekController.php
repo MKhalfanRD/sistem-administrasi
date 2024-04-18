@@ -5,7 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Jamrek;
 use App\Models\User;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class AdminJamrekController extends Controller

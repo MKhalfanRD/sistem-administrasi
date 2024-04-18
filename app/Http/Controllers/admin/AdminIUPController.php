@@ -13,7 +13,7 @@ use App\Models\Kabupaten;
 use App\Models\Komoditas;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 use App\Models\IUP;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
@@ -261,6 +261,12 @@ class AdminIUPController extends Controller
         return view('admin.iup/p2.index', compact(['iup','p2']));
     }
 
+    public function getKomoditas($golongan)
+    {
+        $data = Komoditas::where('golongan', $golongan)->get();
+        return response()->json($data);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -432,7 +438,7 @@ class AdminIUPController extends Controller
         $iup = IUP::create($iupData);
 
         // dd($tanggalMulai, $tanggalBerakhir, now());
-        dd($iup);
+        // dd($iup);
         return redirect()->route('admin.iup.index');
     }
 
@@ -672,7 +678,7 @@ class AdminIUPController extends Controller
         // $iup->save();
         // $iup->statusIzin;
 
-        dd($iup);
+        // dd($iup);
         return redirect()->route('admin.iup.index')->with('status', 'Data berhasil diperbarui.');
     }
     /**

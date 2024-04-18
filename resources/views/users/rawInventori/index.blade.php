@@ -13,6 +13,7 @@
                             <th rowspan="2" class="px-6 py-1 text-center">Nama Perusahaan</th>
                             <th colspan="2" class="px-6 py-1 text-center">Stok Raw</th>
                             <th rowspan="2" colspan="2" class="px-6 py-1 text-center">Date</th>
+                            <th rowspan="2" colspan="2" class="px-6 py-1 text-center">Aksi</th>
                         </tr>
                         <tr>
                             <th class="px-6 text-center">Volume (m3)</th>
@@ -36,6 +37,13 @@
                             <td class="text-center font-medium text-white whitespace-nowrap py-2">{{$r->tonaseRawInventori}}</td>
                             <td class="text-center font-medium text-white whitespace-nowrap p-0">{{$r->bulan}}</td>
                             <td class="text-center font-medium text-white whitespace-nowrap py-2">{{$r->tahun}}</td>
+                            <th scope="row" class="text-center px-6 py-4 font-medium text-white whitespace-nowrap">
+                                <div class="btn-wrap">
+                                    <a href="{{route('user.rawInventori.edit', $r->id)}}">
+                                        <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-lg">Edit</button>
+                                    </a>
+                                </div>
+                            </th>
                         </tr>
                         @endforeach
                     </tbody>

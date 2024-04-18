@@ -15,6 +15,7 @@
                             <th colspan="2" class="px-6 py-3 text-center">Jumlah Produksi</th>
                             <th rowspan="2" colspan="2" class="px-6 py-3 text-center">Date</th>
                             <th rowspan="2" class="px-6 py-3 text-center">Bukti Bayar</th>
+                            <th rowspan="2" class="px-6 py-3 text-center">Aksi</th>
                         </tr>
                         <tr>
                             <th class="px-6 text-center">Volume (m3)</th>
@@ -50,6 +51,13 @@
                                     <p>Tidak Ada</p>
                                 @endif
                             </td>
+                            <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">
+                                <div class="btn-wrap flex flex-row gap-3">
+                                    <a href="{{route('user.produksi.edit', $p->id)}}">
+                                        <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-lg">Edit</button>
+                                    </a>
+                                </div>
+                            </th>
                         </tr>
                         @endforeach
                     </tbody>

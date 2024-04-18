@@ -10,6 +10,7 @@ use App\Http\Controllers\admin\AdminKomoditasController;
 use App\Http\Controllers\admin\AdminKttController;
 use App\Http\Controllers\admin\AdminProduksiController;
 use App\Http\Controllers\admin\AdminRawInventoryController;
+use App\Http\Controllers\admin\AdminStokProdukController;
 use App\Http\Controllers\admin\AdminSumberdayaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\user\UserCadanganController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\user\UserJamrekController;
 use App\Http\Controllers\user\UserKttController;
 use App\Http\Controllers\user\UserProduksiController;
 use App\Http\Controllers\user\UserRawInventoryController;
+use App\Http\Controllers\user\UserStokProdukController;
 use App\Http\Controllers\user\UserSumberdayaController;
 use Illuminate\Support\Facades\Route;
 
@@ -131,6 +133,8 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('admin/iup/{iup}/edit', [AdminIUPController::class, 'edit'])->name('admin.iup.edit');
     Route::delete('admin/iup/{iup}', [AdminIUPController::class, 'destroy'])->name('admin.iup.destroy');
 
+    Route::get('/getKomoditas/{golongan}', [AdminIUPController::class, 'getKomoditas'])->name('admin.iup.komoditas');
+
     Route::get('admin/cadangan', [AdminCadanganController::class, 'index'])->name('admin.cadangan.index');
     Route::post('admin/cadangan', [AdminCadanganController::class, 'store'])->name('admin.cadangan.store');
     Route::get('admin/cadangan/create', [AdminCadanganController::class, 'create'])->name('admin.cadangan.create');
@@ -193,6 +197,13 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::put('admin/sumberdaya/{sumberdaya}', [AdminSumberdayaController::class, 'update'])->name('admin.sumberdaya.update');
     Route::get('admin/sumberdaya/{sumberdaya}/edit', [AdminSumberdayaController::class, 'edit'])->name('admin.sumberdaya.edit');
     Route::delete('admin/sumberdaya/{sumberdaya}', [AdminSumberdayaController::class, 'destroy'])->name('admin.sumberdaya.destroy');
+
+    Route::get('admin/stokProduk', [AdminStokProdukController::class, 'index'])->name('admin.stokProduk.index');
+    Route::post('admin/stokProduk', [AdminStokProdukController::class, 'store'])->name('admin.stokProduk.store');
+    Route::get('admin/stokProduk/create', [AdminStokProdukController::class, 'create'])->name('admin.stokProduk.create');
+    Route::put('admin/stokProduk/{stokProduk}', [AdminStokProdukController::class, 'update'])->name('admin.stokProduk.update');
+    Route::get('admin/stokProduk/{stokProduk}/edit', [AdminStokProdukController::class, 'edit'])->name('admin.stokProduk.edit');
+    Route::delete('admin/stokProduk/{stokProduk}', [AdminStokProdukController::class, 'destroy'])->name('admin.stokProduk.destroy');
 });
 
 
@@ -214,8 +225,16 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('user/cadangan', [UserCadanganController::class, 'index'])->name('user.cadangan.index');
 
     Route::get('user/produksi', [UserProduksiController::class, 'index'])->name('user.produksi.index');
+    Route::get('user/produksi/{produksi}/edit', [UserProduksiController::class, 'edit'])->name('user.produksi.edit');
+    Route::put('user/produksi/{produksi}', [UserProduksiController::class, 'update'])->name('user.produksi.update');
 
     Route::get('user/rawInventori', [UserRawInventoryController::class, 'index'])->name('user.rawInventori.index');
+    Route::get('user/rawInventori/{rawInventori}/edit', [UserRawInventoryController::class, 'edit'])->name('user.rawInventori.edit');
+    Route::put('user/rawInventori/{rawInventori}', [UserRawInventoryController::class, 'update'])->name('user.rawInventori.update');
+
+    Route::get('user/stokProduk', [UserStokProdukController::class, 'index'])->name('user.stokProduk.index');
+    Route::get('user/stokProduk/{stokProduk}/edit', [UserStokProdukController::class, 'edit'])->name('user.stokProduk.edit');
+    Route::put('user/stokProduk/{stokProduk}', [UserStokProdukController::class, 'update'])->name('user.stokProduk.update');
 
     Route::get('user/ktt', [UserKttController::class, 'index'])->name('user.ktt.index');
 

@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\rawInventori;
+use App\Models\StokProduk;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class AdminRawInventoryController extends Controller
+class AdminStokProdukController extends Controller
 {
     public function index(){
-        $rawInventori = rawInventori::all();
+        $stokProduk = StokProduk::all();
 
-        return view('admin.rawInventori.index', compact(['rawInventori']));
+        return view('admin.stokProduk.index', compact(['stokProduk']));
     }
 
     public function create(){
@@ -33,32 +33,32 @@ class AdminRawInventoryController extends Controller
         for ($i = $startTahun; $i <= $endTahun; $i++) {
             $tahun[$i] = $i;
         }
-        return view('admin.rawInventori.create', compact(['perusahaanUser', 'bulan', 'tahun']));
+        return view('admin.stokProduk.create', compact(['perusahaanUser', 'bulan', 'tahun']));
     }
 
     public function store(Request $request){
         session()->flashInput($request->input());
         $request->validate([
             'namaPerusahaan' => 'required',
-            'volumeRawInventori' => 'nullable',
-            'tonaseRawInventori' => 'nullable',
+            'volumeStokProduk' => 'nullable',
+            'tonaseStokProduk' => 'nullable',
             'bulan' => 'required',
             'tahun' => 'required',
         ]);
 
 
-        $rawInventoriData = $request->all();
+        $stokProdukData = $request->all();
 
         $user = User::where('namaPerusahaan', $request->namaPerusahaan)->first();
-        $rawInventoriData['user_id'] = $user->id;
+        $stokProdukData['user_id'] = $user->id;
 
-        $rawInventori = rawInventori::create($rawInventoriData);
-        // dd($rawInventori);
-        return redirect()->route('admin.rawInventory.index');
+        $stokProduk = StokProduk::create($stokProdukData);
+        // dd($stokProduk);
+        return redirect()->route('admin.stokProduk.index');
     }
 
     public function edit($id){
-        $rawInventori = rawInventori::find($id);
+        $stokProduk = StokProduk::find($id);
         $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
         $startBulan = Carbon::now()->startOfYear()->locale('id_ID');
         $bulan = [];
@@ -76,38 +76,38 @@ class AdminRawInventoryController extends Controller
             $tahun[$i] = $i;
         }
 
-        return view('admin.rawInventori.edit', compact(['rawInventori' ,'perusahaanUser', 'bulan', 'tahun']));
+        return view('admin.stokProduk.edit', compact(['stokProduk' ,'perusahaanUser', 'bulan', 'tahun']));
     }
 
     public function update(Request $request, $id){
         $request->validate([
             'namaPerusahaan' => 'required',
-            'volumeRawInventori' => 'nullable',
-            'tonaseRawInventori' => 'nullable',
+            'volumeStokProduk' => 'nullable',
+            'tonaseStokProduk' => 'nullable',
             'bulan' => 'required',
             'tahun' => 'required',
         ]);
 
-        $rawInvetori = rawInventori::find($id);
-        $rawInvetoriData = $request->all();
+        $stokProduk = StokProduk::find($id);
+        $stokProdukData = $request->all();
 
         $user = User::where('namaPerusahaan', $request->namaPerusahaan)->first();
 
         if ($user) {
-            $rawInvetoriData['user_id'] = $user->id;
+            $stokProdukData['user_id'] = $user->id;
         }
 
-        $rawInvetori->update($rawInvetoriData);
+        $stokProduk->update($stokProdukData);
 
-        // dd($rawInvetori);
-        return redirect()->route('admin.rawInventory.index');
+        // dd($stokProduk);
+        return redirect()->route('admin.stokProduk.index');
     }
 
     public function destroy($id){
-        $rawInvetori = rawInventori::find($id);
+        $stokProduk = StokProduk::find($id);
 
-        $rawInvetori->delete();
+        $stokProduk->delete();
 
-        return redirect()->route('admin.rawInventory.index');
+        return redirect()->route('admin.stokProduk.index');
     }
 }
