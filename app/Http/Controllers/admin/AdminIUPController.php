@@ -438,7 +438,7 @@ class AdminIUPController extends Controller
         $iup = IUP::create($iupData);
 
         // dd($tanggalMulai, $tanggalBerakhir, now());
-        // dd($iup);
+        // dd($request->all());
         return redirect()->route('admin.iup.index');
     }
 

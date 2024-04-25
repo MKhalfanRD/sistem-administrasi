@@ -142,6 +142,8 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('admin/cadangan/{cadangan}/edit', [AdminCadanganController::class, 'edit'])->name('admin.cadangan.edit');
     Route::delete('admin/cadangan/{cadangan}', [AdminCadanganController::class, 'destroy'])->name('admin.cadangan.destroy');
 
+    Route::get('/getKomoditas/{golongan}', [AdminCadanganController::class, 'getKomoditas'])->name('admin.cadangan.komoditas');
+
     Route::get('admin/jampas', [AdminJampasController::class, 'index'])->name('admin.jampas.index');
     Route::post('admin/jampas', [AdminJampasController::class, 'store'])->name('admin.jampas.store');
     Route::get('admin/jampas/create', [AdminJampasController::class, 'create'])->name('admin.jampas.create');
@@ -184,6 +186,8 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('admin/produksi/{produksi}/edit', [AdminProduksiController::class, 'edit'])->name('admin.produksi.edit');
     Route::delete('admin/produksi/{produksi}', [AdminProduksiController::class, 'destroy'])->name('admin.produksi.destroy');
 
+    Route::get('/getKomoditas/{golongan}', [AdminProduksiController::class, 'getKomoditas'])->name('admin.produksi.komoditas');
+
     Route::get('admin/rawInventory', [AdminRawInventoryController::class, 'index'])->name('admin.rawInventory.index');
     Route::post('admin/rawInventory', [AdminRawInventoryController::class, 'store'])->name('admin.rawInventory.store');
     Route::get('admin/rawInventory/create', [AdminRawInventoryController::class, 'create'])->name('admin.rawInventory.create');
@@ -197,6 +201,8 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::put('admin/sumberdaya/{sumberdaya}', [AdminSumberdayaController::class, 'update'])->name('admin.sumberdaya.update');
     Route::get('admin/sumberdaya/{sumberdaya}/edit', [AdminSumberdayaController::class, 'edit'])->name('admin.sumberdaya.edit');
     Route::delete('admin/sumberdaya/{sumberdaya}', [AdminSumberdayaController::class, 'destroy'])->name('admin.sumberdaya.destroy');
+
+    Route::get('/getKomoditas/{golongan}', [AdminSumberdayaController::class, 'getKomoditas'])->name('admin.sumberdaya.komoditas');
 
     Route::get('admin/stokProduk', [AdminStokProdukController::class, 'index'])->name('admin.stokProduk.index');
     Route::post('admin/stokProduk', [AdminStokProdukController::class, 'store'])->name('admin.stokProduk.store');

@@ -17,6 +17,12 @@ class AdminProduksiController extends Controller
         return view('admin.produksi.index', compact(['produksi']));
     }
 
+    public function getKomoditas($golongan)
+    {
+        $data = Komoditas::where('golongan', $golongan)->get();
+        return response()->json($data);
+    }
+
     public function create(){
         $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
         $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');

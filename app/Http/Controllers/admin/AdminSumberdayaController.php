@@ -15,15 +15,28 @@ class AdminSumberdayaController extends Controller
         return view('admin.sumberdaya.index', compact(['sumberdaya']));
     }
 
+    public function getKomoditas($golongan)
+    {
+        $data = Komoditas::where('golongan', $golongan)->get();
+        return response()->json($data);
+    }
+
     public function create(){
         $jenisSdm = [
             'Tereka' => 'Tereka',
             'Tertunjuk' => 'Tertunjuk',
             'Terukur' => 'Terukur',
         ];
+
+        $golongan= [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+
         $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
         $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
-        return view('admin.sumberdaya.create', compact(['jenisSdm', 'perusahaanUser', 'komoditas']));
+        return view('admin.sumberdaya.create', compact(['jenisSdm', 'perusahaanUser', 'golongan','komoditas']));
     }
 
     public function store(Request $request){

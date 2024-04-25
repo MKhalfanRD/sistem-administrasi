@@ -526,8 +526,7 @@
                         // Add each komoditas from the array as an option
                         komoditasList.forEach(function(komoditas) {
                             $('.komoditas').append($('<option>', {
-                                value: response[0]
-                                .id, // Assuming 'id' is the identifier for komoditas
+                                value: komoditas,
                                 text: komoditas // Assuming 'komoditas' is the field for komoditas name
                             }));
                         });

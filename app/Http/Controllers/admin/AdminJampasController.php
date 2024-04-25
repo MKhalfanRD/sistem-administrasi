@@ -5,7 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Jampas;
 use App\Models\User;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class AdminJampasController extends Controller
@@ -118,7 +118,7 @@ class AdminJampasController extends Controller
 
         $jampas->update($jampasData);
 
-        dd($jampasData);
+        // dd($jampasData);
 
         return redirect()->route('admin.jampas.index');
     }

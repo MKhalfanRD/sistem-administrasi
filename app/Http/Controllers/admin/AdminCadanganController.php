@@ -15,6 +15,12 @@ class AdminCadanganController extends Controller
         return view('admin.cadangan.index', compact(['cadangan']));
     }
 
+    public function getKomoditas($golongan)
+    {
+        $data = Komoditas::where('golongan', $golongan)->get();
+        return response()->json($data);
+    }
+
     public function create(){
         $jenisCadangan = [
             'Terkira' => 'Terkira',

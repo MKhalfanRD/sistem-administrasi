@@ -68,7 +68,7 @@ class AdminJamrekController extends Controller
         $jamrekData['user_id'] = $user->id;
 
         $jamrek = Jamrek::create($jamrekData);
-        dd($jamrekData);
+        // dd($jamrekData);
 
         return redirect()->route('admin.jamrek.index');
     }
