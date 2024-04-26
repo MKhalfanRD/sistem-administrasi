@@ -234,6 +234,9 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('user/produksi/{produksi}/edit', [UserProduksiController::class, 'edit'])->name('user.produksi.edit');
     Route::put('user/produksi/{produksi}', [UserProduksiController::class, 'update'])->name('user.produksi.update');
 
+    Route::get('/getKomoditas/{golongan}', [AdminProduksiController::class, 'getKomoditas'])->name('user.produksi.komoditas');
+
+
     Route::get('user/rawInventori', [UserRawInventoryController::class, 'index'])->name('user.rawInventori.index');
     Route::get('user/rawInventori/{rawInventori}/edit', [UserRawInventoryController::class, 'edit'])->name('user.rawInventori.edit');
     Route::put('user/rawInventori/{rawInventori}', [UserRawInventoryController::class, 'update'])->name('user.rawInventori.update');

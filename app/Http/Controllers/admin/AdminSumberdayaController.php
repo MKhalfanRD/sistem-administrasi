@@ -92,12 +92,18 @@ class AdminSumberdayaController extends Controller
             'Terukur' => 'Terukur',
         ];
 
+        $golongan= [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+
         $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
         $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
         $sumberdaya = Sumberdaya::find($id);
         $jenisSdmSelected = $sumberdaya->jenisSdm;
 
-        return view('admin.sumberdaya.edit', compact(['jenisSdm', 'perusahaanUser', 'komoditas' ,'sumberdaya', 'jenisSdmSelected']));
+        return view('admin.sumberdaya.edit', compact(['jenisSdm', 'perusahaanUser', 'komoditas' ,'sumberdaya', 'jenisSdmSelected', 'golongan']));
     }
 
     public function update(Request $request, $id){

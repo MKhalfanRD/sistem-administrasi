@@ -48,7 +48,7 @@
                             {{$counter}}
                         </td>
                         <td class="text-center font-medium text-white whitespace-nowrap py-2">{{$s->namaPerusahaan}}</td>
-                        <td class="font-medium text-white whitespace-nowrap py-2">{{$s->komoditas}}</td>
+                        <td class="text-center font-medium text-white whitespace-nowrap py-2">{{$s->komoditas}}</td>
                         <td class="text-center font-medium text-white whitespace-nowrap py-2">{{$s->volumeTereka}}</td>
                         <td class="text-center font-medium text-white whitespace-nowrap py-2">{{$s->tonaseTereka}}</td>
                         <td class="text-center font-medium text-white whitespace-nowrap py-2">{{$s->volumeTertunjuk}}</td>

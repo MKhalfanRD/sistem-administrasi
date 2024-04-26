@@ -113,7 +113,7 @@ class AdminKttController extends Controller
     $kttData['user_id'] = $user->id;
 
     $ktt = KTT::create($kttData);
-    dd($ktt);
+    // dd($ktt);
 
     // Redirect with success message
     return redirect()->route('admin.ktt.index')->with('success', 'KTT berhasil dibuat.');
@@ -176,7 +176,7 @@ class AdminKttController extends Controller
         }
 
         $ktt->update($kttData);
-        dd($ktt);
+        // dd($ktt);
 
         return redirect()->route('admin.ktt.index');
     }

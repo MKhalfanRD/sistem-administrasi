@@ -11,7 +11,8 @@ use Illuminate\Http\Request;
 class UserStokProdukController extends Controller
 {
     public function index(){
-        $stokProduk = StokProduk::all();
+        $user = auth()->user();
+        $stokProduk = StokProduk::where('user_id', auth()->user()->id)->get();
 
         return view('users.stokProduk.index', compact(['stokProduk']));
     }

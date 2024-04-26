@@ -24,6 +24,12 @@ class AdminProduksiController extends Controller
     }
 
     public function create(){
+        $golongan= [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+
         $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
         $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
         $startBulan = Carbon::now()->startOfYear()->locale('id_ID');
@@ -41,7 +47,7 @@ class AdminProduksiController extends Controller
         for ($i = $startTahun; $i <= $endTahun; $i++) {
             $tahun[$i] = $i;
         }
-        return view('admin.produksi.create', compact(['perusahaanUser', 'komoditas', 'bulan', 'tahun']));
+        return view('admin.produksi.create', compact(['perusahaanUser', 'komoditas', 'bulan', 'tahun', 'golongan']));
     }
 
     public function store(Request $request){
@@ -72,6 +78,12 @@ class AdminProduksiController extends Controller
     }
 
     public function edit($id){
+        $golongan= [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+
         $produksi = Produksi::find($id);
         $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
         $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
@@ -90,7 +102,7 @@ class AdminProduksiController extends Controller
         for ($i = $startTahun; $i <= $endTahun; $i++) {
         $tahun[$i] = $i;
         }
-        return view('admin.produksi.edit', compact(['produksi', 'perusahaanUser', 'komoditas', 'bulan', 'tahun']));
+        return view('admin.produksi.edit', compact(['produksi', 'perusahaanUser', 'komoditas', 'bulan', 'tahun', 'golongan']));
     }
 
     public function update(Request $request, $id){

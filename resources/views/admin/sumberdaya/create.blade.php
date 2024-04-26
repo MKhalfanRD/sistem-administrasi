@@ -42,17 +42,17 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="komoditas_dsad">
-                        <label for="komoditas_dsad" class="block text-sm font-semibold leading-6 text-gray-900">Komoditas</label>
+                    <div class="komoditas">
+                        <label for="komoditas" class="block text-sm font-semibold leading-6 text-gray-900">Komoditas</label>
                         <div class="mt-1.5 mb-3">
-                            <select name="komoditas_dsad" id="komoditas_dsad" class="komoditas bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            <select name="komoditas" id="komoditas" class="komoditasList bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                 @if ($komoditas->isEmpty())
                                 <option value="">Belum ada komoditas</option>
                             @else
 
                             @endif
                             </select>
-                            @error('komoditas_dsad')
+                            @error('komoditas')
                             <span class="text-red-500">{{ $message }}</span>
                             @enderror
                         </div>
@@ -215,14 +215,14 @@
                 success: function(response) {
                     console.log(response);
                     // Clear existing komoditas options
-                    $('.komoditas').empty();
+                    $('.komoditasList').empty();
 
                     // Check if there are any komoditas returned
                     if (response.length > 0) {
                         var komoditasList = response[0].komoditas.split(
                         ', '); // Split komoditas string into an array
                         // Add a "Pilih" option with disabled attribute
-                        $('.komoditas').append($('<option>', {
+                        $('.komoditasList').append($('<option>', {
                             value: '',
                             text: 'Pilih',
                             disabled: true,
@@ -231,14 +231,14 @@
 
                         // Add each komoditas from the array as an option
                         komoditasList.forEach(function(komoditas) {
-                            $('.komoditas').append($('<option>', {
+                            $('.komoditasList').append($('<option>', {
                                 value: komoditas,
                                 text: komoditas // Assuming 'komoditas' is the field for komoditas name
                             }));
                         });
                     } else {
                         // Add an option indicating no komoditas available
-                        $('.komoditas').append($('<option>', {
+                        $('.komoditasList').append($('<option>', {
                             value: '',
                             text: 'Tidak ada komoditas'
                         }));

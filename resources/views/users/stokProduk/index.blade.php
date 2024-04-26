@@ -1,7 +1,7 @@
 @extends('layout.index')
 @section('content')
     <div class="container mx-auto">
-        <div class="mx-auto text-left mb-3">
+        <div class="mx-auto text-left mb-6">
             <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Table Stok Produk</h2>
         </div>
 

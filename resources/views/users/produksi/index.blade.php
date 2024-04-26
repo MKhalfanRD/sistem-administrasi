@@ -52,7 +52,7 @@
                                 @endif
                             </td>
                             <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">
-                                <div class="btn-wrap flex flex-row gap-3">
+                                <div class="btn-wrap justify-center flex flex-row gap-3">
                                     <a href="{{route('user.produksi.edit', $p->id)}}">
                                         <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-lg">Edit</button>
                                     </a>

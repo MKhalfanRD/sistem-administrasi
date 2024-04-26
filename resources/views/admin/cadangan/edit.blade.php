@@ -28,8 +28,40 @@
                         @enderror
                     </div>
                 </div>
-                <div class="komoditas">
-                    <label for="komoditas" class="block text-sm font-semibold leading-6 text-gray-900">Komoditas</label>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="golongan">
+                        <label for="golongan" class="block text-sm font-semibold leading-6 text-gray-900">Golongan</label>
+                        <div class="mt-1.5 mb-3">
+                            <select name="golongan" id="golongan" class="golongan bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                <option value="" disabled selected>Pilih</option>
+                                @foreach ($golongan as $key => $value)
+                                    <option value="{{ $key }}">{{ $value }} </option>
+                                @endforeach
+                            </select>
+                            @error('golongan')
+                            <span class="text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="komoditas">
+                        <label for="komoditas" class="block text-sm font-semibold leading-6 text-gray-900">Komoditas</label>
+                        <div class="mt-1.5 mb-3">
+                            <select name="komoditas" id="komoditas" class="komoditasList bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                @if ($komoditas->isEmpty())
+                                <option value="">Belum ada komoditas</option>
+                            @else
+                                <option value="" disabled selected>Pilih</option>
+                            @foreach ($komoditas as $komoditas)
+                                <option value="{{$komoditas}}" @if($komoditas == $cadangan->komoditas) selected @endif>{{$komoditas}}</option>
+                            @endforeach
+                            @endif
+                            </select>
+                            @error('komoditas')
+                            <span class="text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    {{-- <label for="komoditas" class="block text-sm font-semibold leading-6 text-gray-900">Komoditas</label>
                     <div class="mt-1.5 mb-3">
                         <select name="komoditas" id="komoditas" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                             @if ($komoditas->isEmpty())
@@ -37,15 +69,31 @@
                             @else
                                 <option value="" disabled selected>Pilih</option>
                             @foreach ($komoditas as $komoditas)
-                                <option value="{{$komoditas}}" @if($komoditas == $cadangan->komoditas) selected @endif>{{$komoditas}}</option>
+                                <option value="{{$komoditas}}">{{$komoditas}}</option>
                             @endforeach
                             @endif
                         </select>
                         @error('komoditas')
                         <span class="text-red-500">{{$message}}</span>
                         @enderror
-                    </div>
+                    </div> --}}
                 </div>
+                {{-- <label for="komoditas" class="block text-sm font-semibold leading-6 text-gray-900">Komoditas</label>
+                <div class="mt-1.5 mb-3">
+                    <select name="komoditas" id="komoditas" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        @if ($komoditas->isEmpty())
+                            <option value="">Belum Ada Komoditas</option>
+                        @else
+                            <option value="" disabled selected>Pilih</option>
+                        @foreach ($komoditas as $komoditas)
+                            <option value="{{$komoditas}}">{{$komoditas}}</option>
+                        @endforeach
+                        @endif
+                    </select>
+                    @error('komoditas')
+                    <span class="text-red-500">{{$message}}</span>
+                    @enderror
+                </div> --}}
                 <div class="luas">
                     <label for="luas" class="block text-sm font-semibold leading-6 text-gray-900">Luas</label>
                     <div class="mt-1.5 mb-3">
@@ -166,6 +214,61 @@
             document.getElementById('modal').innerHTML = modalContent;
             showModal();
         });
+
+        document.getElementById('golongan').addEventListener('change', function() {
+            var selectedGolongan = this.value;
+            console.log('changed');
+            getKomoditas(selectedGolongan);
+        });
+
+        function getKomoditas(golongan) {
+            console.log(golongan);
+            var csrfToken = $('meta[name=csrf-token]').attr('content');
+            console.log(csrfToken);
+            $.ajax({
+                url: '/getKomoditas/' + golongan,
+                type: 'GET',
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken // Include CSRF token in the request headers
+                },
+                success: function(response) {
+                    console.log(response);
+                    // Clear existing komoditas options
+                    $('.komoditasList').empty();
+
+                    // Check if there are any komoditas returned
+                    if (response.length > 0) {
+                        var komoditasList = response[0].komoditas.split(
+                        ', '); // Split komoditas string into an array
+                        // Add a "Pilih" option with disabled attribute
+                        $('.komoditasList').append($('<option>', {
+                            value: '',
+                            text: 'Pilih',
+                            disabled: true,
+                            selected: true
+                        }));
+
+                        // Add each komoditas from the array as an option
+                        komoditasList.forEach(function(komoditas) {
+                            $('.komoditasList').append($('<option>', {
+                                value: komoditas,
+                                text: komoditas // Assuming 'komoditas' is the field for komoditas name
+                            }));
+                        });
+                    } else {
+                        // Add an option indicating no komoditas available
+                        $('.komoditasList').append($('<option>', {
+                            value: '',
+                            text: 'Tidak ada komoditas'
+                        }));
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
 
         function showModal() {
         var modal = document.getElementById('modal');

@@ -18,7 +18,19 @@ class UserProduksiController extends Controller
         return view('users.produksi.index', compact(['produksi']));
     }
 
+    public function getKomoditas()
+    {
+        $data = Komoditas::where('golongan', $golongan)->get();
+        return response()->json($data);
+    }
+
     public function edit($id){
+        $golongan= [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+
         $produksi = Produksi::find($id);
         $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
         $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
@@ -37,12 +49,12 @@ class UserProduksiController extends Controller
         for ($i = $startTahun; $i <= $endTahun; $i++) {
         $tahun[$i] = $i;
         }
-        return view('users.produksi.edit', compact(['produksi', 'perusahaanUser', 'komoditas', 'bulan', 'tahun']));
+        return view('users.produksi.edit', compact(['produksi', 'perusahaanUser', 'komoditas', 'bulan', 'tahun', 'golongan']));
     }
 
     public function update(Request $request, $id){
         $request->validate([
-            'namaPerusahaan' => 'required',
+            'namaPerusahaan' => 'nullable',
             'komoditas' => 'required',
             'bulan' => 'required',
             'tahun' => 'required',

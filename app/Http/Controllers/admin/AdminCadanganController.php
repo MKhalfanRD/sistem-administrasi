@@ -27,10 +27,16 @@ class AdminCadanganController extends Controller
             'Terbukti' => 'Terbukti',
         ];
 
+        $golongan= [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+
         $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
         $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
 
-        return view('admin.cadangan.create', compact(['jenisCadangan', 'perusahaanUser', 'komoditas']));
+        return view('admin.cadangan.create', compact(['jenisCadangan', 'perusahaanUser', 'komoditas', 'golongan']));
     }
 
     public function store(Request $request){
@@ -79,12 +85,19 @@ class AdminCadanganController extends Controller
             'Terkira' => 'Terkira',
             'Terbukti' => 'Terbukti',
         ];
+
+        $golongan= [
+            'Batuan' => 'Batuan',
+            'Mineral Bukan Logam' => 'Mineral Bukan Logam',
+            'Mineral Bukan Logam Jenis Tertentu' => 'Mineral Bukan Logam Jenis Tertentu',
+        ];
+
         $perusahaanUser = User::whereNotNull('namaPerusahaan')->pluck('namaPerusahaan', 'id');
         $cadangan = Cadangan::find($id);
         $cadanganSelected = $cadangan->jenisCadangan;
         $komoditas = Komoditas::whereNotNull('komoditas')->pluck('komoditas', 'id');
 
-        return view('admin.cadangan.edit', compact(['jenisCadangan', 'perusahaanUser', 'komoditas' ,'cadangan', 'cadanganSelected']));
+        return view('admin.cadangan.edit', compact(['jenisCadangan', 'perusahaanUser', 'komoditas' ,'cadangan', 'cadanganSelected', 'golongan']));
     }
 
     public function update(Request $request, $id){
