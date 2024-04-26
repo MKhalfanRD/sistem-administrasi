@@ -18,7 +18,7 @@ class UserProduksiController extends Controller
         return view('users.produksi.index', compact(['produksi']));
     }
 
-    public function getKomoditas()
+    public function getKomoditas($golongan)
     {
         $data = Komoditas::where('golongan', $golongan)->get();
         return response()->json($data);
