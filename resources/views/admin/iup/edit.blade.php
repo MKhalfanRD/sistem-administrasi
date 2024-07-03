@@ -285,25 +285,25 @@
                 <div class="tanggalSK_op">
                     <label for="tanggalSK_op" id="tanggalSK_op" class="block text-sm font-semibold leading-6 text-gray-900">Tanggal SK</label>
                     <div class="">
-                        <input type="date" id="tanggalSK_op" name="tanggalSK_op" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="date" id="tanggalSK_op" name="tanggalSK_op" value="{{$IUP->tanggalSK_op}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                 </div>
                 <div class="noSK_op">
                     <label for="noSK_op" id="noSK_op" class="block text-sm font-semibold leading-6 text-gray-900">No SK</label>
                     <div class="">
-                        <input type="number" id="noSK_op" name="noSK_op" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="number" id="noSK_op" name="noSK_op" value="{{$IUP->noSK_op}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                 </div>
                 <div class="masaBerlaku_op">
                     <label for="masaBerlaku_op" id="masaBerlaku_op" class="block text-sm font-semibold leading-6 text-gray-900">Masa Berlaku</label>
                     <div class="">
-                        <input type="number" id="masaBerlaku_op" name="masaBerlaku_op" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="number" id="masaBerlaku_op" name="masaBerlaku_op" value="{{$IUP->masaBerlaku_op}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                 </div>
                 <div class="tanggalBerakhir_op">
                     <label for="tanggalBerakhir_op" id="tanggalBerakhir_op" class="block text-sm font-semibold leading-6 text-gray-900">Tanggal Berakhir</label>
                     <div class="">
-                        <input type="date" id="tanggalBerakhir_op" name="tanggalBerakhir_op" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="date" id="tanggalBerakhir_op" name="tanggalBerakhir_op" value="{{$IUP->tanggalBerakhir_op}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                 </div>
                 <div class="golongan_op">
@@ -358,25 +358,25 @@
                 <div class="tanggalSK_p1">
                     <label for="tanggalSK_p1" id="tanggalSK_p1" class="block text-sm font-semibold leading-6 text-gray-900">Tanggal SK</label>
                     <div class="">
-                        <input type="date" id="tanggalSK_p1" name="tanggalSK_p1" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="date" id="tanggalSK_p1" name="tanggalSK_p1" value="{{$IUP->tanggalSK_p1}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                 </div>
                 <div class="noSK_p1">
                     <label for="noSK_p1" id="noSK_p1" class="block text-sm font-semibold leading-6 text-gray-900">No SK</label>
                     <div class="">
-                        <input type="number" id="noSK_p1" name="noSK_p1" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="number" id="noSK_p1" name="noSK_p1" value="{{$IUP->noSK_p1}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                 </div>
                 <div class="masaBerlaku_p1">
                     <label for="masaBerlaku_p1" id="masaBerlaku_p1" class="block text-sm font-semibold leading-6 text-gray-900">Masa Berlaku</label>
                     <div class="">
-                        <input type="number" id="masaBerlaku_p1" name="masaBerlaku_p1" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="number" id="masaBerlaku_p1" name="masaBerlaku_p1" value="{{$IUP->masaBerlaku_p1}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                 </div>
                 <div class="tanggalBerakhir_p1">
                     <label for="tanggalBerakhir_p1" id="tanggalBerakhir_p1" class="block text-sm font-semibold leading-6 text-gray-900">Tanggal Berakhir</label>
                     <div class="">
-                        <input type="date" id="tanggalBerakhir_p1" name="tanggalBerakhir_p1" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input type="date" id="tanggalBerakhir_p1" name="tanggalBerakhir_p1" value="{{$IUP->tanggalBerakhir_p1}}" class="bg-white block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                 </div>
                 <div class="golongan_p1">

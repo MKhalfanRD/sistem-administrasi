@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -25,6 +25,7 @@ class UserController extends Controller
             'namaUser' => 'required',
             'namaPerusahaan' => 'required',
             'email' => 'required',
+            'wa' => 'required|string|max:15',
             'password' => 'required',
             'logo' => 'nullable|mimes:jpg,jpeg,png'
         ]);

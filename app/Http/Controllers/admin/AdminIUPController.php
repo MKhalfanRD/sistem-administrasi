@@ -18,12 +18,18 @@ use App\Models\IUP;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use App\Notifications\IzinAktif;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Http\Request;
+use App\Services\TwilioService;
+use Illuminate\Support\Facades\Log;
 
 class AdminIUPController extends Controller
 {
     public function index()
     {
+        $iup = IUP::all();
+        return view('admin/iup.index', compact(['iup']));
         // dd($request->all());
         // dd($request->all());
 
@@ -40,8 +46,7 @@ class AdminIUPController extends Controller
 
         // return view('iup.index', compact('search', 'request'));
         // return view('iup.index', compact(['IUP', 'search', 'request']));
-        $iup = IUP::all();
-        return view('admin/iup.index', compact(['iup']));
+
     }
 
     public function IupExport()
@@ -316,6 +321,13 @@ class AdminIUPController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
+    protected $twilio;
+    public function __construct(TwilioService $twilio)
+    {
+        $this->twilio = $twilio;
+    }
+
     public function store(Request $request)
     {
         session()->flashInput($request->input());
@@ -433,13 +445,40 @@ class AdminIUPController extends Controller
 
         $user = User::where('namaPerusahaan', $request->namaPerusahaan)->first();
         $iupData['user_id'] = $user->id;
-        // dd($jenisKegiatan);
+
 
         $iup = IUP::create($iupData);
 
+        if ($statusIzin === 'Aktif') {
+            $namaPerusahaan = $user->namaPerusahaan; // Ambil nama perusahaan dari user
+            $email = $user->email;
+            $statusIzin = 'Aktif';
+
+            Notification::route('mail', $email)->notify(new IzinAktif($namaPerusahaan, $tahapanKegiatan, $statusIzin));
+
+            $wa = $user->wa;
+            if ($wa) {
+                $message = 'Hallo ' . $namaPerusahaan . ', '
+                         . 'Kami ingin menginformasikan bahwa pengajuan izin tambang Anda pada tahapan ' . '**' . $tahapanKegiatan . '**' . ' berada dalam status ' . '**' . $statusIzin . '**' . '. '
+                         . 'Untuk informasi lebih lanjut, silakan login ke sistem https://minerbalampung.com/. ' 
+                         . 'Terimakasih - Tim Administrasi ESDM Bandar Lampung';
+
+                $success = $this->twilio->sendWhatsAppMessage($wa, $message);
+
+                if ($success) {
+                    Log::info('WhatsApp message sent successfully.');
+                } else {
+                    Log::error('Failed to send WhatsApp message.');
+                }
+            }
+        }
+
+        return redirect()->route('admin.iup.index');
+
+        // dd($jenisKegiatan);
         // dd($tanggalMulai, $tanggalBerakhir, now());
         // dd($request->all());
-        return redirect()->route('admin.iup.index');
+        // dd($scanSK_wiup);
     }
 
     /**
@@ -679,6 +718,31 @@ class AdminIUPController extends Controller
         // $iup->statusIzin;
 
         // dd($iup);
+
+        if ($statusIzin === 'Aktif') {
+            $namaPerusahaan = $user->namaPerusahaan; // Ambil nama perusahaan dari user
+            $email = $user->email;
+            $statusIzin = 'Aktif';
+
+            Notification::route('mail', $email)->notify(new IzinAktif($namaPerusahaan, $tahapanKegiatan, $statusIzin));
+
+            $wa = $user->wa;
+            if ($wa) {
+                $message = 'Hallo ' . $namaPerusahaan . ', '
+                         . 'Kami ingin menginformasikan bahwa pengajuan izin tambang Anda pada tahapan ' . '**' . $tahapanKegiatan . '**' . ' berada dalam status ' . '**' . $statusIzin . '**' . '. '
+                         . 'Untuk informasi lebih lanjut, silakan login ke sistem https://minerbalampung.com/. '
+                         . 'Terimakasih - Tim Administrasi ESDM Bandar Lampung';
+
+                $success = $this->twilio->sendWhatsAppMessage($wa, $message);
+
+                if ($success) {
+                    Log::info('WhatsApp message sent successfully.');
+                } else {
+                    Log::error('Failed to send WhatsApp message.');
+                }
+            }
+        }
+
         return redirect()->route('admin.iup.index')->with('status', 'Data berhasil diperbarui.');
     }
     /**

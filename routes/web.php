@@ -36,6 +36,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+use App\Services\TwilioService;
+
+Route::get('/test-whatsapp', function (App\Services\TwilioService $twilioService) {
+    $to = '+6287851603755'; // Ganti dengan nomor WhatsApp Anda yang telah bergabung dengan sandbox
+    $message = 'Test message from Twilio';
+
+    $twilioService->sendWhatsAppMessage($to, $message);
+});
+
+
+
+
 Route::get('/', function () {
     return view('auth.login');
 });

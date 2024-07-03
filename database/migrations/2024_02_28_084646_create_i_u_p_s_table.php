@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->boolean('email_sent')->default(false);
             $table->string('namaPerusahaan');
             $table->text('alamat');
             $table->integer('npwp');

@@ -43,6 +43,7 @@ class User extends Authenticatable
         'namaUser',
         'namaPerusahaan',
         'email',
+        'wa',
         'password',
         'logo'
     ];
